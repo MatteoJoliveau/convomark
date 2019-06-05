@@ -1,8 +1,10 @@
-import { createConnection } from "typeorm";
+import { createConnection, Connection } from "typeorm";
 import { getLogger } from '../logger';
 
-const logger = getLogger('persistence/connection');
 
-createConnection().then(async connection => {
-   logger.info('Database connection started')
-}).catch(logger.error);
+export async function createDatabaseConnection(): Promise<Connection> {
+   const logger = getLogger('persistence/connection');
+   const connection = await createConnection();
+   logger.info('Database connection started');
+   return connection;
+}

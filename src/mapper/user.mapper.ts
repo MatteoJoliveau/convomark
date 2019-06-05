@@ -3,6 +3,7 @@ import { User as TelegramUser} from "telegram-typings";
 
 export function mapTelegramToUser(user: TelegramUser): User {
     const entity = new User();
+    entity.id = user.id;
     entity.firstName = user.first_name;
     entity.lastName = user.last_name;
     entity.languageCode = user.language_code || 'en';

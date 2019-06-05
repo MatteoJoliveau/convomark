@@ -1,11 +1,13 @@
-import {Entity, Column, PrimaryColumn, ManyToOne} from "typeorm";
-import { User } from "./User";
+import {Entity, Column, PrimaryGeneratedColumn} from "typeorm";
 
-@Entity()
+@Entity({ name: 'messages' })
 export class Message {
-    @PrimaryColumn()
-    id!: number;
+    @PrimaryGeneratedColumn("uuid")
+    id!: string;
 
-    @ManyToOne(type => User, user => user.messages)
-    from!: User;
+    @Column()
+    messageId!: number;
+    
+    @Column()
+    chatUsername!: string;
 }

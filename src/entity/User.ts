@@ -1,7 +1,7 @@
 import {Entity, Column, PrimaryColumn, OneToMany} from "typeorm";
 import { Message } from "./Message";
 
-@Entity()
+@Entity({ name: 'users' })
 export class User {
     @PrimaryColumn()
     id!: number;
@@ -9,16 +9,12 @@ export class User {
     @Column()
     firstName!: string;
 
-    @Column()
+    @Column({ type: 'varchar', nullable: true })
     lastName: string | undefined;
 
-    @Column()
+    @Column({ type: 'varchar', nullable: true })
     username: string | undefined;
 
     @Column()
     languageCode!: string;
-
-    @OneToMany(type => Message, message => message.from)
-    messages!: Message[];
-
 }

@@ -3,40 +3,38 @@ import {MigrationInterface, QueryRunner, Table, TableIndex, TableForeignKey} fro
 export class CreateMessages1559752161090 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<any> {
-        const userTable = new Table({
+        const messageTable = new Table({
             name: 'messages',
             columns: [
                 {
                     name: 'id',
-                    type: 'bigint',
-                    isPrimary: true
+                    type: 'uuid',
+                    isPrimary: true,
+                    isGenerated: true,
+                    generationStrategy: 'uuid'
                 },
                 {
-                    name: 'from_id',
+                    name: 'messageId',
                     type: 'bigint',
+                    isNullable: false,
+                },
+                {
+                    name: 'chatUsername',
+                    type: 'varchar',
                     isNullable: false
                 }
             ]
         });
-        await queryRunner.createTable(userTable, true);
-
-        await queryRunner.createForeignKey("messages", new TableForeignKey({
-            columnNames: ["from_id"],
-            referencedColumnNames: ["id"],
-            referencedTableName: "users",
-            onDelete: "CASCADE"
+        await queryRunner.createTable(messageTable, true);
+        await queryRunner.createIndex(messageTable, new TableIndex({
+            name: 'index_messages_message_id',
+            columnNames: ['messageId', 'chatUsername'],
+            isUnique: true
         }));
     }
 
     public async down(queryRunner: QueryRunner): Promise<any> {
-        const table = await queryRunner.getTable("messages");
-        if (table) {
-            const foreignKey = table.foreignKeys.find((fk) => fk.columnNames.indexOf("from_id") !== -1);
-            if (foreignKey) {
-                await queryRunner.dropForeignKey(table, foreignKey);
-            }
-            await queryRunner.dropTable(table);
-        }
+        await queryRunner.dropIndex('messages', 'index_messages_message_id');
+        await queryRunner.dropTable('messages');
     }
-
 }

@@ -2,14 +2,15 @@ import Telegraf, { ContextMessageUpdate } from "telegraf";
 import { getLogger } from "../logger";
 import { Optional } from "typescript-optional";
 import { User as TelegramUser } from "telegram-typings";
-import { getUserService } from "../service/user.service";
 import { getRepository } from "typeorm";
 import { User } from "../entity/User";
+import { UserService } from "../service/user.service";
+import { MessageService } from "../service/message.service";
+import { mapMessageToLink } from "../mapper/message.mapper";
 
-const logger = getLogger('bot');
-const userService = getUserService();
 
-export function withCommands(bot: Telegraf<ContextMessageUpdate>): Telegraf<ContextMessageUpdate> {
+export function withCommands(bot: Telegraf<ContextMessageUpdate>, userService: UserService, messageService: MessageService): Telegraf<ContextMessageUpdate> {
+    const logger = getLogger('bot');
     bot.command('start', (ctx) => {
         Optional.ofNullable(ctx.from).ifPresent(async (user: TelegramUser) => {
             const updatedUser = await userService.save(user);
@@ -17,19 +18,24 @@ export function withCommands(bot: Telegraf<ContextMessageUpdate>): Telegraf<Cont
         })
     });
 
-    bot.command('get', async (ctx) => {
-        const repo = getRepository(User);
-        const users = await repo.find();
-        const names = users.map((user) => user.firstName);
-        ctx.reply(names.join(' | '));
+    bot.command('save', (ctx) => {
+        const telegramMessage = (ctx.message!);
+        const body = (telegramMessage.text!);
+        const entity = telegramMessage.entities!.find((entity) => entity.type === 'url');
+        const url = body.substring(entity!.offset, (entity!.offset + entity!.length));
+        messageService.getMessageFromLink(url)
+            .then((message) => {
+                ctx.reply('Thanks! I have saved your message')
+            })
+            .catch((error) => {
+                ctx.reply(`Uh oh, there was an error: ${error}`)
+            });
     });
 
-    bot.command('save', (ctx) => {
-        const message = (ctx.message!);
-        const body = (message.text!);
-        const entity = message.entities!.find((entity) => entity.type === 'url');
-        const url = body.substring(entity!.offset, (entity!.offset + entity!.length));
-        logger.info('Save CMD', url);
+    bot.command('get', async (ctx) => {
+        const messages = await messageService.getAllMessages();
+        const links = messages.map(mapMessageToLink).join("\n");
+        ctx.reply(links);
     });
 
     return bot;

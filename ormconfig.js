@@ -11,6 +11,7 @@ module.exports = {
     database: POSTGRES_DB,
     synchronize: false,
     logging: false,
+    uuidExtension: 'pgcrypto',
     entities: [
         __dirname + "/src/entity/**/*.ts"
     ],

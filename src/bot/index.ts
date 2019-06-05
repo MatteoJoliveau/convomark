@@ -1,20 +1,22 @@
 import { getLogger } from "../logger";
 import { Telegraf, ContextMessageUpdate } from 'telegraf';
-import { User as TelegramUser, Message } from "telegram-typings";
-import {Optional} from 'typescript-optional';
 import { withCommands } from "./commands";
+import { UserService } from "../service/user.service";
+import { MessageService } from "../service/message.service";
 
 const Bot = require('telegraf');
-const logger = getLogger('bot');
 
 const { TELEGRAM_BOT_TOKEN } = process.env;
 
 export const BOT_TOKEN = TELEGRAM_BOT_TOKEN || 'token';
 
-let bot: Telegraf<ContextMessageUpdate> = new Bot(BOT_TOKEN);
+export async function createBot(userService: UserService, messageService: MessageService): Promise<Telegraf<ContextMessageUpdate>> {
+    const logger = getLogger('bot');
+    let bot: Telegraf<ContextMessageUpdate> = new Bot(BOT_TOKEN);
 
-bot.catch(logger.error);
+    bot.catch(logger.error);
+    
+    bot = withCommands(bot, userService, messageService);
 
-bot = withCommands(bot);
-
-export default bot;
+    return bot;
+}

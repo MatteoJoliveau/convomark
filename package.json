@@ -14,9 +14,9 @@
     "test": "jest --verbose",
     "build": "tsc -p tsconfig.json",
     "clean": "rimraf dist",
-    "db:migrate": "ts-node ./node_modules/.bin/typeorm migration:run",
-    "db:rollback": "ts-node ./node_modules/.bin/typeorm migration:revert",
-    "db:generate:migration": "ts-node ./node_modules/.bin/typeorm migration:create -n "
+    "db:migrate": "ts-node ./node_modules/typeorm/cli.js migration:run",
+    "db:rollback": "ts-node ./node_modules/typeorm/cli.js migration:revert",
+    "db:generate:migration": "ts-node ./node_modules/typeorm/cli.js migration:create -n "
   },
   "dependencies": {
     "date-fns": "^1.30.1",
@@ -24,6 +24,7 @@
     "fastify": "^2.2.0",
     "graphql": "^14.2.1",
     "i18n-ts": "^1.0.5",
+    "inversify": "^5.0.1",
     "lodash": "^4.17.11",
     "pg": "^7.11.0",
     "pino": "^5.12.2",

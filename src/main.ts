@@ -1,20 +1,24 @@
 import 'reflect-metadata';
 import { config as dotenv } from 'dotenv';
-import './persistence/connection';
-import app from './web';
 import { getLogger } from './logger';
-import { getConnection } from 'typeorm';
+import { createDatabaseConnection } from './persistence/connection';
+import { getContainer } from './inversify/config';
+import { FastifyProvider } from './inversify/interfaces';
+import TYPES from './inversify/types';
+import { FastifyInstance } from 'fastify';
 dotenv();
 
-const logger = getLogger('convomarkbot');
 
 const port = parseInt(process.env.PORT || '3000');
+const logger = getLogger('convomarkbot');
 
 async function main() {
-    await getConnection();
+    await createDatabaseConnection();
+    const container = await getContainer();
+    const app = await container.get<FastifyProvider>(TYPES.FastifyProvider)();
     app.listen(port, () => {
         logger.info(`Application started on port ${port}`);
     });
 }
 
-main().catch(logger.error)
+main().catch(logger.error.bind(logger));
