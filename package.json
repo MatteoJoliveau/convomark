@@ -15,7 +15,8 @@
     "build": "tsc -p tsconfig.json",
     "clean": "rimraf dist",
     "db:migrate": "ts-node ./node_modules/.bin/typeorm migration:run",
-    "db:rollback": "ts-node ./node_modules/.bin/typeorm migration:revert"
+    "db:rollback": "ts-node ./node_modules/.bin/typeorm migration:revert",
+    "db:generate:migration": "ts-node ./node_modules/.bin/typeorm migration:create -n "
   },
   "dependencies": {
     "date-fns": "^1.30.1",

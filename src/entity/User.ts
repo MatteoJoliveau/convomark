@@ -1,17 +1,24 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, Column, PrimaryColumn, OneToMany} from "typeorm";
+import { Message } from "./Message";
 
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn()
+    @PrimaryColumn()
     id!: number;
 
     @Column()
     firstName!: string;
 
     @Column()
-    lastName!: string;
+    lastName: string | undefined;
 
     @Column()
-    age!: number;
+    username: string | undefined;
+
+    @Column()
+    languageCode!: string;
+
+    @OneToMany(type => Message, message => message.from)
+    messages!: Message[];
 
 }
