@@ -15,11 +15,11 @@ export class UserService {
     }
     
     getUser(filters: UserParameters | { id: number }): Promise<Optional<User>> {
-        return this.repository.findOne(filters).then(Optional.ofNullable);
+        return this.repository.findOne({...filters, relations: ['collections'] }).then(Optional.ofNullable);
     }
 
     getUsers(filters?: UserParameters): Promise<User[]> {
-        return this.repository.find(filters);
+        return this.repository.find({...filters, relations: ['collections'] });
     }
 
     save(user: User | TelegramUser): Promise<User> {

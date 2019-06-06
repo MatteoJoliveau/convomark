@@ -3,6 +3,7 @@ import { injectable, inject } from "inversify";
 import { BookmarkRepository } from "../inversify/interfaces";
 import TYPES from "../inversify/types";
 import { Bookmark } from "../entity/Bookmark";
+import { Collection } from "../entity/Collection";
 
 @injectable()
 export class BookmarkService {
@@ -20,9 +21,8 @@ export class BookmarkService {
         return this.repository.find(filters);
     }
 
-    
-    save(message: Bookmark): Promise<Bookmark> {
-        return this.repository.save(message);
+    save(bookmark: Bookmark): Promise<Bookmark> {
+        return this.repository.save(bookmark);
     }
 }
 
