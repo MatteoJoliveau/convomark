@@ -1,8 +1,10 @@
 import {Entity, Column, PrimaryColumn, OneToMany} from "typeorm";
-import { Message } from "./Message";
+import { Bookmark } from "./Bookmark";
+import { Collection } from "./Collection";
 
 @Entity({ name: 'users' })
 export class User {
+    
     @PrimaryColumn()
     id!: number;
 
@@ -17,4 +19,10 @@ export class User {
 
     @Column()
     languageCode!: string;
+
+    @OneToMany(type => Bookmark, bookmark => bookmark.user)
+    bookmarks!: Bookmark[];
+
+    @OneToMany(type => Collection, collection => collection.user)
+    collections!: Collection[];
 }
