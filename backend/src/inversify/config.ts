@@ -1,7 +1,7 @@
 import { Container } from 'inversify';
 import { UserService } from '../service/user.service';
 import { Repository, getRepository } from 'typeorm';
-import { UserRepository, BotProvider, FastifyProvider, MessageRepository } from './interfaces';
+import { UserRepository, BotProvider, FastifyProvider, BookmarkRepository } from './interfaces';
 import { User } from '../entity/User';
 import { Bookmark } from '../entity/Bookmark';
 import TYPES from './types';
@@ -16,7 +16,7 @@ async function getContainer(): Promise<Container> {
     const container = new Container();
 
     container.bind<UserRepository>(TYPES.UserRepository).toConstantValue(getRepository(User));
-    container.bind<MessageRepository>(TYPES.MessageRepository).toConstantValue(getRepository(Bookmark));
+    container.bind<BookmarkRepository>(TYPES.BookmarkRepository).toConstantValue(getRepository(Bookmark));
     container.bind<UserService>(UserService).toSelf().inSingletonScope();
     container.bind<BookmarkService>(BookmarkService).toSelf().inSingletonScope();
     container.bind<BotProvider>(TYPES.BotProvider).toProvider<Telegraf<ContextMessageUpdate>>((context) => () => {

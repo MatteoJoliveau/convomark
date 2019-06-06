@@ -1,6 +1,6 @@
 import fastify, { FastifyInstance } from 'fastify';
 import { BOT_TOKEN } from '../bot';
-import isProduction from '../backend/src/utils/isProduction';
+import isProduction from '../utils/isProduction';
 import { Telegraf, ContextMessageUpdate } from 'telegraf';
 
 const { WEB_DOMAIN } = process.env;

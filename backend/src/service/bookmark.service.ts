@@ -1,16 +1,15 @@
 import { Optional } from "typescript-optional";
 import { injectable, inject } from "inversify";
-import { MessageRepository } from "../inversify/interfaces";
+import { BookmarkRepository } from "../inversify/interfaces";
 import TYPES from "../inversify/types";
 import { Bookmark } from "../entity/Bookmark";
-import splitMessageLink from "../utils/splitMessageLink";
 
 @injectable()
 export class BookmarkService {
-    private readonly repository: MessageRepository;
+    private readonly repository: BookmarkRepository;
 
-    constructor(@inject(TYPES.MessageRepository) MessageRepository: MessageRepository) {
-        this.repository = MessageRepository;
+    constructor(@inject(TYPES.BookmarkRepository) BookmarkRepository: BookmarkRepository) {
+        this.repository = BookmarkRepository;
     }
     
     getBookmark(filters: BookmarkParameters | { id: string }): Promise<Optional<Bookmark>> {

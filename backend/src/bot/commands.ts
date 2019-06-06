@@ -4,8 +4,8 @@ import { Optional } from "typescript-optional";
 import { User as TelegramUser } from "telegram-typings";
 import { User } from "../entity/User";
 import { Bookmark } from "../entity/Bookmark";
-import { UserService } from "../backend/service/user.service";
-import { BookmarkService } from "../backend/service/bookmark.service";
+import { UserService } from "../service/user.service";
+import { BookmarkService } from "../service/bookmark.service";
 
 
 export function withCommands(bot: Telegraf<ContextMessageUpdate>, userService: UserService, bookmarkService: BookmarkService): Telegraf<ContextMessageUpdate> {
@@ -20,7 +20,7 @@ export function withCommands(bot: Telegraf<ContextMessageUpdate>, userService: U
     bot.command('save', async (ctx) => {
         try {
         const from = (ctx.from!);
-        const user = await userService.getUser(from.id)
+        const user = await userService.getUser({ id: from.id })
         const telegramMessage = (ctx.message!);
         const body = (telegramMessage.text!);
         const entity = telegramMessage.entities!.find((entity) => entity.type === 'url');
