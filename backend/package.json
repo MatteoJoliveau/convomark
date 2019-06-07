@@ -16,13 +16,16 @@
     "clean": "rimraf dist",
     "db:migrate": "ts-node ./node_modules/typeorm/cli.js migration:run",
     "db:rollback": "ts-node ./node_modules/typeorm/cli.js migration:revert",
-    "db:generate:migration": "ts-node ./node_modules/typeorm/cli.js migration:create -n "
+    "db:generate:migration": "ts-node ./node_modules/typeorm/cli.js migration:create -n ",
+    "db:schema:drop": "ts-node ./node_modules/typeorm/cli.js schema:drop"
   },
   "dependencies": {
     "apollo-server-fastify": "^2.6.1",
     "date-fns": "^1.30.1",
     "decko": "^1.2.0",
     "fastify": "^2.2.0",
+    "fastify-cors": "^2.1.3",
+    "fastify-jwt": "^0.10.0",
     "graphql": "^14.2.1",
     "i18n-ts": "^1.0.5",
     "inversify": "^5.0.1",
@@ -41,6 +44,7 @@
     "@types/jest": "^24.0.11",
     "@types/lodash": "^4.14.123",
     "@types/node": "^12.0.4",
+    "@types/oauth2-server": "^3.0.10",
     "@types/pino": "^5.8.6",
     "@types/redis": "^2.8.12",
     "@types/slug": "^0.9.1",

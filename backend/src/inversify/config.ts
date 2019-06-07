@@ -14,6 +14,7 @@ import { createApolloServer } from '../web/graphql';
 import { BookmarkService } from '../service/bookmark.service';
 import { CollectionService } from '../service/collection.service';
 import { ApolloServer } from 'apollo-server-fastify';
+import { AuthenticationService } from '../service/auth.service';
 
 
 async function getContainer(): Promise<Container> {
@@ -25,6 +26,7 @@ async function getContainer(): Promise<Container> {
     container.bind<UserService>(UserService).toSelf().inSingletonScope();
     container.bind<BookmarkService>(BookmarkService).toSelf().inSingletonScope();
     container.bind<CollectionService>(CollectionService).toSelf().inSingletonScope();
+    container.bind<AuthenticationService>(AuthenticationService).toSelf().inSingletonScope();
     container.bind<BotProvider>(TYPES.BotProvider).toProvider<Telegraf<ContextMessageUpdate>>((context) => () => {
         const userService = context.container.get<UserService>(UserService);
         const bookmarkService = context.container.get<BookmarkService>(BookmarkService);
@@ -40,9 +42,10 @@ async function getContainer(): Promise<Container> {
     container.bind<FastifyProvider>(TYPES.FastifyProvider).toProvider<FastifyInstance>((context) => async () => {
         const botProvider = context.container.get<BotProvider>(TYPES.BotProvider);
         const apolloProvider = context.container.get<ApolloServerProvider>(TYPES.ApolloServerProvider);
+        const authService = context.container.get<AuthenticationService>(AuthenticationService);
         const bot = await botProvider()
         const apollo = await apolloProvider();
-        return createFastifyInstance(bot, apollo);
+        return createFastifyInstance(bot, apollo, authService);
     });
 
     return container;    

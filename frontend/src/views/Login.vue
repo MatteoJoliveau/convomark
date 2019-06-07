@@ -1,8 +1,10 @@
 <template>
   <div class="home">
-    <figure class="image">
-      <img alt="ConvoMark logo" src="@/assets/banner-large.png">
-    </figure>
+    <vue-telegram-login
+      mode="callback"
+      @callback="handleTelegramCallback"
+      telegram-login="Codexgametestbot"
+      requestAccess="write" />
 
 
   </div>
@@ -27,8 +29,8 @@ export default {
         body: JSON.stringify(user),
       });
 
-      const body = await res.json();
-      console.log(body);
+      const { access_token, refresh_token } = await res.json();
+      localStorage.setItem('refres_token', refresh_token);
     },
   },
 };

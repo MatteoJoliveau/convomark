@@ -3,7 +3,6 @@ import { injectable, inject } from "inversify";
 import { BookmarkRepository } from "../inversify/interfaces";
 import TYPES from "../inversify/types";
 import { Bookmark } from "../entity/Bookmark";
-import { Collection } from "../entity/Collection";
 
 @injectable()
 export class BookmarkService {
