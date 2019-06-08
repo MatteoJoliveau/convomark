@@ -8,6 +8,7 @@ export function mapTelegramToUser(user: TelegramUser): User {
     entity.lastName = user.last_name;
     entity.languageCode = user.language_code || 'en';
     entity.username = user.username;
+    entity.photoUrl = (<any> user).photo_url;
     return entity;
 }
 

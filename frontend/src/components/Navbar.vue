@@ -5,14 +5,14 @@
         <img src="@/assets/logo.png" height="80">
     </router-link>
 
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" @click="toggleMenu">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
 
-  <div class="navbar-menu">
+  <div class="navbar-menu" :class="{ 'is-active': menuActive }">
     <div class="navbar-start">
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
@@ -38,38 +38,28 @@
     </div>
 
     <div class="navbar-end">
-      <div class="navbar-item">
-        <vue-telegram-login
-          mode="callback"
-          @callback="handleTelegramCallback"
-          telegram-login="Codexgametestbot"
-          requestAccess="write" />
-      </div>
+        <login-button class="navbar-item"/>
     </div>
   </div>
 </nav>
 </template>
 
 <script>
-import { vueTelegramLogin as VueTelegramLogin } from 'vue-telegram-login';
+import LoginButton from '@/components/LoginButton';
 
 export default {
   name: 'Navbar',
+  data() {
+    return {
+      menuActive: false,
+    };
+  },
   components: {
-    VueTelegramLogin,
+    LoginButton,
   },
   methods: {
-    async handleTelegramCallback(user) {
-      const res = await fetch(`${process.env.VUE_APP_API_ENDPOINT}/auth/token`, {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: JSON.stringify(user),
-      });
-
-      const { access_token, refresh_token } = await res.json();
-      localStorage.setItem('refres_token', refresh_token);
+    toggleMenu() {
+      this.menuActive = !this.menuActive;
     },
   },
 };

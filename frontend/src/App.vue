@@ -7,12 +7,16 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue';
+import { INITIALIZE_STATE } from '@/store/auth';
 
 export default {
   name: 'App',
   components: {
     Navbar,
   },
+  created() {
+    this.$store.dispatch(`auth/${INITIALIZE_STATE}`);
+  }
 };
 </script>
 

@@ -20,9 +20,12 @@ export class User {
     @Column()
     languageCode!: string;
 
+    @Column({ type: 'varchar', nullable: true })
+    photoUrl: string | undefined;
+
     @OneToMany(type => Bookmark, bookmark => bookmark.user)
     bookmarks!: Bookmark[];
 
     @OneToMany(type => Collection, collection => collection.user)
-    collections!: Collection[];
+    collections!: Promise<Collection[]>;
 }

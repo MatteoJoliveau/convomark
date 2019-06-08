@@ -5,13 +5,16 @@ import { UserRepository } from "../inversify/interfaces";
 import TYPES from "../inversify/types";
 import { User } from "../entity/User";
 import { mapTelegramToUser } from "../mapper/user.mapper";
+import { CollectionService } from "./collection.service";
 
 @injectable()
 export class UserService {
     private readonly repository: UserRepository;
+    private readonly collectionService: CollectionService;
 
-    constructor(@inject(TYPES.UserRepository) UserRepository: UserRepository) {
+    constructor(@inject(TYPES.UserRepository) UserRepository: UserRepository, @inject(CollectionService) collectionService: CollectionService) {
         this.repository = UserRepository;
+        this.collectionService = collectionService;
     }
     
     getUser(filters: UserParameters | { id: number }): Promise<Optional<User>> {
@@ -20,6 +23,14 @@ export class UserService {
 
     getUsers(filters?: UserParameters): Promise<User[]> {
         return this.repository.find({...filters, relations: ['collections'] });
+    }
+
+    async getOrCreateUser(user: User | TelegramUser): Promise<User> {
+        const userOpt = await this.getUser({ id: user.id });
+        const found = userOpt.isPresent() ? userOpt.get() : user;
+        const updatedUser = await this.save(found);
+        await this.collectionService.createDefaultCollection(updatedUser);
+        return updatedUser;
     }
 
     save(user: User | TelegramUser): Promise<User> {

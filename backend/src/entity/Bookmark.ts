@@ -14,5 +14,5 @@ export class Bookmark {
     user!: User;
 
     @ManyToMany(type => Collection, collection => collection.bookmarks)
-    collections!: Collection[];
+    collections!: Promise<Collection[]>;
 }

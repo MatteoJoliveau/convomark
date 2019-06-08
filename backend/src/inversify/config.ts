@@ -43,9 +43,10 @@ async function getContainer(): Promise<Container> {
         const botProvider = context.container.get<BotProvider>(TYPES.BotProvider);
         const apolloProvider = context.container.get<ApolloServerProvider>(TYPES.ApolloServerProvider);
         const authService = context.container.get<AuthenticationService>(AuthenticationService);
+        const userService = context.container.get<UserService>(UserService);
         const bot = await botProvider()
         const apollo = await apolloProvider();
-        return createFastifyInstance(bot, apollo, authService);
+        return createFastifyInstance(bot, apollo, authService, userService);
     });
 
     return container;    

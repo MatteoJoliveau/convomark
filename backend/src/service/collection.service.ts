@@ -30,7 +30,8 @@ export class CollectionService {
     }
 
     async createDefaultCollection(user: User): Promise<Collection> {
-        const existentCollection = user.collections.find((collection) => collection.title.toLowerCase() === 'default');
+        const collections = await user.collections;
+        const existentCollection = collections.find((collection) => collection.title.toLowerCase() === 'default');
         if (existentCollection) {
             return existentCollection;
         } else {

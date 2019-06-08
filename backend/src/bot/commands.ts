@@ -13,11 +13,8 @@ export function withCommands(bot: Telegraf<ContextMessageUpdate>, userService: U
     // const logger = getLogger('bot');
     bot.command('start', async (ctx) => {
         const from = (ctx.from!);
-        const userOpt = await userService.getUser({ id: from.id });
-        const user = userOpt.isPresent() ? userOpt.get() : from;
-        const updatedUser = await userService.save(user);
-        await collectionService.createDefaultCollection(updatedUser);
-        ctx.reply(`Welcome ${updatedUser.firstName}!`);
+        const user = await userService.getOrCreateUser(from);
+        ctx.reply(`Welcome ${user.firstName}!`);
     });
 
     bot.command('save', async (ctx) => {
@@ -36,9 +33,10 @@ export function withCommands(bot: Telegraf<ContextMessageUpdate>, userService: U
                 const bookmark = new Bookmark();
                 bookmark.messageLink = messageLink;
                 bookmark.user = user;
-                const defaultCollection = user.collections.find((collection) => collection.title.toLowerCase() === 'default');
+                const collections = await user.collections;
+                const defaultCollection = collections.find((collection) => collection.title.toLowerCase() === 'default');
                 if (defaultCollection) {
-                    bookmark.collections = [defaultCollection];
+                    bookmark.collections = Promise.resolve([defaultCollection]);
                 }
                 await bookmarkService.save(bookmark);
                 ctx.reply('Thanks! I have saved your message');
