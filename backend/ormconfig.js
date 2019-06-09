@@ -1,6 +1,7 @@
-require('dotenv').config();
+const { POSTGRES_HOST, POSTGRES_PORT, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, NODE_ENV } = process.env;
 
-const { POSTGRES_HOST, POSTGRES_PORT, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB } = process.env;
+const directory = NODE_ENV === 'production' ? 'dist' : 'src';
+const extension = NODE_ENV === 'production' ? 'js' : 'ts';
 
 module.exports = {
     type: "postgres",
@@ -13,13 +14,13 @@ module.exports = {
     logging: false,
     uuidExtension: 'pgcrypto',
     entities: [
-        __dirname + "/src/entity/**/*.ts"
+        __dirname + `/${directory}/entity/**/*.${extension}`
     ],
     migrations: [
-        __dirname + "/src/migration/**/*.ts"
+        __dirname + `/${directory}/migration/**/*.${extension}`
     ],
     subscribers: [
-        __dirname + "/src/subscriber/**/*.ts"
+        __dirname + `/${directory}/subscriber/**/*.${extension}`
     ],
     cli: {
         "entitiesDir": "src/entity",

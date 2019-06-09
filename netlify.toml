@@ -10,3 +10,4 @@ publish = "frontend/dist"
 [context.develop]
   [context.develop.environment]
     VUE_APP_TELEGRAM_BOT_NAME = "convomarkstagingbot"
+    VUE_APP_API_ENDPOINT = "https://convomark-staging.server.matteojoliveau.com"

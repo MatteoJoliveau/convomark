@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: convomark
+spec:
+  selector:
+    matchLabels:
+      app: convomark
+  template:
+    metadata:
+      labels:
+        app: convomark
+    spec:
+      containers:
+      - name: backend
+        image: matteojoliveau/convomark:latest
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: 200m
+          limits:
+            memory: 512Mi
+            cpu: 500m
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /.well-known/apollo/server-health
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /.well-known/apollo/server-health
+            port: http
+        envFrom:
+          - configMapRef:
+              name: app-config
+          - secretRef:
+              name: app-secrets
+          - secretRef:
+              name: db-secrets
+        command: ["yarn"]
+        args: ["start:prod"]

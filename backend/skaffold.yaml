@@ -1,0 +1,21 @@
+apiVersion: skaffold/v1beta6
+kind: Config
+profiles:
+  - name: staging
+    build:
+      artifacts:
+        - image: matteojoliveau/convomark
+    deploy:
+      kustomize:
+        path: kubernetes/overlays/staging
+    activation:
+      - kubeContext: staging
+  - name: production
+    build:
+      artifacts:
+        - image: matteojoliveau/convomark
+    deploy:
+      kustomize:
+        path: kubernetes/overlays/production
+    activation:
+      - kubeContext: production

@@ -52,6 +52,7 @@
 import { mapGetters } from 'vuex';
 import LoginButton from '@/components/LoginButton.vue';
 import collections from '@/mixins/collections';
+import { BOT_NAME } from '@/constants';
 
 export default {
   name: 'Navbar',
@@ -70,7 +71,7 @@ export default {
       user: 'auth/user',
     }),
     botLink() {
-      return `https://telegram.me/${process.env.VUE_APP_TELEGRAM_BOT_NAME}?start`;
+      return `https://telegram.me/${BOT_NAME}?start`;
     },
   },
   methods: {

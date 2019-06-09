@@ -1,21 +1,20 @@
-import { Container } from 'inversify';
-import { UserService } from '../service/user.service';
-import { getRepository } from 'typeorm';
-import { UserRepository, BotProvider, FastifyProvider, BookmarkRepository, ApolloServerProvider, CollectionRepository } from './interfaces';
-import { User } from '../entity/User';
-import { Bookmark } from '../entity/Bookmark';
-import { Collection } from '../entity/Collection';
-import TYPES from './types';
-import { Telegraf, ContextMessageUpdate } from 'telegraf';2
-import { createBot } from '../bot';
-import { FastifyInstance } from 'fastify';
-import { createFastifyInstance } from '../web';
-import { createApolloServer } from '../web/graphql';
-import { BookmarkService } from '../service/bookmark.service';
-import { CollectionService } from '../service/collection.service';
-import { ApolloServer } from 'apollo-server-fastify';
-import { AuthenticationService } from '../service/auth.service';
-
+import { Container } from "inversify";
+import { ContextMessageUpdate, Telegraf } from "telegraf"; 2;
+import { getRepository } from "typeorm";
+import { Bookmark } from "../entity/Bookmark";
+import { Collection } from "../entity/Collection";
+import { User } from "../entity/User";
+import { UserService } from "../service/user.service";
+import { ApolloServerProvider, BookmarkRepository, BotProvider, CollectionRepository, FastifyProvider, UserRepository } from "./interfaces";
+import TYPES from "./types";
+import { ApolloServer } from "apollo-server-fastify";
+import { FastifyInstance } from "fastify";
+import { createBot } from "../bot";
+import { AuthenticationService } from "../service/auth.service";
+import { BookmarkService } from "../service/bookmark.service";
+import { CollectionService } from "../service/collection.service";
+import { createFastifyInstance } from "../web";
+import { createApolloServer } from "../web/graphql";
 
 async function getContainer(): Promise<Container> {
     const container = new Container();
@@ -44,13 +43,12 @@ async function getContainer(): Promise<Container> {
         const apolloProvider = context.container.get<ApolloServerProvider>(TYPES.ApolloServerProvider);
         const authService = context.container.get<AuthenticationService>(AuthenticationService);
         const userService = context.container.get<UserService>(UserService);
-        const bot = await botProvider()
+        const bot = await botProvider();
         const apollo = await apolloProvider();
         return createFastifyInstance(bot, apollo, authService, userService);
     });
 
-    return container;    
+    return container;
 }
-
 
 export { getContainer };

@@ -29,7 +29,6 @@ WORKDIR /app
 COPY --from=builder /build/package.json .
 COPY --from=builder /build/yarn.lock .
 COPY --from=builder /build/dist ./dist
+COPY ormconfig.js .
 
 RUN yarn install --prod
-
-CMD ["yarn", "start:prod"]

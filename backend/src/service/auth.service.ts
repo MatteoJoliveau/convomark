@@ -1,23 +1,23 @@
+import {createHash, createHmac, Hmac} from "crypto";
+import { differenceInMinutes } from "date-fns";
 import { injectable } from "inversify";
-import { TelegramTokenRequest } from "../inversify/interfaces";
-import { differenceInMinutes } from 'date-fns';
-import { sortBy, filter } from 'lodash';
-import {createHmac, createHash, Hmac} from 'crypto';
-import { BOT_TOKEN } from "../bot";
-import { getLogger } from "../logger";
+import { verify } from "jsonwebtoken";
+import { filter, sortBy } from "lodash";
 import { Logger } from "pino";
+import { BOT_TOKEN } from "../bot";
 import { User } from "../entity/User";
-import { verify } from 'jsonwebtoken';
+import { TelegramTokenRequest } from "../inversify/interfaces";
+import { getLogger } from "../logger";
 
 @injectable()
 export class AuthenticationService {
     private readonly logger: Logger;
     private readonly telegramSecret: Buffer;
-    readonly tokenSecret = 'test';
+    readonly tokenSecret = "test";
 
     constructor() {
-        this.logger = getLogger('AuthenticationService');
-        const hash = createHash('sha256');
+        this.logger = getLogger("AuthenticationService");
+        const hash = createHash("sha256");
         hash.update(BOT_TOKEN);
         this.telegramSecret = hash.digest();
     }
@@ -30,15 +30,15 @@ export class AuthenticationService {
 
     generateTokenSet(user: User, previousRefreshToken?: string): TokenSet {
         const { firstName, lastName, languageCode, username, photoUrl } = user;
-        const accessToken: AccessToken = { 
+        const accessToken: AccessToken = {
             first_name: firstName,
             last_name: lastName,
             username,
             language_code: languageCode,
             photo_url: photoUrl,
-            typ: 'Bearer' 
+            typ: "Bearer",
         };
-        const refreshToken: RefreshToken = { typ: 'Refresh' };
+        const refreshToken: RefreshToken = { typ: "Refresh" };
         return { accessToken, refreshToken: (previousRefreshToken || refreshToken) };
     }
 
@@ -48,61 +48,61 @@ export class AuthenticationService {
                 if (err) {
                     reject(err);
                 } else {
-                    if (typeof(decoded) === 'object') {
+                    if (typeof(decoded) === "object") {
                         resolve((decoded as TokenPayload));
                     }
                 }
-            })
-        })
+            });
+        });
     }
 
     private validateAuthenticationDate(date: Date): Promise<void> {
-        this.logger.warn('Date', date);
+        this.logger.warn("Date", date);
         if (differenceInMinutes(new Date(), date) > 1) {
-            return Promise.reject('Authentication date is more than a minute old');
+            return Promise.reject("Authentication date is more than a minute old");
         }
         return Promise.resolve();
     }
-    
+
     private validateAuthenticationHash(request: TelegramTokenRequest): () => Promise<TelegramTokenRequest> {
         return () => {
             return new Promise((resolve, reject) => {
                 const { hash, ...properties} = request;
-                const authString = sortBy(Object.keys(properties)).map((key) => `${key}=${(<any>request)[key]}`).join("\n");
+                const authString = sortBy(Object.keys(properties)).map((key) => `${key}=${(<any> request)[key]}`).join("\n");
 
-                const hmac = createHmac('sha256', this.telegramSecret);
+                const hmac = createHmac("sha256", this.telegramSecret);
                 hmac.update(authString);
-                const check = hmac.digest('hex');
-                this.logger.warn('Hash check', { check, hash: request.hash });
+                const check = hmac.digest("hex");
+                this.logger.warn("Hash check", { check, hash: request.hash });
                 if (check === request.hash) {
                     resolve(request);
                 } else {
-                    reject('Hash not matching')
+                    reject("Hash not matching");
                 }
             });
-        }
+        };
     }
 }
 
 export interface TokenSet {
-    accessToken: AccessToken,
-    refreshToken: RefreshToken | string
+    accessToken: AccessToken;
+    refreshToken: RefreshToken | string;
 }
 
 export interface AccessToken {
-    first_name: string, 
-    last_name?: string, 
-    username?: string, 
-    photo_url?: string, 
-    language_code: string, 
-    typ: 'Bearer' 
+    first_name: string;
+    last_name?: string;
+    username?: string;
+    photo_url?: string;
+    language_code: string;
+    typ: "Bearer";
 }
 
 export interface RefreshToken {
-    typ: 'Refresh'
+    typ: "Refresh";
 }
 
 export interface TokenPayload {
-    sub: string
+    sub: string;
     [key: string]: string | number | boolean;
 }

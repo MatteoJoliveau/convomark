@@ -14,10 +14,10 @@
     "test": "jest --verbose",
     "build": "tsc -p tsconfig.json",
     "clean": "rimraf dist",
-    "db:migrate": "ts-node ./node_modules/typeorm/cli.js migration:run",
-    "db:rollback": "ts-node ./node_modules/typeorm/cli.js migration:revert",
-    "db:generate:migration": "ts-node ./node_modules/typeorm/cli.js migration:create -n ",
-    "db:drop": "ts-node ./node_modules/typeorm/cli.js schema:drop"
+    "db:migrate": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js migration:run",
+    "db:rollback": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js migration:revert",
+    "db:generate:migration": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js migration:create -n ",
+    "db:drop": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js schema:drop"
   },
   "dependencies": {
     "apollo-server-fastify": "^2.6.1",
@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
+    "@types/graphql": "^14.2.0",
     "@types/jest": "^24.0.11",
     "@types/lodash": "^4.14.123",
     "@types/node": "^12.0.4",

@@ -1,9 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable, BeforeInsert, BeforeUpdate } from "typeorm";
-import { User } from "./User";
+import slug from "slug";
+import { BeforeInsert, BeforeUpdate, Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Bookmark } from "./Bookmark";
-import slug from 'slug';
+import { User } from "./User";
 
-@Entity({ name: 'collections' })
+@Entity({ name: "collections" })
 export class Collection {
     @PrimaryGeneratedColumn("uuid")
     id!: string;
@@ -14,24 +14,24 @@ export class Collection {
     @Column()
     slug!: string;
 
-    @ManyToOne(type => User, user => user.collections)
+    @ManyToOne((type) => User, (user) => user.collections)
     user!: User;
 
-    @ManyToMany(type => Bookmark, bookmark => bookmark.collections, { eager: true })
+    @ManyToMany((type) => Bookmark, (bookmark) => bookmark.collections, { eager: true })
     @JoinTable({
-        name: 'bookmarks_collections',
+        name: "bookmarks_collections",
         joinColumn: {
-            name: 'collectionId'
+            name: "collectionId",
         },
         inverseJoinColumn: {
-            name: 'bookmarkId'
-        }
+            name: "bookmarkId",
+        },
     })
     bookmarks!: Promise<Bookmark[]>;
 
     static defaultCollection(): Collection {
         const collection = new Collection();
-        collection.title = 'Default'
+        collection.title = "Default";
         return collection;
     }
 
@@ -40,6 +40,6 @@ export class Collection {
     generateSlug() {
         const username = this.user.username || this.user.id;
         this.slug = slug(`${username}-${this.title}`).toLowerCase();
-        console.log('Generated slug', this.slug)
+        console.log("Generated slug", this.slug);
     }
 }

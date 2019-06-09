@@ -26,7 +26,6 @@ export async function createApolloServer(userService: UserService, bookmarkServi
     const server = new ApolloServer({
         typeDefs,
         resolvers,
-
         context: async ({ req }) => {
             const header = req.headers.authorization || TOKEN_PREFIX;
             const token = header.replace(TOKEN_PREFIX, '');

@@ -1,12 +1,12 @@
+import { inject, injectable } from "inversify";
+import { Logger } from "pino";
 import { Optional } from "typescript-optional";
-import { injectable, inject } from "inversify";
+import { Bookmark } from "../entity/Bookmark";
+import { Collection } from "../entity/Collection";
+import { User } from "../entity/User";
 import { BookmarkRepository } from "../inversify/interfaces";
 import TYPES from "../inversify/types";
-import { Bookmark } from "../entity/Bookmark";
-import { User } from "../entity/User";
 import { getLogger } from "../logger";
-import { Logger } from "pino";
-import { Collection } from "../entity/Collection";
 
 @injectable()
 export class BookmarkService {
@@ -15,9 +15,9 @@ export class BookmarkService {
 
     constructor(@inject(TYPES.BookmarkRepository) BookmarkRepository: BookmarkRepository) {
         this.repository = BookmarkRepository;
-        this.logger = getLogger('BookmarkService')
+        this.logger = getLogger("BookmarkService");
     }
-    
+
     getBookmark(filters: BookmarkParameters | { id: string }): Promise<Optional<Bookmark>> {
         return this.repository.findOne(filters).then(Optional.ofNullable);
     }

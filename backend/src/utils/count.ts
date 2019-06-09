@@ -1,3 +1,3 @@
-export default function count<T>(array: Array<T>): number {
+export default function count<T>(array: T[]): number {
     return array.length;
 }

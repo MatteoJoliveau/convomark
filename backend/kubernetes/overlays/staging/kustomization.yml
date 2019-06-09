@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: convomark-staging
+
+bases:
+  - ../../base/
+
+patches:
+  - replica-count.yml
+  - ingress.yml
+
+configMapGenerator:
+  - literals:
+      - WEB_DOMAIN=https://convomark-staging.server.matteojoliveau.com
+      - FRONTEND_DOMAIN=https://develop--convomark.netlify.com/
+      - LOG_LEVEL=debug
+      - REDIS_HOST=redis
+    name: app-config

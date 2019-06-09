@@ -6,8 +6,9 @@ import { User } from "../../entity/User";
 import { Collection } from "../../entity/Collection";
 import { getLogger } from "../../logger";
 import { ConvoApolloContext, NotFoundError } from '.';
+import { IResolvers } from "graphql-tools";
 
-export async function getResolvers(userService: UserService, bookmarkService: BookmarkService, collectionService: CollectionService): Promise<object> {
+export async function getResolvers(userService: UserService, bookmarkService: BookmarkService, collectionService: CollectionService): Promise<IResolvers<any, any>> {
     const logger = getLogger('resolvers');
     const resolvers = {
         Query: {

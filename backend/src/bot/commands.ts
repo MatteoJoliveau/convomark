@@ -1,18 +1,17 @@
 import Telegraf, { ContextMessageUpdate } from "telegraf";
-import { getLogger } from "../logger";
 import { Bookmark } from "../entity/Bookmark";
-import { UserService } from "../service/user.service";
+import { Collection } from "../entity/Collection";
+import { getLogger } from "../logger";
 import { BookmarkService } from "../service/bookmark.service";
 import { CollectionService } from "../service/collection.service";
-import { Collection } from "../entity/Collection";
+import { UserService } from "../service/user.service";
 const { FRONTEND_DOMAIN } = process.env;
 
-
 export function withCommands(bot: Telegraf<ContextMessageUpdate>, userService: UserService, bookmarkService: BookmarkService, collectionService: CollectionService): Telegraf<ContextMessageUpdate> {
-    const logger = getLogger('bot');
+    const logger = getLogger("bot");
     bot.start(async (ctx) => {
         const from = (ctx.from!);
-        logger.info('Received start command from user', { user: from });
+        logger.info("Received start command from user", { user: from });
         const user = await userService.getOrCreateUser(from);
         ctx.replyWithHTML(`Welcome ${user.firstName}!
 Please run the /help command to get some useful informations about how I work!
@@ -45,24 +44,24 @@ Remember to check out your <a href="${FRONTEND_DOMAIN}">personal dashboard</a>!
         `);
     });
 
-    bot.command('save', async (ctx) => {
+    bot.command("save", async (ctx) => {
         try {
             const from = (ctx.from!);
             const userOpt = await userService.getUser({ id: from.id });
             const user = userOpt.get();
             const message = (ctx.message!);
             const text = (message.text!);
-            const entity = message.entities!.find((entity) => entity.type === 'url')!;
+            const entity = message.entities!.find((entity) => entity.type === "url")!;
             if (entity) {
                 const entityEnd = (entity.offset + entity.length);
                 const messageLink = text.substring(entity.offset, entityEnd);
-                const title = text.substring(entityEnd).trim() || 'default';
+                const title = text.substring(entityEnd).trim() || "default";
                 const optional = await collectionService.getCollectionByTitle({ title, user });
                 optional.ifPresentOrElse(
                     async (collection) => {
                         const bookmark = (await collection.bookmarks).find((mark) => mark.messageLink === messageLink);
                         if (bookmark) {
-                            ctx.reply('You already saved this message in this collection');
+                            ctx.reply("You already saved this message in this collection");
                         } else {
                             const bookmark = new Bookmark();
                             bookmark.messageLink = messageLink;
@@ -73,48 +72,48 @@ Remember to check out your <a href="${FRONTEND_DOMAIN}">personal dashboard</a>!
                         }
                     },
                     () => {
-                        ctx.reply(`Sorry! I couldn't find a collection named ${title}`)
-                    }
+                        ctx.reply(`Sorry! I couldn't find a collection named ${title}`);
+                    },
                 );
             } else {
                 ctx.reply(`Please provide a message link to bookmark`);
             }
         } catch (e) {
-            ctx.reply(`Uh oh, there was an error: ${e}`)
+            ctx.reply(`Uh oh, there was an error: ${e}`);
         }
     });
 
-    bot.command('get', async (ctx) => {
+    bot.command("get", async (ctx) => {
         const from = (ctx.from!);
-        const message = (ctx.message!)
+        const message = (ctx.message!);
         const text = (message.text!);
-        const entity = message.entities!.find((entity) => entity.type === 'bot_command')!;
+        const entity = message.entities!.find((entity) => entity.type === "bot_command")!;
         const entityEnd = (entity.offset + entity.length);
-        const title = text.substring(entityEnd).trim() || 'default';
+        const title = text.substring(entityEnd).trim() || "default";
         const user = (await userService.getUser({ id: from.id })).get();
         const optional = await collectionService.getCollectionByTitle({ user, title });
         optional.ifPresentOrElse(
             async (collection) => {
                 const bookmarks = await collection.bookmarks;
                 const links = bookmarks.map((mark) => mark.messageLink).join("\n");
-                logger.debug('Found bookmarks in collection', { bookmarks, collection });
+                logger.debug("Found bookmarks in collection", { bookmarks, collection });
                 ctx.replyWithHTML(`
 Collection <b>${collection.title}</b>
 Links:
-${links || '<i>None</i>'}
+${links || "<i>None</i>"}
                 `);
             },
             () => {
                 ctx.reply(`Sorry! I couldn't find a collection named ${title}`);
-            }
+            },
         );
     });
 
-    bot.command('createcollection', async (ctx) => {
+    bot.command("createcollection", async (ctx) => {
         const from = (ctx.from!);
-        const message = (ctx.message!)
+        const message = (ctx.message!);
         const text = (message.text!);
-        const entity = message.entities!.find((entity) => entity.type === 'bot_command')!;
+        const entity = message.entities!.find((entity) => entity.type === "bot_command")!;
         const entityEnd = (entity.offset + entity.length);
         const title = text.substring(entityEnd).trim();
         if (title) {
@@ -122,7 +121,7 @@ ${links || '<i>None</i>'}
             const optional = await collectionService.getCollectionByTitle({ user, title });
             optional.ifPresentOrElse(
                 () => {
-                    ctx.reply(`Sorry! You already have a collection named ${title}`)
+                    ctx.reply(`Sorry! You already have a collection named ${title}`);
                 },
                 async () => {
                     const collection = new Collection();
@@ -139,11 +138,11 @@ ${links || '<i>None</i>'}
         }
     });
 
-    bot.command('deletecollection', async (ctx) => {
+    bot.command("deletecollection", async (ctx) => {
         const from = (ctx.from!);
-        const message = (ctx.message!)
+        const message = (ctx.message!);
         const text = (message.text!);
-        const entity = message.entities!.find((entity) => entity.type === 'bot_command')!;
+        const entity = message.entities!.find((entity) => entity.type === "bot_command")!;
         const entityEnd = (entity.offset + entity.length);
         const title = text.substring(entityEnd).trim();
         if (title) {
@@ -156,7 +155,7 @@ ${links || '<i>None</i>'}
                 },
                 () => {
                     ctx.reply(`Sorry! I couldn't find a collection named ${title}`);
-                    
+
                 },
             );
         } else {
