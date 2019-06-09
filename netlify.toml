@@ -1,7 +1,7 @@
 [build]
 base = "frontend"
 command = "yarn install && yarn build"
-publish = "dist"
+publish = "frontend/dist"
 
 [context.production]
   [context.production.environment]
