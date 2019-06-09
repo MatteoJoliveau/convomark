@@ -1,6 +1,6 @@
 {
-  "name": "frontend",
-  "short_name": "frontend",
+  "name": "ConvoMark",
+  "short_name": "ConvoMark",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
