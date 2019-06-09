@@ -1,0 +1,8 @@
+query UserCollections {
+    currentUser {
+        collections {
+            title
+            slug
+        }
+    }
+}

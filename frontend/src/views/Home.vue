@@ -3,33 +3,31 @@
     <figure class="image">
       <img alt="ConvoMark logo" src="@/assets/banner-large.png">
     </figure>
-
-
+    <collection-list :collections="collections"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import { vueTelegramLogin as VueTelegramLogin } from 'vue-telegram-login';
+import userCollections from '@/apollo/queries/userCollections.gql';
+import CollectionList from '@/components/CollectionList';
 
 export default {
   name: 'home',
   components: {
-    VueTelegramLogin,
+    CollectionList,
   },
-  methods: {
-    async handleTelegramCallback(user) {
-      const res = await fetch(`${process.env.VUE_APP_API_ENDPOINT}/auth/token`, {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: JSON.stringify(user),
-      });
-
-      const body = await res.json();
-      console.log(body);
-    },
+  data() {
+    return {
+      collections: [],
+    };
+  },
+  apollo: {
+    collections: {
+      query: userCollections,
+      update({ currentUser }) {
+        return currentUser.collections;
+      }
+    }
   },
 };
 </script>

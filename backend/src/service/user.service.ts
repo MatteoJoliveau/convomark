@@ -18,11 +18,11 @@ export class UserService {
     }
     
     getUser(filters: UserParameters | { id: number }): Promise<Optional<User>> {
-        return this.repository.findOne({...filters, relations: ['collections'] }).then(Optional.ofNullable);
+        return this.repository.findOne({...filters }).then(Optional.ofNullable);
     }
 
     getUsers(filters?: UserParameters): Promise<User[]> {
-        return this.repository.find({...filters, relations: ['collections'] });
+        return this.repository.find({...filters });
     }
 
     async getOrCreateUser(user: User | TelegramUser): Promise<User> {

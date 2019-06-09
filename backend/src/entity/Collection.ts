@@ -39,6 +39,6 @@ export class Collection {
     @BeforeUpdate()
     generateSlug() {
         const username = this.user.username || this.user.id;
-        this.slug = slug(`${username}-${this.title}`);
+        this.slug = slug(`${username}-${this.title}`).toLowerCase();
     }
 }

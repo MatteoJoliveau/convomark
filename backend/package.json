@@ -17,7 +17,7 @@
     "db:migrate": "ts-node ./node_modules/typeorm/cli.js migration:run",
     "db:rollback": "ts-node ./node_modules/typeorm/cli.js migration:revert",
     "db:generate:migration": "ts-node ./node_modules/typeorm/cli.js migration:create -n ",
-    "db:schema:drop": "ts-node ./node_modules/typeorm/cli.js schema:drop"
+    "db:drop": "ts-node ./node_modules/typeorm/cli.js schema:drop"
   },
   "dependencies": {
     "apollo-server-fastify": "^2.6.1",

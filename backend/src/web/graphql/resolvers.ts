@@ -14,7 +14,7 @@ export async function getResolvers(userService: UserService, bookmarkService: Bo
             currentUser: () => userService.getUsers().then(first)
         },
         User: {
-            collections: (user: User) =>  collectionService.findByUser(user)
+            collections: (user: User) =>  user.collections
         },
         Collection: {
             bookmarks: (collection: Collection) => collection.bookmarks
