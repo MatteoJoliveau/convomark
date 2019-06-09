@@ -9,7 +9,7 @@
           v-else
           mode="callback"
           @callback="loginCallback"
-          telegram-login="Codexgametestbot"
+          :telegram-login="telegramBotName"
           requestAccess="write" />
 </template>
 
@@ -29,6 +29,9 @@ export default {
       authenticated: 'auth/authenticated',
       user: 'auth/user',
     }),
+    telegramBotName() {
+      return process.env.TELEGRAM_BOT_NAME;
+    },
   },
   methods: {
     ...mapActions({
