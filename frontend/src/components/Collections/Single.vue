@@ -30,10 +30,7 @@ export default {
   },
   computed: {
     noBookmarks() {
-      if (this.collection) {
-        return this.collection.bookmarkCount < 1;
-      }
-      return true;
+      return this.collection.bookmarkCount < 1;
     },
     link() {
       return BOT_LINK;

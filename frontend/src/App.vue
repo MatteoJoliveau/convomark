@@ -1,17 +1,20 @@
 <template>
   <div id="app">
-    <navbar />
-    <router-view/>
+    <v-app>
+      <navbar />
+      <router-view/>
+    </v-app>
   </div>
 </template>
 
 <script>
+import { VApp } from 'vuetify/lib';
 import Navbar from '@/components/Navbar.vue';
 import { REFRESH_TOKEN_STATE } from '@/store/auth';
 
 export default {
   name: 'App',
-  components: { Navbar },
+  components: { Navbar, VApp },
   created() {
     this.$store.dispatch(`auth/${REFRESH_TOKEN_STATE}`, { apolloClient: this.$apollo.provider.clients.defaultClient });
   },
