@@ -16,7 +16,8 @@ export class CreateBookmarkss1559752161090 implements MigrationInterface {
                 {
                     name: 'messageLink',
                     type: 'varchar',
-                    isNullable: false
+                    isNullable: false,
+                    isUnique: true,
                 },
                 {
                     name: 'userId',
@@ -28,7 +29,8 @@ export class CreateBookmarkss1559752161090 implements MigrationInterface {
         await queryRunner.createTable(bookmarkTable, true);
         await queryRunner.createIndex(bookmarkTable, new TableIndex({
             name: 'index_bookmarks_message_link',
-            columnNames: ['messageLink']
+            columnNames: ['messageLink'],
+            isUnique: true,
         }));
         await queryRunner.createForeignKey(bookmarkTable, new TableForeignKey({
             name: 'fk_bookmark_user',
