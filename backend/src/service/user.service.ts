@@ -37,6 +37,7 @@ export class UserService {
     async getOrCreateUser(user: User | TelegramUser): Promise<User> {
         const userOpt = await this.getUser({ id: user.id });
         const found = userOpt.isPresent() ? userOpt.get() : user;
+        this.logger.debug('Saving user', { user: found });
         const updatedUser = await this.save(found);
         await this.collectionService.createDefaultCollection(updatedUser);
         return updatedUser;

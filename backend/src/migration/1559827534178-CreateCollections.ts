@@ -1,4 +1,5 @@
 import {MigrationInterface, QueryRunner, Table, TableIndex, TableForeignKey} from "typeorm";
+import { TableUnique } from "typeorm/schema-builder/table/TableUnique";
 
 export class CreateCollections1559827534178 implements MigrationInterface {
 
@@ -27,7 +28,6 @@ export class CreateCollections1559827534178 implements MigrationInterface {
                     name: 'userId',
                     type: 'bigint',
                     isNullable: false,
-                    isUnique: true
                 }
             ]
         });
@@ -81,6 +81,10 @@ export class CreateCollections1559827534178 implements MigrationInterface {
             referencedColumnNames: ['id']
         });
         await queryRunner.createForeignKeys(joinTable, [bookmarkKey, collectionKey]);
+        await queryRunner.createUniqueConstraint(joinTable, new TableUnique({
+            name: 'UQ_bookmarks_collections',
+            columnNames: ['bookmarkId', 'collectionId'],
+        }));
     }
 
     public async down(queryRunner: QueryRunner): Promise<any> {

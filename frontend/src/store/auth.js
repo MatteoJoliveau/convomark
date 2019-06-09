@@ -4,7 +4,6 @@
 import jwtDecode from 'jwt-decode';
 import isAfter from 'date-fns/is_after';
 import differenceInMilliseconds from 'date-fns/difference_in_milliseconds';
-import i18n from '@/i18n';
 import { onLogin, onLogout } from '@/apollo';
 import { API_ENDPOINT } from '@/constants';
 
@@ -51,7 +50,6 @@ const auth = {
     },
     [STORE_USER](state, user) {
       state.user = user;
-      i18n.locale = user.language_code || i18n.locale;
       localStorage.setItem(USER, JSON.stringify(user));
     },
     [PERFORM_LOGOUT](state) {

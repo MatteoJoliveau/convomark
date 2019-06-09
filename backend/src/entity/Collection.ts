@@ -40,5 +40,6 @@ export class Collection {
     generateSlug() {
         const username = this.user.username || this.user.id;
         this.slug = slug(`${username}-${this.title}`).toLowerCase();
+        console.log('Generated slug', this.slug)
     }
 }

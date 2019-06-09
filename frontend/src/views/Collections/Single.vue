@@ -20,7 +20,7 @@
     <loading v-if="$apollo.queries.collection.loading" />
     <collection :collection="collection"
       @bookmark-delete="onBookmarkDeleted"
-      v-else />
+      v-else-if="collection" />
   </section>
 </template>
 

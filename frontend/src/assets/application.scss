@@ -1,1 +1,8 @@
+.image {
+    &.is-800x800 {
+        max-height: 800 * 1px;
+        max-width: 800 * 1px;
+    }
+}
+
 @import "~bulma/bulma.sass";

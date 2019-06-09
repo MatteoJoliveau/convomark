@@ -41,6 +41,10 @@ export default new Router({
       path: '/not-found',
       name: 'not-found',
       component: () => import(/* webpackChunkName: "collection" */ '@/views/NotFound.vue'),
-    }
+    },
+    {
+      path: '*',
+      redirect: { name: 'not-found' },
+    },
   ],
 });

@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <div v-for="collection in collections"
-      :key="collection.slug"
-      class="columns is-multiline" >
-      <div class="column is-one-third">
+    <div class="columns is-multiline" >
+      <div class="column"
+        v-for="collection in collections"
+        :key="collection.slug">
         <collection-card :collection="collection" />
       </div>
     </div>

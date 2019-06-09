@@ -11,10 +11,32 @@
 import { VApp } from 'vuetify/lib';
 import Navbar from '@/components/Navbar.vue';
 import { REFRESH_TOKEN_STATE } from '@/store/auth';
+import authenticated from '@/mixins/authenticated';
+import userLanguage from '@/apollo/queries/userLanguage.gql';
 
 export default {
   name: 'App',
   components: { Navbar, VApp },
+  mixins: [authenticated],
+  data() {
+    return {
+      currentUser: {},
+    };
+  },
+  apollo: {
+    currentUser: {
+      query: userLanguage,
+      result({ data, loading }) {
+        if (!loading) {
+          const { currentUser: { languageCode } } = data;
+          this.$i18n.locale = languageCode;
+        }
+      },
+      skip() {
+        return !this.authenticated;
+      }
+    },
+  },
   created() {
     this.$store.dispatch(`auth/${REFRESH_TOKEN_STATE}`, { apolloClient: this.$apollo.provider.clients.defaultClient });
   },

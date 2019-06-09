@@ -11,6 +11,13 @@ export default {
     },
   },
   pages: {
+    home: {
+      title: 'Addio conversazioni smarrite!',
+      body: `ConvoMark è la feature che mancava! Continui a perdere di vista le conversazioni nei gruppi? Mettile da parte!<br/>
+      Con ConvoMark puoi salvare quanti messaggi desider, organizzandoli in collezioni così che stiano belli ordinati.<br/>
+      Entra ora con il tuo account Telegram e comincia a salvare messaggi con il nostro amichevole bot!
+      `,
+    },
     about: {
       title: "Che cos'è ConvoMark?",
       body: `ConvoMark è un Telegram Bot e applicazione web che permette di salvare

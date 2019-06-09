@@ -1,0 +1,5 @@
+query UserCollections {
+    currentUser {
+        languageCode
+    }
+}

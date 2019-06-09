@@ -70,7 +70,7 @@ export default {
       user: 'auth/user',
     }),
     botLink() {
-      return ;
+      return `https://telegram.me/${process.env.VUE_APP_TELEGRAM_BOT_NAME}?start`;
     },
   },
   methods: {

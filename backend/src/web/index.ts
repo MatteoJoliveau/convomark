@@ -31,8 +31,6 @@ export async function createFastifyInstance(bot: Telegraf<ContextMessageUpdate>,
     if (isProduction && WEB_DOMAIN.startsWith('https')) {
         app.use(bot.webhookCallback(botCallbackPath));
         bot.telegram.setWebhook(`${WEB_DOMAIN}${botCallbackPath}`);
-    } else {
-        bot.launch();
     }
 
     app.register(apollo.createHandler());

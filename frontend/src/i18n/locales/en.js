@@ -13,6 +13,13 @@ export default {
     },
   },
   pages: {
+    home: {
+      title: 'Never miss a message!',
+      body: `Convomark is the feature you have always missed! Afraid of losing an interest conversation in a group? Bookmark it!<br/>
+      You can store as many messages as you want, and you can store them in named collections so that they stay nice and organized.<br/>
+      Log in now with your Telegram account and start bookmarking messages with our friendly bot!
+      `,
+    },
     about: {
       title: 'What is ConvoMark?',
       body: `ConvoMark is a Telegram Bot and website that allows you to
