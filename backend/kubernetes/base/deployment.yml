@@ -42,3 +42,16 @@ spec:
               name: db-secrets
         command: ["yarn"]
         args: ["start:prod"]
+      
+      initContainers:
+        - name: migrator
+          image: matteojoliveau/convomark:latest
+          envFrom:
+            - configMapRef:
+                name: app-config
+            - secretRef:
+                name: app-secrets
+            - secretRef:
+                name: db-secrets
+          command: ["yarn"]
+          args: ["db:migrate:prod"]

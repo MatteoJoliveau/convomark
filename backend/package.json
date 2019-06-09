@@ -14,6 +14,7 @@
     "test": "jest --verbose",
     "build": "tsc -p tsconfig.json",
     "clean": "rimraf dist",
+    "db:migrate:prod": "typeorm migration:run",
     "db:migrate": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js migration:run",
     "db:rollback": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js migration:revert",
     "db:generate:migration": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js migration:create -n ",
