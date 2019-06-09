@@ -23,6 +23,14 @@ const initialTokenState = {
   refreshToken: '',
 };
 
+function scheduleTokenUpdate({ dispatch, apolloClient, updateIn }) {
+  setTimeout(() => {
+    dispatch(REFRESH_TOKEN_STATE, { apolloClient })
+      .then(() => console.log('Refreshed token state'))
+      .catch(() => scheduleTokenUpdate({ dispatch, apolloClient, updateId: (updateIn + 10000) }));
+  }, updateIn);
+}
+
 const auth = {
   namespaced: true,
   state: {
@@ -70,10 +78,7 @@ const auth = {
         const { access_token } = tokens;
         const { exp } = jwtDecode(access_token);
         const updateIn = differenceInMilliseconds(exp * 1000, Date.now());
-        setTimeout(() => {
-          dispatch(REFRESH_TOKEN_STATE, { apolloClient });
-          console.log('Refreshed token state');
-        }, updateIn);
+        scheduleTokenUpdate({ dispatch, apolloClient, updateIn });
         console.log('Scheduled token update in', updateIn);
         onLogin(apolloClient, access_token);
         commit(STORE_USER, user);

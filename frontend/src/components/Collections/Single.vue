@@ -6,10 +6,11 @@
       <p class="content" v-html="$t('collection.noBookmarks.message', { link })"></p>
     </template>
     <div class="columns is-multiline" v-else>
-      <bookmark-card v-for="bookmark in collection.bookmarks"
-        :key="bookmark.id"
-        :bookmark="bookmark"
-        class="column" />
+      <div class="column"
+        v-for="bookmark in collection.bookmarks"
+        :key="bookmark.id" >
+        <bookmark-card :bookmark="bookmark" v-on="$listeners"/>
+      </div>
     </div>
   </div>
 </template>

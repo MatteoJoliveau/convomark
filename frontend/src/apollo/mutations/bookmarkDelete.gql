@@ -1,0 +1,6 @@
+mutation Delete($id: ID!) {
+  bookmarkDelete(id: $id) {
+    id
+    messageLink
+  }
+}

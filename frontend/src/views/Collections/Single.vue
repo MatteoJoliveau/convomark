@@ -1,11 +1,14 @@
 <template>
   <section class="section">
     <loading v-if="$apollo.queries.collection.loading" />
-    <collection :collection="collection" v-else />
+    <collection :collection="collection"
+      @bookmark-delete="onBookmarkDeleted"
+      v-else />
   </section>
 </template>
 
 <script>
+import bookmarkDelete from '@/apollo/mutations/bookmarkDelete.gql';
 import collection from '@/mixins/collection';
 import Loading from '@/components/Loading.vue';
 import Collection from '@/components/Collections/Single.vue';
@@ -27,6 +30,16 @@ export default {
       }
     }
   },
+  methods: {
+    onBookmarkDeleted({ id }) {
+      this.$apollo.mutate({
+        mutation: bookmarkDelete,
+        variables: {
+          id
+        },
+      });
+    }
+  }
 }
 </script>
 
