@@ -1,0 +1,12 @@
+[build]
+base = "frontend"
+command = "yarn install && yarn build"
+publish = "dist"
+
+[context.production]
+  [context.production.environment]
+    VUE_APP_TELEGRAM_BOT_NAME = "convomarkbot"
+
+[context.develop]
+  [context.develop.environment]
+    VUE_APP_TELEGRAM_BOT_NAME = "convomarkstagingbot"
