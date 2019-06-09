@@ -10,7 +10,7 @@ module.exports = {
       locale: 'en',
       fallbackLocale: 'en',
       localeDir: 'i18n',
-      enableInSFC: true
-    }
-  }
+      enableInSFC: true,
+    },
+  },
 };

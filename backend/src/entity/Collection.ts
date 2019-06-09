@@ -27,7 +27,7 @@ export class Collection {
             name: 'bookmarkId'
         }
     })
-    bookmarks!: Bookmark[];
+    bookmarks!: Promise<Bookmark[]>;
 
     static defaultCollection(): Collection {
         const collection = new Collection();

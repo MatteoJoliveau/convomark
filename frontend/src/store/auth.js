@@ -3,15 +3,20 @@
 
 import jwtDecode from 'jwt-decode';
 import isAfter from 'date-fns/is_after';
+import differenceInMilliseconds from 'date-fns/difference_in_milliseconds';
+import i18n from '@/i18n';
+import { onLogin, onLogout } from '@/apollo';
+import { API_ENDPOINT } from '@/constants';
 
 export const STORE_TOKENS = 'store_tokens';
 export const STORE_USER = 'store_user';
 export const PERFORM_LOGOUT = 'perform_logout';
 export const PERFORM_LOGIN = 'perform_login';
+export const PERFORM_TOKEN_CALL = 'perform_token_call';
 export const PERFORM_REFRESH = 'perform_refresh';
-export const INITIALIZE_STATE = 'initialize_state';
-const USER_STORAGE_KEY = 'user';
-const TOKEN_STORAGE_KEY = 'refresh_token';
+export const REFRESH_TOKEN_STATE = 'initialize_state';
+const USER = 'user';
+const REFRESH_TOKEN = 'refresh_token';
 
 const initialTokenState = {
   accessToken: '',
@@ -34,66 +39,63 @@ const auth = {
     [STORE_TOKENS](state, { access_token, refresh_token }) {
       state.tokens = { accessToken: access_token, refreshToken: refresh_token };
       state.authenticated = true;
-      localStorage.setItem(TOKEN_STORAGE_KEY, refresh_token);
+      localStorage.setItem(REFRESH_TOKEN, refresh_token);
     },
     [STORE_USER](state, user) {
       state.user = user;
-      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
+      i18n.locale = user.language_code || i18n.locale;
+      localStorage.setItem(USER, JSON.stringify(user));
     },
     [PERFORM_LOGOUT](state) {
       state.tokens = initialTokenState;
       state.user = undefined;
-      localStorage.removeItem(USER_STORAGE_KEY);
-      localStorage.removeItem(TOKEN_STORAGE_KEY);
+      localStorage.removeItem(USER);
+      localStorage.removeItem(REFRESH_TOKEN);
     },
   },
   actions: {
-    async [PERFORM_LOGIN]({ commit }, user) {
-      const res = await fetch(`${process.env.VUE_APP_API_ENDPOINT}/auth/token`, {
+    async [PERFORM_TOKEN_CALL]({ commit, dispatch }, { user, refresh_token, apolloClient }) {
+      const payload = refresh_token ? { grant_type: 'refresh_token', refresh_token } : { ...user, grant_type: 'telegram' };
+      const body = JSON.stringify(payload);
+      const res = await fetch(`${API_ENDPOINT}/auth/token`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: JSON.stringify({ ...user, grant_type: 'telegram' }),
+        body,
       });
 
       if (res.ok) {
         const tokens = await res.json();
+        const { access_token } = tokens;
+        const { exp } = jwtDecode(access_token);
+        const updateIn = differenceInMilliseconds(exp * 1000, Date.now());
+        setTimeout(() => {
+          dispatch(REFRESH_TOKEN_STATE, { apolloClient });
+          console.log('Refreshed token state');
+        }, updateIn);
+        console.log('Scheduled token update in', updateIn);
+        onLogin(apolloClient, access_token);
         commit(STORE_USER, user);
         commit(STORE_TOKENS, tokens);
       } else {
+        onLogout(apolloClient);
         commit(PERFORM_LOGOUT);
         throw new Error(res.statusText);
       }
     },
-    async [PERFORM_REFRESH]({ commit }, { user, refresh_token }) {
-      const res = await fetch(`${process.env.VUE_APP_API_ENDPOINT}/auth/token`, {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: JSON.stringify({ grant_type: 'refresh_token', refresh_token }),
-      });
-
-      if (res.ok) {
-        const tokens = await res.json();
-        commit(STORE_USER, user);
-        commit(STORE_TOKENS, tokens);
-      } else {
-        commit(PERFORM_LOGOUT);
-        throw new Error(res.statusText);
-      }
-    },
-    [INITIALIZE_STATE]({ commit, dispatch }) {
-      const user = localStorage.getItem(USER_STORAGE_KEY);
-      const refresh_token = localStorage.getItem(TOKEN_STORAGE_KEY);
+    async [REFRESH_TOKEN_STATE]({ commit, dispatch }, { apolloClient }) {
+      const user = localStorage.getItem(USER);
+      const refresh_token = localStorage.getItem(REFRESH_TOKEN);
       if (user && refresh_token) {
         const { exp } = jwtDecode(refresh_token);
         const expirationDate = new Date(exp * 1000);
         if (isAfter(new Date(), expirationDate)) {
           commit(PERFORM_LOGOUT);
+          onLogout(apolloClient);
         } else {
-          dispatch(PERFORM_REFRESH, { user: JSON.parse(user), refresh_token });
+          const payload = { user: JSON.parse(user), refresh_token, apolloClient };
+          await dispatch(PERFORM_TOKEN_CALL, payload);
         }
       }
     },

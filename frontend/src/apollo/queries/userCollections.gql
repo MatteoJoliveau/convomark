@@ -3,6 +3,7 @@ query UserCollections {
         collections {
             title
             slug
+            bookmarkCount
         }
     }
 }

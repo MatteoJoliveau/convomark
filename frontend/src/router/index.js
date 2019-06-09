@@ -26,5 +26,21 @@ export default new Router({
       name: 'login',
       component: () => import(/* webpackChunkName: "login" */ '@/views/Login.vue'),
     },
+    {
+      path: '/collections',
+      name: 'collections',
+      component: () => import(/* webpackChunkName: "collections" */ '@/views/Collections/List.vue'),
+    },
+    {
+      path: '/collections/:slug',
+      name: 'collection',
+      component: () => import(/* webpackChunkName: "collection" */ '@/views/Collections/Single.vue'),
+      props: true,
+    },
+    {
+      path: '/not-found',
+      name: 'not-found',
+      component: () => import(/* webpackChunkName: "collection" */ '@/views/NotFound.vue'),
+    }
   ],
 });

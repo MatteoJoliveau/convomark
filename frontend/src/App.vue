@@ -7,16 +7,14 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue';
-import { INITIALIZE_STATE } from '@/store/auth';
+import { REFRESH_TOKEN_STATE } from '@/store/auth';
 
 export default {
   name: 'App',
-  components: {
-    Navbar,
-  },
+  components: { Navbar },
   created() {
-    this.$store.dispatch(`auth/${INITIALIZE_STATE}`);
-  }
+    this.$store.dispatch(`auth/${REFRESH_TOKEN_STATE}`, { apolloClient: this.$apollo.provider.clients.defaultClient });
+  },
 };
 </script>
 

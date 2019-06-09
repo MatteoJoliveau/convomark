@@ -9,7 +9,7 @@ import { getLogger } from '../logger';
 import { AuthenticationService, TokenSet } from '../service/auth.service';
 import { VerifyErrors } from 'jsonwebtoken';
 import { UserService } from '../service/user.service';
-import { User } from 'src/entity/User';
+import { User } from '../entity/User';
 import { ServerResponse } from 'http';
 
 const WEB_DOMAIN = process.env.WEB_DOMAIN || 'http://localhost:3000';
@@ -40,10 +40,10 @@ export async function createFastifyInstance(bot: Telegraf<ContextMessageUpdate>,
        origin: true,
     });
     app.register(jwt, {
-        secret: 'test',
+        secret: authService.tokenSecret,
         sign: {
             issuer: WEB_DOMAIN,
-            expiresIn: 300,
+            expiresIn: 120,
         },
         verify: {
             issuer: WEB_DOMAIN,

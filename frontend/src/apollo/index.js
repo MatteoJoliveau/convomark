@@ -2,7 +2,8 @@ import Vue from 'vue';
 import VueApollo from 'vue-apollo';
 import { createApolloClient, restartWebsockets } from 'vue-cli-plugin-apollo/graphql-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import store from '@/store';
+
+export const AUTH_TOKEN = 'access_token';
 
 // Install the vue plugin
 Vue.use(VueApollo);
@@ -19,7 +20,7 @@ const defaultOptions = {
   wsEndpoint: null,
   // wsEndpoint: process.env.VUE_APP_GRAPHQL_WS || 'ws://localhost:4000/graphql',
   // LocalStorage token
-  // tokenName: AUTH_TOKEN,
+  tokenName: AUTH_TOKEN,
   // Enable Automatic Query persisting with Apollo Engine
   persisting: false,
   // Use websockets for everything (no HTTP)
@@ -37,7 +38,7 @@ const defaultOptions = {
   cache: new InMemoryCache(),
 
   // Override the way the Authorization header is set
-  getAuth: () => `Bearer ${store.state.auth.tokens.accessToken}`,
+  // getAuth: () => `Bearer ${store.state.auth.tokens.accessToken}`,
 
   // Additional ApolloClient options
   // apollo: { ... }
@@ -60,7 +61,7 @@ export function createProvider(options = {}) {
     defaultClient: apolloClient,
     defaultOptions: {
       $query: {
-        // fetchPolicy: 'cache-and-network',
+        fetchPolicy: 'cache-and-network',
       },
     },
     errorHandler(error) {
@@ -73,7 +74,11 @@ export function createProvider(options = {}) {
 }
 
 // Manually call this when user log in
-export async function onLogin(apolloClient) {
+export async function onLogin(apolloClient, token) {
+  if (typeof localStorage !== 'undefined' && token) {
+    localStorage.setItem(AUTH_TOKEN, token);
+  }
+
   if (apolloClient.wsClient) restartWebsockets(apolloClient.wsClient);
   try {
     await apolloClient.resetStore();
@@ -85,6 +90,10 @@ export async function onLogin(apolloClient) {
 
 // Manually call this when user log out
 export async function onLogout(apolloClient) {
+  if (typeof localStorage !== 'undefined') {
+    localStorage.removeItem(AUTH_TOKEN);
+  }
+
   if (apolloClient.wsClient) restartWebsockets(apolloClient.wsClient);
   try {
     await apolloClient.resetStore();

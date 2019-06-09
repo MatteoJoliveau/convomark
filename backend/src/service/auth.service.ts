@@ -7,11 +7,13 @@ import { BOT_TOKEN } from "../bot";
 import { getLogger } from "../logger";
 import { Logger } from "pino";
 import { User } from "../entity/User";
+import { verify } from 'jsonwebtoken';
 
 @injectable()
 export class AuthenticationService {
     private readonly logger: Logger;
     private readonly telegramSecret: Buffer;
+    readonly tokenSecret = 'test';
 
     constructor() {
         this.logger = getLogger('AuthenticationService');
@@ -38,6 +40,20 @@ export class AuthenticationService {
         };
         const refreshToken: RefreshToken = { typ: 'Refresh' };
         return { accessToken, refreshToken: (previousRefreshToken || refreshToken) };
+    }
+
+    decodeToken(token: string): Promise<TokenPayload> {
+        return new Promise((resolve, reject) => {
+            verify(token, this.tokenSecret, (err, decoded) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    if (typeof(decoded) === 'object') {
+                        resolve((decoded as TokenPayload));
+                    }
+                }
+            })
+        })
     }
 
     private validateAuthenticationDate(date: Date): Promise<void> {
@@ -84,4 +100,9 @@ export interface AccessToken {
 
 export interface RefreshToken {
     typ: 'Refresh'
+}
+
+export interface TokenPayload {
+    sub: string
+    [key: string]: string | number | boolean;
 }

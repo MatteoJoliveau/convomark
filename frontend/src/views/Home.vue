@@ -8,26 +8,12 @@
 </template>
 
 <script>
-import userCollections from '@/apollo/queries/userCollections.gql';
-import CollectionList from '@/components/CollectionList';
+import collections from '@/mixins/collections';
+import CollectionList from '@/components/Collections/List.vue';
 
 export default {
   name: 'home',
-  components: {
-    CollectionList,
-  },
-  data() {
-    return {
-      collections: [],
-    };
-  },
-  apollo: {
-    collections: {
-      query: userCollections,
-      update({ currentUser }) {
-        return currentUser.collections;
-      }
-    }
-  },
+  components: { CollectionList },
+  mixins: [collections],
 };
 </script>

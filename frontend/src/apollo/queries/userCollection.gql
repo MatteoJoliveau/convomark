@@ -1,0 +1,13 @@
+query UserCollection($slug: String!) {
+    currentUser {
+        collection(slug: $slug) {
+            title
+            slug
+            bookmarks {
+                id
+                messageLink
+            }
+            bookmarkCount
+        }
+    }
+}

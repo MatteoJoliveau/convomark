@@ -24,6 +24,10 @@ export class CollectionService {
     findByUser(user: User): Promise<Collection[]> {
         return this.repository.find({ user });
     }
+    
+    findOneByUser({ slug, user }: { slug: string, user: User}): Promise<Optional<Collection>> {
+        return this.repository.findOne({ user, slug }).then(Optional.ofNullable);
+    }
 
     save(collection: Collection): Promise<Collection> {
         return this.repository.save(collection);

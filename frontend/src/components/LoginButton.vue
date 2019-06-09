@@ -1,44 +1,37 @@
 <template>
-  <div v-if="authenticated" class="level">
-    <p class="level-item">{{ user.username || user.first_name }}</p>
-    <figure class="level-item image">
-      <img :src="user.photo_url" class="is-rounded" />
-    </figure>
-  </div>
   <vue-telegram-login
-          v-else
           mode="callback"
-          @callback="loginCallback"
+          @callback="loginCallback({ user: $event, apolloClient })"
           :telegram-login="telegramBotName"
           requestAccess="write" />
 </template>
 
 <script>
 import { vueTelegramLogin as VueTelegramLogin } from 'vue-telegram-login';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
-import { PERFORM_LOGIN } from '@/store/auth';
+import { PERFORM_TOKEN_CALL } from '@/store/auth';
+import { BOT_NAME } from '@/constants';
 
 export default {
   name: 'LoginButton',
-   components: {
+  components: {
     VueTelegramLogin,
   },
   computed: {
-    ...mapGetters({
-      authenticated: 'auth/authenticated',
-      user: 'auth/user',
-    }),
     telegramBotName() {
-      return process.env.VUE_APP_TELEGRAM_BOT_NAME;
+      return BOT_NAME;
+    },
+    apolloClient() {
+      return this.$apollo.provider.clients.defaultClient;
     },
   },
   methods: {
     ...mapActions({
-      loginCallback: `auth/${PERFORM_LOGIN}`,
-      }),
+      loginCallback: `auth/${PERFORM_TOKEN_CALL}`,
+    }),
   },
-}
+};
 </script>
 
 <style>

@@ -12,6 +12,7 @@ type User {
     username: String
     languageCode: String
     collections: [Collection!]!
+    collection(slug: String!): Collection
 }
 
 type Collection {
@@ -20,6 +21,7 @@ type Collection {
     slug: String!
     user: User!
     bookmarks: [Bookmark!]!
+    bookmarkCount: Int!
 }
 
 type Bookmark {

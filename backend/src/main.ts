@@ -10,7 +10,7 @@ dotenv();
 
 
 const port = parseInt(process.env.PORT || '3000');
-const logger = getLogger('convomarkbot');
+const logger = getLogger('convomark');
 
 async function main() {
     await createDatabaseConnection();

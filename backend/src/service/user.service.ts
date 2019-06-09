@@ -6,15 +6,24 @@ import TYPES from "../inversify/types";
 import { User } from "../entity/User";
 import { mapTelegramToUser } from "../mapper/user.mapper";
 import { CollectionService } from "./collection.service";
+import { AuthenticationService } from "./auth.service";
+import { getLogger } from '../logger';
+import { Logger } from 'pino';
 
 @injectable()
 export class UserService {
     private readonly repository: UserRepository;
     private readonly collectionService: CollectionService;
+    private readonly authService: AuthenticationService;
+    private readonly logger: Logger;
 
-    constructor(@inject(TYPES.UserRepository) UserRepository: UserRepository, @inject(CollectionService) collectionService: CollectionService) {
+    constructor(@inject(TYPES.UserRepository) UserRepository: UserRepository, 
+                @inject(CollectionService) collectionService: CollectionService,
+                @inject(AuthenticationService) authService: AuthenticationService) {
         this.repository = UserRepository;
         this.collectionService = collectionService;
+        this.authService = authService;
+        this.logger = getLogger('UserService');
     }
     
     getUser(filters: UserParameters | { id: number }): Promise<Optional<User>> {
@@ -31,6 +40,12 @@ export class UserService {
         const updatedUser = await this.save(found);
         await this.collectionService.createDefaultCollection(updatedUser);
         return updatedUser;
+    }
+
+    async getUserFromToken(token: string) {
+        const { sub } = await this.authService.decodeToken(token);
+        const id = parseInt(sub);
+        return this.getUser({ id });
     }
 
     save(user: User | TelegramUser): Promise<User> {
