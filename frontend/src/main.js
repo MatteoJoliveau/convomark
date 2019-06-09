@@ -5,6 +5,7 @@ import store from './store';
 import './registerServiceWorker';
 import './assets/application.scss';
 import { createProvider } from './apollo';
+import i18n from './i18n'
 
 Vue.config.productionTip = false;
 
@@ -12,5 +13,6 @@ new Vue({
   router,
   store,
   apolloProvider: createProvider(),
-  render: h => h(App),
+  i18n,
+  render: h => h(App)
 }).$mount('#app');
