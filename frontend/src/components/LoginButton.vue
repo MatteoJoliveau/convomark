@@ -30,7 +30,7 @@ export default {
       user: 'auth/user',
     }),
     telegramBotName() {
-      return process.env.TELEGRAM_BOT_NAME;
+      return process.env.VUE_APP_TELEGRAM_BOT_NAME;
     },
   },
   methods: {
