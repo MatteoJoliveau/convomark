@@ -34,12 +34,15 @@ export function withCommands(bot: Telegraf<ContextMessageUpdate>, userService: U
                 bookmark.messageLink = messageLink;
                 bookmark.user = user;
                 const collections = await user.collections;
-                const defaultCollection = collections.find((collection) => collection.title.toLowerCase() === 'default');
-                if (defaultCollection) {
-                    bookmark.collections = Promise.resolve([defaultCollection]);
+                const title = 'default';
+                const collection = collections.find((collection) => collection.title.toLowerCase() === title.toLowerCase());
+                if (collection) {
+                    bookmark.collections = Promise.resolve([collection]);
+                    await bookmarkService.save(bookmark);
+                    ctx.reply(`Thanks! I have saved your message in collection ${collection.title}`);
+                } else {
+                    ctx.reply(`Sorry! I couldn't find a collection named ${title}`)
                 }
-                await bookmarkService.save(bookmark);
-                ctx.reply('Thanks! I have saved your message');
             });
 
         } catch (e) {

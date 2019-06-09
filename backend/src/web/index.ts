@@ -43,7 +43,7 @@ export async function createFastifyInstance(bot: Telegraf<ContextMessageUpdate>,
         secret: authService.tokenSecret,
         sign: {
             issuer: WEB_DOMAIN,
-            expiresIn: 120,
+            expiresIn: (isProduction ? 120 : 3600),
         },
         verify: {
             issuer: WEB_DOMAIN,

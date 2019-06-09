@@ -3,6 +3,7 @@ import { injectable, inject } from "inversify";
 import { BookmarkRepository } from "../inversify/interfaces";
 import TYPES from "../inversify/types";
 import { Bookmark } from "../entity/Bookmark";
+import { User } from "../entity/User";
 
 @injectable()
 export class BookmarkService {
@@ -20,8 +21,17 @@ export class BookmarkService {
         return this.repository.find(filters);
     }
 
+    async getBookmarkByUser({ user, id }: { user: User, id: string }): Promise<Optional<Bookmark>> {
+        return this.repository.findOne({ user, id }).then(Optional.ofNullable);
+    }
+
     save(bookmark: Bookmark): Promise<Bookmark> {
         return this.repository.save(bookmark);
+    }
+
+    delete(bookmark: Bookmark): Promise<Bookmark> {
+        const clone = { ...bookmark };
+        return this.repository.remove(bookmark).then(() => clone);
     }
 }
 

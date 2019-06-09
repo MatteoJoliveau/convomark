@@ -5,6 +5,10 @@ type Query {
     currentUser: User
 }
 
+type Mutation {
+    bookmarkDelete(id: ID!): Bookmark!
+}
+
 type User {
     id: ID!
     firstName: String!
