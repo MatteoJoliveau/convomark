@@ -12,5 +12,8 @@ module.exports = {
       localeDir: 'i18n',
       enableInSFC: true,
     },
+    pwa: {
+      themeColor: '#fafafa',
+    },
   },
 };
