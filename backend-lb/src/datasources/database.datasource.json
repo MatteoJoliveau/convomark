@@ -1,0 +1,9 @@
+{
+  "name": "database",
+  "connector": "postgresql",
+  "host": "localhost",
+  "port": 5432,
+  "user": "convomark",
+  "password": "convomark",
+  "database": "convomark_development"
+}
