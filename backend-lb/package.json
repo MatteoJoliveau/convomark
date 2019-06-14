@@ -30,7 +30,7 @@
     "docker:run": "docker run -p 3000:3000 -d backend-lb",
     "migrate": "node ./dist/migrate",
     "prestart": "npm run build",
-    "start": "node .",
+    "start": "node -r dotenv/config .",
     "start:prod": "node .",
     "start:watch": "nodemon",
     "prepublishOnly": "npm run test"
@@ -75,13 +75,16 @@
     "@loopback/testlab": "^1.5.0",
     "@types/node": "^10.11.2",
     "@types/passport-jwt": "^3.0.1",
+    "@types/pino": "^5.8.8",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
+    "dotenv": "^8.0.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-eslint-plugin": "^2.1.0",
     "eslint-plugin-mocha": "^5.3.0",
     "nodemon": "^1.19.1",
+    "pino-pretty": "^3.1.0",
     "typescript": "~3.5.1"
   }
 }

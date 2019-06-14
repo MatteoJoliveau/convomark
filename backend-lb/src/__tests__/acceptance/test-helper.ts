@@ -1,4 +1,4 @@
-import {ConvomarkApplication} from '../..';
+import {ConvoMarkApplication} from '../..';
 import {
   createRestAppClient,
   givenHttpServerConfig,
@@ -14,7 +14,7 @@ export async function setupApplication(): Promise<AppWithClient> {
     // port: +process.env.PORT,
   });
 
-  const app = new ConvomarkApplication({
+  const app = new ConvoMarkApplication({
     rest: restConfig,
   });
 
@@ -27,6 +27,6 @@ export async function setupApplication(): Promise<AppWithClient> {
 }
 
 export interface AppWithClient {
-  app: ConvomarkApplication;
+  app: ConvoMarkApplication;
   client: Client;
 }

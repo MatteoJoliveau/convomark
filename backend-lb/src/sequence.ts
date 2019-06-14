@@ -3,7 +3,7 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {inject} from '@loopback/context';
+import { inject } from '@loopback/context';
 import {
   FindRoute,
   InvokeMethod,
@@ -37,11 +37,11 @@ export class AuthenticationSequence implements SequenceHandler {
     @inject(SequenceActions.REJECT) protected reject: Reject,
     @inject(AuthenticationBindings.AUTH_ACTION)
     protected authenticateRequest: AuthenticateFn,
-  ) {}
+  ) { }
 
   async handle(context: RequestContext) {
     try {
-      const {request, response} = context;
+      const { request, response } = context;
       const route = this.findRoute(request);
 
       //call authentication action
@@ -77,7 +77,7 @@ export class AuthenticationSequence implements SequenceHandler {
         error.code === AUTHENTICATION_STRATEGY_NOT_FOUND ||
         error.code === USER_PROFILE_NOT_FOUND
       ) {
-        Object.assign(error, {statusCode: 401 /* Unauthorized */});
+        Object.assign(error, { statusCode: 401 /* Unauthorized */ });
       }
 
       this.reject(context, error);

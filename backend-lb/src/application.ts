@@ -10,7 +10,7 @@ import { ServiceMixin } from '@loopback/service-proxy';
 import { AuthenticationSequence } from './sequence';
 import { TelegramComponent } from './telegram';
 import { AuthenticationComponent, registerAuthenticationStrategy } from '@loopback/authentication';
-import {  } from './authentication/keys';
+import { } from './authentication/keys';
 import { UserService } from './services/user.service';
 import {
   TokenStrategy,
@@ -19,8 +19,10 @@ import {
   TokenServiceConstants,
   UserServiceBindings
 } from './authentication';
+import { ConvoMarkBindings, ApplicationModeProvider, ApplicationMode } from './providers';
+import { LoggingComponent } from './logging';
 
-export class ConvomarkApplication extends BootMixin(
+export class ConvoMarkApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
 ) {
   constructor(options: ApplicationConfig = {}) {
@@ -29,8 +31,6 @@ export class ConvomarkApplication extends BootMixin(
     // Register bindings
     this.setUpBindings();
 
-    // Mode setting
-    this.bind('application.mode').to(process.env.NODE_ENV || 'development');
 
     // Set up the custom sequence
     this.sequence(AuthenticationSequence);
@@ -40,6 +40,9 @@ export class ConvomarkApplication extends BootMixin(
       path: '/explorer',
     });
     this.component(RestExplorerComponent);
+
+    // Set up bot
+    this.component(LoggingComponent);
 
     // Set up Bot
     this.component(TelegramComponent);
@@ -60,7 +63,10 @@ export class ConvomarkApplication extends BootMixin(
     };
   }
 
-  setUpBindings(): void {
+  setUpBindings() {
+    // Mode setting
+    this.bind(ConvoMarkBindings.APPLICATION_MODE).toProvider(ApplicationModeProvider);
+
     this.bind(TokenServiceBindings.TOKEN_SECRET).to(
       TokenServiceConstants.TOKEN_SECRET_VALUE,
     );

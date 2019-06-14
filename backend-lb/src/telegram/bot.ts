@@ -1,27 +1,29 @@
 import Telegraf, { ContextMessageUpdate } from 'telegraf';
 import { inject, lifeCycleObserver, LifeCycleObserver } from '@loopback/core';
 import { Update } from 'telegram-typings';
+import { TelegramBindings } from './keys';
+import { ConvoMarkBindings, ApplicationMode } from '../providers';
+import { logger } from '../decorators';
+import { Logger } from 'pino';
+import { Loggable } from '../logging';
 
+@logger()
 @lifeCycleObserver()
-export class TelegramBot implements LifeCycleObserver {
+export class TelegramBot implements LifeCycleObserver, Loggable {
+  logger: Logger;
   private bot: Telegraf<ContextMessageUpdate>;
 
   constructor(
-    @inject('telegram.token') token: string,
-    @inject('application.mode') mode: string,
+    @inject(TelegramBindings.TELEGRAM_TOKEN) token: string,
+    @inject(ConvoMarkBindings.APPLICATION_MODE) mode: ApplicationMode,
   ) {
     this.bot = new Telegraf(token);
 
-    this.bot.on('message', (ctx) => {
-      console.log('Received message', ctx.message);
-      const from = (ctx.from!);
-      ctx.reply(`Hello ${from.first_name}, the bot is under maintenance.
+    this.bot.on('message', ({ message, from, reply }) => {
+      this.logger.info('Received message', message);
+      reply(`Hello ${from!.first_name}, the bot is under maintenance.
 Please try again later`);
     })
-
-    if (mode === 'development') {
-      this.bot.startPolling();
-    }
   }
 
   handleUpdate(rawUpdate: Update): Promise<any> {
@@ -29,13 +31,14 @@ Please try again later`);
   }
 
   async start(): Promise<void> {
-    this.bot.startPolling()
+    this.bot.launch()
       .catch((e: any) => {
         console.error('Bot error', e);
         throw new Error(e);
       });
     const { username } = await this.bot.telegram.getMe()
-    console.log(`Bot is running with username @${username}`);
+    this.logger.info('Bot is running with', username);
+    // console.log(` username @${username}`);
     return Promise.resolve();
   }
 

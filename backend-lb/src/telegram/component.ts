@@ -6,11 +6,11 @@ import { TelegramBindings } from "./keys";
 
 export class TelegramComponent implements Component {
   providers = {
-    'telegram.token': TokenProvider,
+    [TelegramBindings.TELEGRAM_TOKEN.key]: TokenProvider,
   }
   controllers = [UpdateController]
   bindings: Binding[];
-  lifeCycleObservers: Constructor<LifeCycleObserver>[];;
+  lifeCycleObservers: Constructor<LifeCycleObserver>[];
 
   constructor() {
     const botBinding = Binding.bind<TelegramBot>(TelegramBindings.TELEGRAM_BOT).toClass(TelegramBot).inScope(BindingScope.SINGLETON);

@@ -1,13 +1,13 @@
-import {Client} from '@loopback/testlab';
-import {ConvomarkApplication} from '../..';
-import {setupApplication} from './test-helper';
+import { Client } from '@loopback/testlab';
+import { ConvoMarkApplication } from '../..';
+import { setupApplication } from './test-helper';
 
 describe('HomePage', () => {
-  let app: ConvomarkApplication;
+  let app: ConvoMarkApplication;
   let client: Client;
 
   before('setupApplication', async () => {
-    ({app, client} = await setupApplication());
+    ({ app, client } = await setupApplication());
   });
 
   after(async () => {
