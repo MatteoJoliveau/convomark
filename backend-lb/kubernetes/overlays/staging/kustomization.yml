@@ -6,6 +6,7 @@ bases:
   - ../../base/
 
 patches:
+  - container-resources.yml
   - replica-count.yml
   - ingress.yml
 

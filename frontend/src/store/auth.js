@@ -63,7 +63,7 @@ const auth = {
     async [PERFORM_TOKEN_CALL]({ commit, dispatch }, { user, refresh_token, apolloClient }) {
       const payload = refresh_token ? { grant_type: 'refresh_token', refresh_token } : { ...user, grant_type: 'telegram' };
       const body = JSON.stringify(payload);
-      const res = await fetch(`${API_ENDPOINT}/auth/token`, {
+      const res = await fetch(`${API_ENDPOINT}/oauth/token`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',

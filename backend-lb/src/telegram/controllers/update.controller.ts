@@ -1,12 +1,13 @@
 import { requestBody, param, post, HttpErrors } from "@loopback/rest";
 import { Update } from "telegram-typings";
 import { inject } from "@loopback/core";
-import { ConvoMarkBot } from "./bot";
+import { TelegramBot } from "../bot";
+import { TelegramBindings } from "../keys";
 
 export class UpdateController {
   constructor(
-    @inject('telegram.token') private botToken: string,
-    @inject('telegram.bot') private bot: ConvoMarkBot
+    @inject(TelegramBindings.TELEGRAM_TOKEN) private botToken: string,
+    @inject(TelegramBindings.TELEGRAM_BOT) private bot: TelegramBot
   ) {}
 
   @post('/bot/updates/{token}',{

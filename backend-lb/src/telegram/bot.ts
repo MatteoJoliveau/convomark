@@ -1,9 +1,9 @@
-import Telegraf, { TelegrafOptions, ContextMessageUpdate, TelegrafConstructor, TelegramOptions } from 'telegraf';
-import { inject, DefaultConfigurationResolver, lifeCycleObserver, LifeCycleObserver } from '@loopback/core';
+import Telegraf, { ContextMessageUpdate } from 'telegraf';
+import { inject, lifeCycleObserver, LifeCycleObserver } from '@loopback/core';
 import { Update } from 'telegram-typings';
 
 @lifeCycleObserver()
-export class ConvoMarkBot implements LifeCycleObserver {
+export class TelegramBot implements LifeCycleObserver {
   private bot: Telegraf<ContextMessageUpdate>;
 
   constructor(
@@ -15,7 +15,8 @@ export class ConvoMarkBot implements LifeCycleObserver {
     this.bot.on('message', (ctx) => {
       console.log('Received message', ctx.message);
       const from = (ctx.from!);
-      ctx.reply(`Hello ${from.first_name}`);
+      ctx.reply(`Hello ${from.first_name}, the bot is under maintenance.
+Please try again later`);
     })
 
     if (mode === 'development') {
@@ -27,17 +28,15 @@ export class ConvoMarkBot implements LifeCycleObserver {
     return this.bot.handleUpdate(rawUpdate);
   }
 
-  start(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      console.log('Starting the bot');
-      this.bot.startPolling()
-        .catch((e: any) => {
-          console.error('Bot error', e);
-          reject(e);
-        });
-      console.log('Started the bot');
-      resolve();
-    });
+  async start(): Promise<void> {
+    this.bot.startPolling()
+      .catch((e: any) => {
+        console.error('Bot error', e);
+        throw new Error(e);
+      });
+    const { username } = await this.bot.telegram.getMe()
+    console.log(`Bot is running with username @${username}`);
+    return Promise.resolve();
   }
 
   stop() {

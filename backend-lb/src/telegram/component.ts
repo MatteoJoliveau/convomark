@@ -1,8 +1,8 @@
-import { Component, Binding, BindingScope, inject, CoreBindings, LifeCycleObserver, Constructor } from "@loopback/core";
-import { RestApplication } from "@loopback/rest";
-import { ConvoMarkBot } from "./bot";
-import { UpdateController } from "./controller";
-import { TokenProvider } from "./token.provider";
+import { Component, Binding, BindingScope, LifeCycleObserver, Constructor } from "@loopback/core";
+import { TelegramBot } from "./bot";
+import { UpdateController } from "./controllers";
+import { TokenProvider } from "./providers";
+import { TelegramBindings } from "./keys";
 
 export class TelegramComponent implements Component {
   providers = {
@@ -12,13 +12,10 @@ export class TelegramComponent implements Component {
   bindings: Binding[];
   lifeCycleObservers: Constructor<LifeCycleObserver>[];;
 
-  constructor(
-    @inject(CoreBindings.APPLICATION_INSTANCE)
-    private app: RestApplication,
-  ) {
-    const botBinding = Binding.bind<ConvoMarkBot>('telegram.bot').toClass(ConvoMarkBot).inScope(BindingScope.SINGLETON);
+  constructor() {
+    const botBinding = Binding.bind<TelegramBot>(TelegramBindings.TELEGRAM_BOT).toClass(TelegramBot).inScope(BindingScope.SINGLETON);
     this.bindings = [botBinding];
 
-    this.lifeCycleObservers = [ConvoMarkBot];
+    this.lifeCycleObservers = [TelegramBot];
   }
 }
