@@ -4,8 +4,7 @@ import { Update } from 'telegram-typings';
 import { TelegramBindings } from './keys';
 import { ConvoMarkBindings, ApplicationMode } from '../providers';
 import { logger } from '../decorators';
-import { Logger } from 'pino';
-import { Loggable } from '../logging';
+import { Loggable, Logger } from '../logging';
 
 @logger()
 @lifeCycleObserver()

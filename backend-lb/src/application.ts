@@ -21,6 +21,7 @@ import {
 } from './authentication';
 import { ConvoMarkBindings, ApplicationModeProvider, ApplicationMode } from './providers';
 import { LoggingComponent } from './logging';
+import { GraphQLComponent } from './graphql';
 
 export class ConvoMarkApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
@@ -31,7 +32,6 @@ export class ConvoMarkApplication extends BootMixin(
     // Register bindings
     this.setUpBindings();
 
-
     // Set up the custom sequence
     this.sequence(AuthenticationSequence);
 
@@ -41,11 +41,14 @@ export class ConvoMarkApplication extends BootMixin(
     });
     this.component(RestExplorerComponent);
 
-    // Set up bot
+    // Set up logging
     this.component(LoggingComponent);
 
     // Set up Bot
     this.component(TelegramComponent);
+
+    // Set up GraphQL
+    this.component(GraphQLComponent);
 
     // Set up authentication
     this.component(AuthenticationComponent);
