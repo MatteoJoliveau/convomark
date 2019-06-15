@@ -1,6 +1,4 @@
 import {Model, model, property} from '@loopback/repository';
-import { modelToJsonSchema, getJsonSchema, getJsonSchemaRef } from '@loopback/rest';
-import { TokenRequest } from './token-request.model';
 
 @model({settings: {}})
 export class TelegramUserLoginData extends Model {
@@ -50,4 +48,5 @@ export interface TelegramUserLoginDataRelations {
   // describe navigational properties here
 }
 
-export type TelegramUserLoginDataWithRelations = TelegramUserLoginData & TelegramUserLoginDataRelations;
+export type TelegramUserLoginDataWithRelations = TelegramUserLoginData &
+  TelegramUserLoginDataRelations;

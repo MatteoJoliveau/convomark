@@ -1,10 +1,10 @@
 import {Entity, model, property, belongsTo} from '@loopback/repository';
-import { Bookmark, Collection } from '.';
-import { v4 as uuid } from 'uuid';
-import { BookmarkWithRelations, CollectionWithRelations } from './';
+import {Bookmark, Collection} from '.';
+import {v4 as uuid} from 'uuid';
+import {BookmarkWithRelations, CollectionWithRelations} from './';
 
 @model({
-  name: 'bookmarks_collections'
+  name: 'bookmarks_collections',
 })
 export class BookmarkCollection extends Entity {
   @property({
@@ -27,8 +27,9 @@ export class BookmarkCollection extends Entity {
 }
 
 export interface BookmarkCollectionRelations {
-  bookmark?: BookmarkWithRelations
-  collection?: CollectionWithRelations
+  bookmark?: BookmarkWithRelations;
+  collection?: CollectionWithRelations;
 }
 
-export type BookmarkCollectionWithRelations = BookmarkCollection & BookmarkCollectionRelations;
+export type BookmarkCollectionWithRelations = BookmarkCollection &
+  BookmarkCollectionRelations;

@@ -1,7 +1,7 @@
-import { ConvoMarkApplication } from './application';
-import { ApplicationConfig } from '@loopback/core';
+import {ConvoMarkApplication} from './application';
+import {ApplicationConfig} from '@loopback/core';
 
-export { ConvoMarkApplication };
+export {ConvoMarkApplication};
 
 export async function main(options: ApplicationConfig = {}) {
   const app = new ConvoMarkApplication(options);

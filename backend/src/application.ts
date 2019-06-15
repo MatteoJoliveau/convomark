@@ -1,27 +1,30 @@
-import { BootMixin } from '@loopback/boot';
-import { ApplicationConfig } from '@loopback/core';
+import {BootMixin} from '@loopback/boot';
+import {ApplicationConfig} from '@loopback/core';
 import {
   RestExplorerBindings,
   RestExplorerComponent,
 } from '@loopback/rest-explorer';
-import { RepositoryMixin } from '@loopback/repository';
-import { RestApplication } from '@loopback/rest';
-import { ServiceMixin } from '@loopback/service-proxy';
-import { AuthenticationSequence } from './sequence';
-import { TelegramComponent } from './telegram';
-import { AuthenticationComponent, registerAuthenticationStrategy } from '@loopback/authentication';
-import { } from './authentication/keys';
-import { UserService } from './services/user.service';
+import {RepositoryMixin} from '@loopback/repository';
+import {RestApplication} from '@loopback/rest';
+import {ServiceMixin} from '@loopback/service-proxy';
+import {AuthenticationSequence} from './sequence';
+import {TelegramComponent} from './telegram';
+import {
+  AuthenticationComponent,
+  registerAuthenticationStrategy,
+} from '@loopback/authentication';
+import {} from './authentication/keys';
+import {UserService} from './services/user.service';
 import {
   TokenStrategy,
   JWTService,
   TokenServiceBindings,
   TokenServiceConstants,
-  UserServiceBindings
+  UserServiceBindings,
 } from './authentication';
-import { ConvoMarkBindings, ApplicationModeProvider, ApplicationMode } from './providers';
-import { LoggingComponent } from './logging';
-import { GraphQLComponent } from './graphql';
+import {ConvoMarkBindings, ApplicationModeProvider} from './providers';
+import {LoggingComponent} from './logging';
+import {GraphQLComponent} from './graphql';
 
 export class ConvoMarkApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
@@ -68,7 +71,9 @@ export class ConvoMarkApplication extends BootMixin(
 
   setUpBindings() {
     // Mode setting
-    this.bind(ConvoMarkBindings.APPLICATION_MODE).toProvider(ApplicationModeProvider);
+    this.bind(ConvoMarkBindings.APPLICATION_MODE).toProvider(
+      ApplicationModeProvider,
+    );
 
     this.bind(TokenServiceBindings.TOKEN_SECRET).to(
       TokenServiceConstants.TOKEN_SECRET_VALUE,

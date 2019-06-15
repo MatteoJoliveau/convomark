@@ -3,10 +3,14 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import { AuthenticationStrategy, UserProfile, TokenService } from "@loopback/authentication";
-import { Request, HttpErrors } from "@loopback/rest";
-import { inject } from "@loopback/core";
-import { TokenServiceBindings } from "../keys";
+import {
+  AuthenticationStrategy,
+  UserProfile,
+  TokenService,
+} from '@loopback/authentication';
+import {Request, HttpErrors} from '@loopback/rest';
+import {inject} from '@loopback/core';
+import {TokenServiceBindings} from '../keys';
 
 /**
  * Taken from
@@ -14,9 +18,9 @@ import { TokenServiceBindings } from "../keys";
  */
 export class TokenStrategy implements AuthenticationStrategy {
   constructor(
-    @inject(TokenServiceBindings.TOKEN_SERVICE) private tokenService: TokenService
-  ) {
-  }
+    @inject(TokenServiceBindings.TOKEN_SERVICE)
+    private tokenService: TokenService,
+  ) {}
   name = 'TokenStrategy';
 
   async authenticate(request: Request): Promise<UserProfile | undefined> {

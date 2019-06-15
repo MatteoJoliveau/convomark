@@ -1,7 +1,7 @@
-import { Model, model, property } from '@loopback/repository';
-import { TelegramUserLoginData } from './telegram-user-login-data.model';
+import {Model, model, property} from '@loopback/repository';
+import {TelegramUserLoginData} from './telegram-user-login-data.model';
 
-@model({ settings: {} })
+@model({settings: {}})
 export class TokenRequest extends Model {
   @property({
     type: 'string',
@@ -11,7 +11,7 @@ export class TokenRequest extends Model {
 
   @property({
     type: 'string',
-    required: false
+    required: false,
   })
   refresh_token?: string;
 
@@ -27,7 +27,7 @@ export class TokenRequest extends Model {
 }
 
 export interface TokenRequestRelations {
-  auth_data: TelegramUserLoginData
+  auth_data: TelegramUserLoginData;
 }
 
 export type TokenRequestWithRelations = TokenRequest & TokenRequestRelations;

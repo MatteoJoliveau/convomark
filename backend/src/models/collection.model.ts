@@ -1,7 +1,12 @@
-import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
-import slug from 'slug';
-import { User } from './';
-import { BookmarkCollection } from './bookmark-collection.model';
+import {
+  Entity,
+  model,
+  property,
+  belongsTo,
+  hasMany,
+} from '@loopback/repository';
+import {User} from './';
+import {BookmarkCollection} from './bookmark-collection.model';
 
 @model()
 export class Collection extends Entity {
@@ -36,7 +41,7 @@ export class Collection extends Entity {
 }
 
 export interface CollectionRelations {
-  user?: User
+  user?: User;
 }
 
 export type CollectionWithRelations = Collection & CollectionRelations;

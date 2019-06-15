@@ -1,8 +1,8 @@
-import { Entity, model, property, hasMany } from '@loopback/repository';
-import { Collection } from './collection.model';
-import { Bookmark } from '.';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Collection} from './collection.model';
+import {Bookmark} from '.';
 
-@model({ settings: {} })
+@model({settings: {}})
 export class User extends Entity {
   @property({
     type: 'number',
@@ -50,8 +50,8 @@ export class User extends Entity {
 }
 
 export interface UserRelations {
-  bookmarks: Bookmark[]
-  collections: Collection[]
+  bookmarks: Bookmark[];
+  collections: Collection[];
 }
 
 export type UserWithRelations = User & UserRelations;

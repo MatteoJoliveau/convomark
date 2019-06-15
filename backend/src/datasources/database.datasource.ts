@@ -5,11 +5,11 @@ import * as defaultConfig from './database.datasource.json';
 function processEnvConfig(config: object): object {
   return {
     ...config,
-    host: process.env.POSTGRES_HOST || "localhost",
+    host: process.env.POSTGRES_HOST || 'localhost',
     port: process.env.POSTGRES_PORT || 5432,
-    user: process.env.POSTGRES_USER || "convomark",
-    password: process.env.POSTGRES_PASSWORD || "convomark",
-    database: process.env.POSTGRES_DB || "convomark_development"
+    user: process.env.POSTGRES_USER || 'convomark',
+    password: process.env.POSTGRES_PASSWORD || 'convomark',
+    database: process.env.POSTGRES_DB || 'convomark_development',
   };
 }
 

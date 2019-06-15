@@ -15,8 +15,9 @@ export namespace TokenServiceConstants {
   export const TOKEN_SECRET_VALUE = 'myjwts3cr3t';
   export const ACCESS_TOKEN_EXPIRES_IN_VALUE = '600';
   export const REFRESH_TOKEN_EXPIRES_IN_VALUE = '172800';
-  export const TOKEN_AUDIENCE_VALUE = process.env.WEB_DOMAIN || 'localhost:3000';
-  export const TOKEN_ISSUER_VALUE = process.env.WEB_DOMAIN || 'localhost:3000'
+  export const TOKEN_AUDIENCE_VALUE =
+    process.env.WEB_DOMAIN || 'localhost:3000';
+  export const TOKEN_ISSUER_VALUE = process.env.WEB_DOMAIN || 'localhost:3000';
 }
 
 export namespace TokenServiceBindings {
@@ -40,9 +41,8 @@ export namespace TokenServiceBindings {
   );
 }
 
-
 export namespace UserServiceBindings {
-  export const USER_SERVICE = BindingKey.create<UserService<User, TelegramUserLoginData>>(
-    'services.user.service',
-  );
+  export const USER_SERVICE = BindingKey.create<
+    UserService<User, TelegramUserLoginData>
+  >('services.user.service');
 }

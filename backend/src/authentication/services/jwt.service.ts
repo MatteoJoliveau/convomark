@@ -35,7 +35,10 @@ export class JWTService implements TokenService {
     private issuer: string,
   ) {}
 
-  async verifyToken(token: string, { type }: TokenOpts = { type: 'Bearer' }): Promise<UserProfile> {
+  async verifyToken(
+    token: string,
+    {type}: TokenOpts = {type: 'Bearer'},
+  ): Promise<UserProfile> {
     if (!token) {
       throw new HttpErrors.Unauthorized(
         `Error verifying token : 'token' is null`,
@@ -50,8 +53,9 @@ export class JWTService implements TokenService {
         audience: this.audience,
         issuer: this.issuer,
       });
-      if (decryptedToken.typ !== type) throw new HttpErrors.Unauthorized('Invalid token type');
-      
+      if (decryptedToken.typ !== type)
+        throw new HttpErrors.Unauthorized('Invalid token type');
+
       // don't copy over  token field 'iat' and 'exp', nor 'email' to user profile
       userProfile = Object.assign(
         {id: '', name: ''},
@@ -66,7 +70,10 @@ export class JWTService implements TokenService {
     return userProfile;
   }
 
-  async generateToken(userProfile: UserProfile, { type }: TokenOpts = { type: 'Bearer' }): Promise<string> {
+  async generateToken(
+    userProfile: UserProfile,
+    {type}: TokenOpts = {type: 'Bearer'},
+  ): Promise<string> {
     if (!userProfile) {
       throw new HttpErrors.Unauthorized(
         'Error generating token : userProfile is null',
@@ -76,9 +83,12 @@ export class JWTService implements TokenService {
     // Generate a JSON Web Token
     let token: string;
     try {
-      const expiresIn = type === 'Refresh' ? Number(this.refreshExpiresIn) : Number(this.accessExpiresIn)
-      const { id: sub, ...profile} = userProfile;
-      const payload = { ...profile, sub, typ: type };
+      const expiresIn =
+        type === 'Refresh'
+          ? Number(this.refreshExpiresIn)
+          : Number(this.accessExpiresIn);
+      const {id: sub, ...profile} = userProfile;
+      const payload = {...profile, sub, typ: type};
       token = await signAsync(payload, this.jwtSecret, {
         expiresIn,
         audience: this.audience,
