@@ -11,7 +11,7 @@ import {
 import {repository} from '@loopback/repository';
 import {differenceInMinutes} from 'date-fns';
 import {sortBy} from 'lodash';
-import {createHash, createHmac} from 'crypto';
+import {createHmac} from 'crypto';
 import {TelegramUserLoginData, User, Collection} from '../models';
 import {TelegramBindings} from '../telegram';
 import {UserRepository, CollectionRepository} from '../repositories';
@@ -22,17 +22,12 @@ import {UserRepository, CollectionRepository} from '../repositories';
  */
 export class UserService
   implements AuthUserService<User, TelegramUserLoginData> {
-  private readonly telegramSecret: Buffer;
   constructor(
     @repository(UserRepository) private userRepository: UserRepository,
     @repository(CollectionRepository)
     private collectionRepository: CollectionRepository,
-    @inject(TelegramBindings.TELEGRAM_TOKEN) botToken: string,
-  ) {
-    const hash = createHash('sha256');
-    hash.update(botToken);
-    this.telegramSecret = hash.digest();
-  }
+    @inject(TelegramBindings.TELEGRAM_SECRET) private telegramSecret: Buffer,
+  ) {}
 
   async verifyCredentials(credentials: TelegramUserLoginData): Promise<User> {
     try {
