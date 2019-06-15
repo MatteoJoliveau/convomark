@@ -6,7 +6,7 @@ spec:
   tls:
     - hosts:
         - api.convomark.matteojoliveau.com
-      secretName: convomark-staging-crt
+      secretName: convomark-production-crt
   rules:
     - host: api.convomark.matteojoliveau.com
       http:
