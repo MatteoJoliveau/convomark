@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "start:all": "nf start",
-    "install:all": "yarn install && cd ./backend && yarn install && cd ../frontend && yarn install",
+    "install:all": "yarn install && cd ./backend && yarn install && cd ../frontend && yarn install"
   },
   "devDependencies": {
     "foreman": "^3.0.1"
