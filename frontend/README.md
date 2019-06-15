@@ -1,4 +1,21 @@
-# frontend
+# ConvoMark Frontend
+This is the ConvoMark's web GUI. Here users can manage all their collections and bookmarks. All bot functionalities are replicated here. If you can do it in the both, you should be able to do it here (and viceversa).
+
+The application is built with VueJS 2 and leverages some packages from the Vue ecosystem, such as:
+- Vuex for application-wide state management
+- Vue Router for local page navigation (using HTML5 History API)
+- Vue Apollo for sending GraphQL requests to the backend 
+- Vue i18n for text localization
+- Buefy for Bulma-styled Vue components
+
+Styles are provided by [Bulma](https://bulma.io), a powerful and easy to use CSS component framework.
+
+## Project requirements
+- [Node](https://nodejs.org) 10.16 or later
+- [Yarn](https://yarnpkg.com) 1.16 or later
+
+You will also need to have the [backend](../backend/README.md) up and running in order for the frontend to work. Check out its documentation for more information.
+
 
 ## Project setup
 ```
@@ -7,27 +24,27 @@ yarn install
 
 ### Compiles and hot-reloads for development
 ```
-yarn run serve
+yarn serve
 ```
 
 ### Compiles and minifies for production
 ```
-yarn run build
+yarn build
 ```
 
 ### Run your tests
 ```
-yarn run test
+yarn test
 ```
 
 ### Lints and fixes files
 ```
-yarn run lint
+yarn lint
 ```
 
 ### Run your end-to-end tests
 ```
-yarn run test:e2e
+yarn test:e2e
 ```
 
 ### Customize configuration
