@@ -8,9 +8,7 @@ export interface LoggerMetadata {
   level?: Level;
 }
 
-export function logger(
-  {name, level}: LoggerMetadata = {},
-): ClassDecorator {
+export function logger({name, level}: LoggerMetadata = {}): ClassDecorator {
   return (targetClass: Function) => {
     name = name || targetClass.name;
     const logLevel = new LogLevelProvider().value();

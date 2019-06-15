@@ -80,8 +80,8 @@ export class UserService
       return Promise.reject('Authentication date is more than a minute old');
     }
     const {hash, ...properties} = credentials;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const authString = sortBy(Object.keys(properties))
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .map(key => `${key}=${(<any>credentials)[key]}`)
       .join('\n');
 
