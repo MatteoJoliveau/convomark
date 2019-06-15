@@ -10,10 +10,10 @@ export class UpdateController {
     @inject(TelegramBindings.TELEGRAM_BOT) private bot: TelegramBot,
   ) { }
 
-  @post('/bot/updates/{token}', {
+  @post('/bot/updates/{tokenHash}', {
     parameters: [
       {
-        name: 'token',
+        name: 'tokenHash',
         description: 'Hexadecimal representation of the SHA-256 hash of the Bot token issued by BotFather',
         required: true,
         schema: { type: 'string' },
