@@ -50,7 +50,8 @@ export class User extends Entity {
 }
 
 export interface UserRelations {
-  // describe navigational properties here
+  bookmarks: Bookmark[]
+  collections: Collection[]
 }
 
 export type UserWithRelations = User & UserRelations;
