@@ -1,7 +1,6 @@
 import { Component, Binding } from "@loopback/core";
-import { GraphQLController } from "../controllers";
+import { GraphQLController } from "./controllers";
 import { GraphQLBindings } from "./keys";
-import { resolvers } from "./resolvers";
 import { typeDefs } from "./typeDef";
 import { ServerProvider } from "./providers";
 import { ResolversProvider } from "./providers/resolvers.provider";
