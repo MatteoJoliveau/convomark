@@ -1,13 +1,26 @@
 {
   "name": "backend",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "ConvoMark backend application and Telegram bot",
   "author": "Matteo Joliveau <matteojoliveau@gmail.com>",
   "license": "Apache-2.0",
-  "main": "index.js",
   "engines": {
-    "node": ">=10.15"
+    "node": "^10.16",
+    "yarn": "^1.16"
   },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:MatteoJoliveau/convomarkbot.git"
+  },
+  "files": [
+    "README.md",
+    "index.js",
+    "index.d.ts",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ],
   "scripts": {
     "build:apidocs": "lb-apidocs",
     "build": "lb-tsc es2017 --outDir dist",
@@ -33,17 +46,6 @@
     "start:watch": "nodemon",
     "prepublishOnly": "yarn test"
   },
-  "repository": {
-    "type": "git"
-  },
-  "files": [
-    "README.md",
-    "index.js",
-    "index.d.ts",
-    "dist",
-    "src",
-    "!*/__tests__"
-  ],
   "dependencies": {
     "@loopback/authentication": "^2.1.1",
     "@loopback/boot": "^1.4.0",

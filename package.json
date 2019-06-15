@@ -1,7 +1,10 @@
 {
   "name": "convomark",
   "version": "0.1.0",
-  "repository": "git@github.com:MatteoJoliveau/convomarkbot.git",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:MatteoJoliveau/convomarkbot.git"
+  },
   "author": "Matteo Joliveau <matteojoliveau@gmail.com>",
   "license": "Apache-2.0",
   "scripts": {

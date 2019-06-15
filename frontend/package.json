@@ -4,6 +4,14 @@
   "description": "ConvoMark frontend application",
   "author": "Matteo Joliveau <matteojoliveau@gmail.com>",
   "license": "Apache-2.0",
+  "engines": {
+    "node": "^10.16",
+    "yarn": "^1.16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:MatteoJoliveau/convomarkbot.git"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
