@@ -20,7 +20,7 @@ export class Bookmark extends Entity {
   messageLink: string;
 
   @belongsTo(() => User)
-  userId: number;
+  userId?: number;
 
   @hasMany(() => BookmarkCollection)
   bookmarkCollections: BookmarkCollection[];
