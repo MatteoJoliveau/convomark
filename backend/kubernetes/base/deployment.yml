@@ -17,21 +17,21 @@ spec:
         resources:
           requests:
             memory: 128Mi
-            cpu: 200m
+            cpu: 100m
           limits:
-            memory: 512Mi
-            cpu: 500m
+            memory: 300Mi
+            cpu: 300m
         ports:
         - name: http
           containerPort: 3000
           protocol: TCP
         livenessProbe:
           httpGet:
-            path: /.well-known/apollo/server-health
+            path: /ping
             port: http
         readinessProbe:
           httpGet:
-            path: /.well-known/apollo/server-health
+            path: /ping
             port: http
         envFrom:
           - configMapRef:
@@ -42,10 +42,17 @@ spec:
               name: db-secrets
         command: ["yarn"]
         args: ["start:prod"]
-      
+
       initContainers:
         - name: migrator
           image: matteojoliveau/convomark:latest
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 100m
+            limits:
+              memory: 300Mi
+              cpu: 300m
           envFrom:
             - configMapRef:
                 name: app-config
@@ -54,4 +61,4 @@ spec:
             - secretRef:
                 name: db-secrets
           command: ["yarn"]
-          args: ["db:migrate:prod"]
+          args: ["migrate"]

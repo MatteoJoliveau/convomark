@@ -1,14 +1,18 @@
 import Telegraf, { ContextMessageUpdate } from "telegraf";
-import { Bookmark } from "../entity/Bookmark";
-import { Collection } from "../entity/Collection";
-import { getLogger } from "../logger";
-import { BookmarkService } from "../service/bookmark.service";
-import { CollectionService } from "../service/collection.service";
-import { UserService } from "../service/user.service";
+import { Bookmark } from "../../entity/Bookmark";
+import { Collection } from "../../entity/Collection";
+import { getLogger } from "../../logger";
+import { BookmarkService } from "../../service/bookmark.service";
+import { CollectionService } from "../../service/collection.service";
+import { UserService } from "../../service/user.service";
+import { onBookmarkUrl } from "./bookmarks";
 const { FRONTEND_DOMAIN } = process.env;
 
 export function withCommands(bot: Telegraf<ContextMessageUpdate>, userService: UserService, bookmarkService: BookmarkService, collectionService: CollectionService): Telegraf<ContextMessageUpdate> {
     const logger = getLogger("bot");
+
+    (bot as any).entity('url', onBookmarkUrl(logger));
+
     bot.start(async (ctx) => {
         const from = (ctx.from!);
         logger.info("Received start command from user", { user: from });
