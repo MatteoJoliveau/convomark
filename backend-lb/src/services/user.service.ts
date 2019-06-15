@@ -68,7 +68,6 @@ export class UserService implements AuthUserService<User, TelegramUserLoginData>
   }
 
   private validateTelegramHash(credentials: TelegramUserLoginData): Promise<void> {
-    return Promise.resolve();
     if (differenceInMinutes(new Date(), new Date(credentials.auth_date * 1000)) > 1) {
       return Promise.reject('Authentication date is more than a minute old');
     }
