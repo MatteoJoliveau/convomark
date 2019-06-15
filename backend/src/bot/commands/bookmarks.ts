@@ -1,6 +1,6 @@
 import { ContextMessageUpdate } from "telegraf";
 import { extractEntity, messageText } from "./commons";
-import { Logger } from "pino";
+import { Logger } from "'../logging'";
 
 export function onBookmarkUrl(logger: Logger): (ctx: ContextMessageUpdate) => void {
     return (ctx) => {

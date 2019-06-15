@@ -18,7 +18,34 @@ export class OAuthController {
     @inject(TokenServiceBindings.ACCESS_TOKEN_EXPIRES_IN) private expiresIn: string
   ) { }
 
-  @post('/oauth/token')
+  @post('/oauth/token', {
+    responses: {
+      '200': {
+        content: {
+          'application/json': {
+            schema: {
+              title: 'Token Response',
+              type: 'object',
+              properties: {
+                access_token: {
+                  type: 'string'
+                },
+                token_type: {
+                  type: 'string'
+                },
+                expires_in: {
+                  type: 'number'
+                },
+                refresh_token: {
+                  type: 'string'
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  })
   async token(@requestBody({ required: true }) { grant_type, refresh_token, auth_data }: TokenRequest): Promise<TokenResponse> {
     switch (grant_type) {
       case 'telegram': {

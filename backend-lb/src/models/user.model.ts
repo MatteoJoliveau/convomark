@@ -1,19 +1,20 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import { Collection } from './collection.model';
 
-@model({settings: {}})
+@model()
 export class User extends Entity {
-  @property({
-    type: 'string',
-    required: true,
-  })
-  firstName: string;
-
   @property({
     type: 'number',
     id: true,
     required: true,
   })
   id: number;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  firstName: string;
 
   @property({
     type: 'string',
@@ -36,6 +37,8 @@ export class User extends Entity {
   })
   photoUrl?: string;
 
+  @hasMany(() => Collection)
+  collections: Collection[] = [];
 
   constructor(data?: Partial<User>) {
     super(data);

@@ -1,6 +1,9 @@
 import {Request, RestBindings, get, ResponseObject} from '@loopback/rest';
 import {inject} from '@loopback/context';
-import { AuthenticationBindings, UserProfile, authenticate } from '@loopback/authentication';
+import { repository } from '@loopback/repository';
+import { BookmarkRepository, CollectionRepository, UserRepository } from '../repositories';
+import { Collection, CollectionWithRelations, User, Bookmark, BookmarkWithRelations, BookmarkCollection } from '../models';
+import { BookmarkCollectionRepository } from '../repositories/bookmark-collection.repository';
 
 /**
  * OpenAPI response for ping()
@@ -34,6 +37,10 @@ const PING_RESPONSE: ResponseObject = {
 export class PingController {
   constructor(
     @inject(RestBindings.Http.REQUEST) private req: Request,
+    @repository(UserRepository) private userRepo: UserRepository,
+    @repository(BookmarkRepository) private bookmarkRepo: BookmarkRepository,
+    @repository(CollectionRepository) private collectionRepo: CollectionRepository,
+    @repository(BookmarkCollectionRepository) private joinRepo: BookmarkCollectionRepository,
     ) {}
 
   // Map to `GET /ping`
@@ -42,7 +49,12 @@ export class PingController {
       '200': PING_RESPONSE,
     },
   })
-  ping(): object {
+  async ping(): Promise<object> {
+    const user = await this.userRepo.findOne() as User;
+    const collections = await this.userRepo.collections(user.id).find();
+    // const bookmarks = await this.collectionRepo.bookmarkCollections(collections[0].id).find()
+    //   .then((joins) => Promise.all(joins.map(({ id }) => this.joinRepo.bookmark(id))))
+    console.log(user, user.collections, collections);
     // Reply with a greeting, the current time, the url, and request headers
     return {
       greeting: 'Hello from ConvoMark',

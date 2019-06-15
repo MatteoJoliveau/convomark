@@ -1,6 +1,5 @@
 import { Model, model, property } from '@loopback/repository';
 import { TelegramUserLoginData } from './telegram-user-login-data.model';
-import { getJsonSchemaRef } from '@loopback/openapi-v3';
 
 @model({ settings: {} })
 export class TokenRequest extends Model {
