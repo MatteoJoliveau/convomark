@@ -52,9 +52,12 @@ export class PingController {
   async ping(): Promise<object> {
     const user = await this.userRepo.findOne() as User;
     const collections = await this.userRepo.collections(user.id).find();
+    const b = new Bookmark({ messageLink: 'test', userId: user.id });
+    const bookmark = await this.bookmarkRepo.create(b);
+    const j = new BookmarkCollection({ bookmarkId: bookmark.id, collectionId: collections[0].id })
+    await this.joinRepo.create(j);
     // const bookmarks = await this.collectionRepo.bookmarkCollections(collections[0].id).find()
     //   .then((joins) => Promise.all(joins.map(({ id }) => this.joinRepo.bookmark(id))))
-    console.log(user, user.collections, collections);
     // Reply with a greeting, the current time, the url, and request headers
     return {
       greeting: 'Hello from ConvoMark',
