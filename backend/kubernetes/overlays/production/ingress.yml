@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: convomark
+spec:
+  tls:
+    - hosts:
+        - api.convomark.matteojoliveau.com
+      secretName: convomark-staging-crt
+  rules:
+    - host: api.convomark.matteojoliveau.com
+      http:
+        paths:
+          - path: "/"
+            backend:
+              serviceName: convomark
+              servicePort: http

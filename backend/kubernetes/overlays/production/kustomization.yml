@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: convomark-production
+
+bases:
+  - ../../base/
+
+patches:
+  - container-resources.yml
+  - replica-count.yml
+  - ingress.yml
+
+configMapGenerator:
+  - literals:
+      - WEB_DOMAIN=https://api.convomark.matteojoliveau.com
+      - FRONTEND_DOMAIN=https://convomark.matteojoliveau.com/
+      - LOG_LEVEL=info
+      - REDIS_HOST=redis
+    name: app-config
