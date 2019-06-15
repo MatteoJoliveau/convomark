@@ -4,15 +4,13 @@ module.exports = application;
 
 if (require.main === module) {
   const domain = process.env.WEB_DOMAIN || 'http://localhost:3000'
-  const { protocol, hostname: host, port } = new URL(domain);
   
   // Run the application
   const config = {
     domain,
     rest: {
-      port,
-      host,
-      protocol,
+      port: +(process.env.PORT || 3000),
+      host: process.env.HOST,
       openApiSpec: {
         // useful when used with OASGraph to locate your application
         setServersFromRequest: true,
