@@ -10,8 +10,8 @@ The Telegram bot is implemented using the wonderful [Telegraf](https://telegraf.
 The bot is configured to run using the [long polling strategy](https://core.telegram.org/bots/api#getupdates) in development, and [webhooks](https://core.telegram.org/bots/api#setwebhook) in production. By default the endpoint for webhooks is `/bot/updates/{hex(sha256(token))}`.
 
 ## Project requirements
-- [Node](https://nodejs.org) 10.16 or later
-- [Yarn](https://yarnpkg.com) 1.16 or later
+- [Node](https://nodejs.org) 10.15 or later
+- [Yarn](https://yarnpkg.com) 1.13 or later
 - [PostgreSQL](https://www.postgresql.org/) 11
 - [Redis](https://redis.io) 5
 

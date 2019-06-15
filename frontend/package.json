@@ -5,8 +5,8 @@
   "author": "Matteo Joliveau <matteojoliveau@gmail.com>",
   "license": "Apache-2.0",
   "engines": {
-    "node": "^10.16",
-    "yarn": "^1.16"
+    "node": "^10.15",
+    "yarn": "^1.13"
   },
   "repository": {
     "type": "git",

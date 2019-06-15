@@ -11,8 +11,8 @@ The application is built with VueJS 2 and leverages some packages from the Vue e
 Styles are provided by [Bulma](https://bulma.io), a powerful and easy to use CSS component framework.
 
 ## Project requirements
-- [Node](https://nodejs.org) 10.16 or later
-- [Yarn](https://yarnpkg.com) 1.16 or later
+- [Node](https://nodejs.org) 10.15 or later
+- [Yarn](https://yarnpkg.com) 1.13 or later
 
 You will also need to have the [backend](../backend/README.md) up and running in order for the frontend to work. Check out its documentation for more information.
 
