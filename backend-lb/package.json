@@ -1,14 +1,12 @@
 {
-  "name": "backend-lb",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "convomark",
-  "keywords": [
-    "loopback-application",
-    "loopback"
-  ],
+  "description": "ConvoMark backend application and Telegram bot",
+  "author": "Matteo Joliveau <matteojoliveau@gmail.com>",
+  "license": "Apache-2.0",
   "main": "index.js",
   "engines": {
-    "node": ">=8.9"
+    "node": ">=10.15"
   },
   "scripts": {
     "build:apidocs": "lb-apidocs",
@@ -38,8 +36,6 @@
   "repository": {
     "type": "git"
   },
-  "author": "",
-  "license": "",
   "files": [
     "README.md",
     "index.js",

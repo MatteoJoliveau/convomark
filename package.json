@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "repository": "git@github.com:MatteoJoliveau/convomarkbot.git",
   "author": "Matteo Joliveau <matteojoliveau@gmail.com>",
-  "license": "Apache-2",
+  "license": "Apache-2.0",
   "scripts": {
     "start:all": "nf start",
     "install:all": "yarn install && cd ./backend && yarn install && cd ../frontend && yarn install",
