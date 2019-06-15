@@ -1,8 +1,8 @@
 import { Level, Logger } from 'pino';
 import { Constructor, MetadataInspector } from '@loopback/core';
-import { LoggerProvider } from '../logging/providers/logger.provider';
-import { LogLevelProvider } from '../logging';
-import { ApplicationModeProvider } from '../providers';
+import { LoggerProvider } from '../providers/logger.provider';
+import { LogLevelProvider } from '..';
+import { ApplicationModeProvider } from '../../providers';
 
 export interface LoggerMetadata {
   name?: string

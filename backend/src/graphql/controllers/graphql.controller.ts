@@ -1,7 +1,6 @@
 import { post, requestBody, RestBindings, Response, api } from "@loopback/rest";
-import { Loggable, Logger } from "../../logging";
-import { logger } from "../../decorators";
-import { ApolloServer, IResolvers } from 'apollo-server';
+import { Loggable, Logger, logger } from "../../logging";
+import { ApolloServer } from 'apollo-server';
 import { GraphQLRequest } from "apollo-server-core";
 import { GraphQLBindings } from "../keys";
 import { inject } from "@loopback/context";

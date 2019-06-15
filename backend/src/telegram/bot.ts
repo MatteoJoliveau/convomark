@@ -3,8 +3,7 @@ import { inject, lifeCycleObserver, LifeCycleObserver } from '@loopback/core';
 import { Update } from 'telegram-typings';
 import { TelegramBindings } from './keys';
 import { ConvoMarkBindings, ApplicationMode } from '../providers';
-import { logger } from '../decorators';
-import { Loggable, Logger } from '../logging';
+import { Loggable, Logger, logger } from '../logging';
 
 @logger()
 @lifeCycleObserver()
