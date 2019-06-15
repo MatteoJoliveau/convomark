@@ -33,11 +33,6 @@ export class Collection extends Entity {
   constructor(data?: Partial<Collection>) {
     super(data);
   }
-
-  static generateSlug(collection: Collection, user: User) {
-    const username = user.username || user.id;
-    collection.slug = slug(`${username} ${collection.title}`, { lower: true });
-  }
 }
 
 export interface CollectionRelations {
