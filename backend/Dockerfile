@@ -1,34 +1,26 @@
-# ===== BUILD =====
+# Check out https://hub.docker.com/_/node to select a new base image
+FROM node:10-alpine
 
-FROM node:10-alpine as builder
+# Set to a non-root built-in user `node`
+USER node
 
-RUN mkdir -p /build
+# Create app directory (with user `node`)
+RUN mkdir -p /home/node/app
 
-WORKDIR /build
+WORKDIR /home/node/app
 
-COPY package.json .
-COPY yarn.lock .
+# Install app dependencies
+COPY --chown=node package.json yarn.lock ./
 
 RUN yarn install
 
-COPY src/ ./src
-COPY tsconfig.json .
+# Bundle app source code
+COPY --chown=node . .
 
 RUN yarn build
 
-# ===== RUN =====
+# Bind to all network interfaces so that it can be mapped to the host OS
+ENV HOST=0.0.0.0 PORT=3000 NODE_ENV=production
 
-FROM node:10-alpine
-
-ENV NODE_ENV production
-
-RUN mkdir -p /app
-
-WORKDIR /app
-
-COPY --from=builder /build/package.json .
-COPY --from=builder /build/yarn.lock .
-COPY --from=builder /build/dist ./dist
-COPY ormconfig.js .
-
-RUN yarn install --prod
+EXPOSE ${PORT}
+CMD [ "node", "." ]

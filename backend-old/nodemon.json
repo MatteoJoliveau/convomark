@@ -1,8 +1,5 @@
 {
   "watch": ["src"],
-  "ignore": [
-    "dist/*"
-    ],
   "ext": "ts",
   "exec": "yarn start"
 }

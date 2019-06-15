@@ -10,7 +10,7 @@
 			"path": "frontend"
 		},
 		{
-			"path": "backend-lb"
+			"path": "backend-old"
 		}
 	],
 	"settings": {
