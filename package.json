@@ -10,8 +10,6 @@
   "scripts": {
     "start:all": "nf start",
     "install:all": "yarn install && cd ./backend && yarn install && cd ../frontend && yarn install",
-    "frontend:install": "cd ./frontend && yarn install",
-    "frontend:build": "cd ./frontend && yarn build"
   },
   "devDependencies": {
     "foreman": "^3.0.1"

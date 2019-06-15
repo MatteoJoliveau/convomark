@@ -12,4 +12,13 @@ If you want to hack on both the frontend and the backend at the same time, run t
 - `yarn install:all` to install all the project dependencies
 - `yarn start:all` to start both processes in foreground. Processes are managed via [foreman]() and the Procfile definition.
 
-Check `frontend/README.md` and `backend/README.md` for more specific instructions.
+Check out [frontend/README.md](./frontend/README.md) and [backend/README.md](./backend/README.md) for more specific instructions.
+
+## Contributing
+Bug reports and pull requests are welcome on GitHub at https://github.com/matteojoliveau/convomark. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](https://www.contributor-covenant.org/) code of conduct.
+
+## License
+The project is available as open source under the terms of the [Apache 2.0 License](https://opensource.org/licenses/Apache-2.0).
+
+## Code of Conduct
+Everyone interacting in the ConvoMark project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [Code of Conduct](../CODE_OF_CONDUCT.md).
