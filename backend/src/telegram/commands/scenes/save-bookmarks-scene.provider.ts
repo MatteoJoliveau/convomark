@@ -28,7 +28,6 @@ export class SaveBookmarksSceneProvider
     return new WizardScene(
       'save-bookmark',
       async ctx => {
-        this.logger.warn('Session', ctx.session);
         const {entities, text} = ctx.message!;
         const entity = entities!.find(e => e.type === 'url')!;
         ctx.session.messageLink = text!.substring(
@@ -54,7 +53,6 @@ export class SaveBookmarksSceneProvider
         return ctx.wizard.next();
       },
       async ctx => {
-        this.logger.warn('Session', ctx.session);
         if (!ctx.callbackQuery) {
           ctx.reply('Nope');
           return ctx.wizard.back();

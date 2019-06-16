@@ -30,8 +30,9 @@ export const typeDefs = gql`
 
   type Bookmark {
     id: ID!
-    messageLink: String
+    messageLink: String!
     collections: [Collection!]!
     user: User!
+    name: String
   }
 `;
