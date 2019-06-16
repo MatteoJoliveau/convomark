@@ -1,4 +1,6 @@
 # ConvoMark Frontend
+[![Netlify Status](https://api.netlify.com/api/v1/badges/307b81de-0925-45c8-ab57-7401052d63f2/deploy-status)](https://app.netlify.com/sites/suspicious-pike-0e144f/deploys)
+
 This is the ConvoMark's web GUI. Here users can manage all their collections and bookmarks. All bot functionalities are replicated here. If you can do it in the both, you should be able to do it here (and viceversa).
 
 The application is built with VueJS 2 and leverages some packages from the Vue ecosystem, such as:

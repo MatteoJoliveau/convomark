@@ -1,6 +1,7 @@
 # ConvoMark Backend
 
 [![LoopBack](https://github.com/strongloop/loopback-next/raw/master/docs/site/imgs/branding/Powered-by-LoopBack-Badge-(blue)-@2x.png)](http://loopback.io/)
+![CircleCI](https://img.shields.io/circleci/build/github/matteojoliveau/convomark/master.svg)
 
 This is ConvoMark's main application. It powers both the API platform used by the [frontend](../frontend/README.md) and the Telegram bot over at [@convomarkbot](https://t.me/convomarkbot).
 
