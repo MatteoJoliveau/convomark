@@ -2,7 +2,7 @@ import {Client, expect} from '@loopback/testlab';
 import {ConvoMarkApplication} from '../..';
 import {setupApplication} from './test-helper';
 
-describe('PingController', () => {
+describe.skip('PingController', () => {
   let app: ConvoMarkApplication;
   let client: Client;
 

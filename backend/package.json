@@ -29,7 +29,7 @@
     "lint": "yarn prettier:check && yarn eslint",
     "lint:fix": "yarn eslint:fix && yarn prettier:fix",
     "prettier:cli": "lb-prettier \"**/*.ts\" \"**/*.js\"",
-    "prettier:check": "yarn prettier:cli- -l",
+    "prettier:check": "yarn prettier:cli -l",
     "prettier:fix": "yarn prettier:cli --write",
     "eslint": "lb-eslint --report-unused-disable-directives .",
     "eslint:fix": "yarn eslint --fix",
