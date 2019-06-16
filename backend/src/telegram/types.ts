@@ -2,9 +2,9 @@
 import {ContextMessageUpdate} from 'telegraf';
 
 export interface I18nContext {
-    t(resourceKey: string, context: any): string
-    locale(): string
-    locale(languageCode: string): void
+  t(resourceKey: string, context: any): string;
+  locale(): string;
+  locale(languageCode: string): void;
 }
 
 declare module 'telegraf' {
