@@ -10,7 +10,7 @@ import {
   BookmarkCollectionRepository,
 } from '../../../repositories';
 import {Collection, Bookmark, BookmarkCollection} from '../../../models';
-import { validateTelegramLink } from '../../../validators';
+import {validateTelegramLink} from '../../../validators';
 
 @logger()
 export class SaveBookmarksSceneProvider
@@ -42,8 +42,11 @@ export class SaveBookmarksSceneProvider
         try {
           validateTelegramLink(link);
         } catch (e) {
-          this.logger.warn(e.message, { user: ctx.from!.id, message: ctx.message });
-          ctx.reply(ctx.i18n.t('validations.telegramLink', { link }));
+          this.logger.warn(e.message, {
+            user: ctx.from!.id,
+            message: ctx.message,
+          });
+          ctx.reply(ctx.i18n.t('validations.telegramLink', {link}));
           ctx.session = null;
           return ctx.scene.leave();
         }

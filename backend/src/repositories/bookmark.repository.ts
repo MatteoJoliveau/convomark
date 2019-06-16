@@ -8,9 +8,9 @@ import {Bookmark, BookmarkRelations, BookmarkCollection} from '../models';
 import {DatabaseDataSource} from '../datasources';
 import {inject, Getter} from '@loopback/core';
 import {BookmarkCollectionRepository} from './bookmark-collection.repository';
-import {AnyObject, ValidationError} from 'loopback-datasource-juggler';
+import {AnyObject} from 'loopback-datasource-juggler';
 import {v4 as uuid} from 'uuid';
-import { validateTelegramLink } from '../validators';
+import {validateTelegramLink} from '../validators';
 
 export class BookmarkRepository extends DefaultCrudRepository<
   Bookmark,
@@ -43,15 +43,12 @@ export class BookmarkRepository extends DefaultCrudRepository<
     return super.create(entity, opts);
   }
 
-  async update(
-    entity: Bookmark,
-    opts?: AnyObject | undefined,
-  ): Promise<void> {
+  async update(entity: Bookmark, opts?: AnyObject | undefined): Promise<void> {
     this.validateBookmark(entity);
     return super.update(entity, opts);
   }
 
-  validateBookmark({ messageLink }: Bookmark | DataObject<Bookmark>) {
+  validateBookmark({messageLink}: Bookmark | DataObject<Bookmark>) {
     if (!messageLink) return;
     validateTelegramLink(messageLink);
   }
