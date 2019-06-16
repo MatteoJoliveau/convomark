@@ -16,4 +16,5 @@ configMapGenerator:
       - FRONTEND_DOMAIN=https://convomark.matteojoliveau.com/
       - LOG_LEVEL=info
       - REDIS_HOST=redis
+      - TELEGRAM_BOT_MAINTENANCE=yes
     name: app-config
