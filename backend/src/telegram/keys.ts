@@ -1,5 +1,5 @@
-import {BindingKey} from '@loopback/context';
-import {Middleware, ContextMessageUpdate} from 'telegraf';
+import { BindingKey } from '@loopback/context';
+import { Middleware, ContextMessageUpdate } from 'telegraf';
 
 export namespace TelegramBindings {
   export const TELEGRAM_TOKEN = BindingKey.create<string>('telegram.token');
@@ -9,4 +9,7 @@ export namespace TelegramBindings {
   export const TELEGRAM_SESSION = BindingKey.create<
     Middleware<ContextMessageUpdate>
   >('telegram.session');
+  export const TELEGRAM_I18N = BindingKey.create<
+    Middleware<ContextMessageUpdate>
+  >('telegram.i18n');
 }

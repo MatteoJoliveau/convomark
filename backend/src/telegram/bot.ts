@@ -23,12 +23,15 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
     @inject(TelegramBindings.TELEGRAM_MAINTENANCE) maintenance: boolean,
     @inject(TelegramBindings.TELEGRAM_SESSION)
     sessionMiddleware: Middleware<ContextMessageUpdate>,
+    @inject(TelegramBindings.TELEGRAM_I18N)
+    localizationMiddleware: Middleware<ContextMessageUpdate>,
     @inject(ConvoMarkBindings.APPLICATION_MODE) mode: ApplicationMode,
     @inject(CoreBindings.APPLICATION_CONFIG) { domain }: ApplicationConfig,
   ) {
     this.bot = new Telegraf(token);
 
     this.bot.use(sessionMiddleware);
+    this.bot.use(localizationMiddleware);
 
     if (mode === 'production') {
       const webhook = `${domain}/bot/updates/${secret.toString('hex')}`;
@@ -37,11 +40,6 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
     if (maintenance) {
       this.setUpMaintenanceMode();
     }
-
-    this.bot.on('message', ({ reply, from }) => {
-      reply(`Hello ${from!.first_name}!`);
-    });
-
   }
 
   handleUpdate(rawUpdate: Update): Promise<object> {
@@ -84,7 +82,7 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
   }
 
   setUpMaintenanceMode() {
-    this.logger.info('Activated maintenance mode');
+    this.logger.warn('Activated maintenance mode');
     this.bot.use(({ from, reply }) => {
       reply(`Hello ${from!.first_name}, the bot is under maintenance.
 Please try again later`);

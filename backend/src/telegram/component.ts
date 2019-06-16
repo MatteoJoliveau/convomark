@@ -7,7 +7,7 @@ import {
 } from '@loopback/core';
 import {TelegramBot} from './bot';
 import {UpdateController} from './controllers';
-import {TokenProvider, SecretProvider, SessionProvider, MaintenanceProvider} from './providers';
+import {TokenProvider, SecretProvider, SessionProvider, MaintenanceProvider, I18nProvider} from './providers';
 import {TelegramBindings} from './keys';
 
 export class TelegramComponent implements Component {
@@ -15,6 +15,7 @@ export class TelegramComponent implements Component {
     [TelegramBindings.TELEGRAM_TOKEN.key]: TokenProvider,
     [TelegramBindings.TELEGRAM_SECRET.key]: SecretProvider,
     [TelegramBindings.TELEGRAM_SESSION.key]: SessionProvider,
+    [TelegramBindings.TELEGRAM_I18N.key]: I18nProvider,
     [TelegramBindings.TELEGRAM_MAINTENANCE.key]: MaintenanceProvider,
   };
   controllers = [UpdateController];
