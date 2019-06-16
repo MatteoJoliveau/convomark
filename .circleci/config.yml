@@ -65,10 +65,10 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - test_backend
+      # - test_backend
       - build_and_deploy:
-          requires:
-            - test_backend
+          requires: []
+            # - test_backend
           filters:
             branches:
               only:
