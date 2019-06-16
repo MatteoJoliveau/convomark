@@ -2,7 +2,7 @@
 ## Bookmark your Telegram conversations!
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/307b81de-0925-45c8-ab57-7401052d63f2/deploy-status)](https://app.netlify.com/sites/suspicious-pike-0e144f/deploys)
-![CircleCI](https://img.shields.io/circleci/build/github/matteojoliveau/convomark/master.svg)
+[![CircleCI](https://circleci.com/gh/MatteoJoliveau/convomark.svg?style=svg)](https://circleci.com/gh/MatteoJoliveau/convomark)
 ![Node Version](https://img.shields.io/badge/node-%5E10.15.0-brightgreen.svg)
 ![Yarn Version](https://img.shields.io/badge/yarn-%5E1.13.0-brightgreen.svg)
 ![Website Status](https://img.shields.io/website/https/convomark.matteojoliveau.com.svg)
