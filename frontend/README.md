@@ -3,6 +3,8 @@
 
 This is the ConvoMark's web GUI. Here users can manage all their collections and bookmarks. All bot functionalities are replicated here. If you can do it in the both, you should be able to do it here (and viceversa).
 
+**Check out the full documentation [here](https://convomark.matteojoliveau.com/docs)!**
+
 The application is built with VueJS 2 and leverages some packages from the Vue ecosystem, such as:
 - Vuex for application-wide state management
 - Vue Router for local page navigation (using HTML5 History API)
