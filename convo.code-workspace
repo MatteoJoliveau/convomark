@@ -14,7 +14,7 @@
 		}
 	],
 	"settings": {
-		"typescript.tsdk": "node_modules/typescript/lib",
+		"typescript.tsdk": "backend/node_modules/typescript/lib",
 		"files.exclude": {
 			"node_modules": true
 		}

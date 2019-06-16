@@ -3,7 +3,7 @@
   "extends": "@loopback/build/config/tsconfig.common.json",
   "compilerOptions": {
     "rootDir": "src",
-    "esModuleInterop": true
+    "esModuleInterop": true,
   },
   "include": ["src"]
 }

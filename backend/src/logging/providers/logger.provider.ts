@@ -10,10 +10,12 @@ export class LoggerProvider implements Provider<Logger> {
   ) {}
 
   value(): Logger {
-    return pino({
+    const logger = pino({
       level: this.logLevel,
       enabled: true,
       prettyPrint: this.mode !== 'production' || false,
     });
+
+    return logger;
   }
 }

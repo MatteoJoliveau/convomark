@@ -1,14 +1,14 @@
 import {Provider, inject} from '@loopback/context';
 import TelegrafI18n from 'telegraf-i18n';
-import {Middleware, ContextMessageUpdate} from 'telegraf';
 import {logger, Loggable, Logger} from '../../logging';
 import {CoreBindings} from '@loopback/core';
 import {ConvoMarkApplication} from '../..';
 import path from 'path';
+import { MiddlewareProvider } from '../types';
 
 @logger()
 export class I18nProvider
-  implements Provider<Middleware<ContextMessageUpdate>>, Loggable {
+  implements Provider<MiddlewareProvider>, Loggable {
   logger: Logger;
 
   constructor(
@@ -16,7 +16,7 @@ export class I18nProvider
     private app: ConvoMarkApplication,
   ) {}
 
-  async value(): Promise<Middleware<ContextMessageUpdate>> {
+  async value(): Promise<MiddlewareProvider> {
     const directory = path.resolve(
       this.app.projectRoot,
       '..',
@@ -28,7 +28,6 @@ export class I18nProvider
       directory,
     });
     this.logger.debug('Loaded Telegram locales from', directory);
-
-    return i18n.middleware();
+    return i18n;
   }
 }

@@ -41,7 +41,7 @@
     "docker:run": "docker run -p 3000:3000 -d matteojoliveau/convomark:latest",
     "migrate": "node ./dist/migrate",
     "prestart": "yarn clean && yarn build",
-    "start": "node -r dotenv/config .",
+    "start": "node -r pino-debug -r dotenv/config .",
     "start:prod": "node .",
     "start:watch": "nodemon",
     "prepublishOnly": "yarn test"
@@ -66,6 +66,7 @@
     "passport-jwt": "^4.0.0",
     "pino": "^5.12.2",
     "pino-clf": "^1.0.6",
+    "pino-debug": "^1.3.0",
     "slug": "^1.1.0",
     "telegraf": "^3.30.1",
     "telegraf-i18n": "^6.5.0",

@@ -1,1 +1,13 @@
 greetings: Ciao ${from.first_name}!
+cancel: Cancella
+bookmarks:
+  save:
+    step1: 'Ricevto! In che collezione vuoi che lo salvi?'
+    step2: 
+      question: 'Grazie! Ho salvato il messaggio nella collezione ${collection}. Desideri dargli un nome?'
+      yes: 'Si'
+      no: 'No'
+    step3:
+      yes: 'Va bene, scrivimi il nome'
+      no: 'Perfetto! Ho salvato il messaggio'
+    conclusion: 'Perfetto! Ho salvato il messaggio con il nome ${bookmark}'

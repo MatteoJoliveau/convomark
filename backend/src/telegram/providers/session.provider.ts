@@ -2,13 +2,14 @@ import {Provider} from '@loopback/context';
 import RedisSession from 'telegraf-session-redis';
 import {Middleware, ContextMessageUpdate} from 'telegraf';
 import {logger, Loggable, Logger} from '../../logging';
+import { MiddlewareProvider } from '../types';
 
 @logger()
 export class SessionProvider
-  implements Provider<Middleware<ContextMessageUpdate>>, Loggable {
+  implements Provider<MiddlewareProvider>, Loggable {
   logger: Logger;
 
-  value(): Promise<Middleware<ContextMessageUpdate>> {
+  value(): Promise<MiddlewareProvider> {
     return new Promise((resolve, reject) => {
       const session = new RedisSession({
         store: {
@@ -20,7 +21,7 @@ export class SessionProvider
         .on('connect', () => {
           this.logger.debug('Redis connected');
           this.logger.debug('Initialized Redis based session');
-          resolve(session.middleware());
+          resolve(session);
         })
         .on('error', e => {
           this.logger.error(e);

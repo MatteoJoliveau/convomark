@@ -1,1 +1,13 @@
 greetings: Hello ${from.first_name}!
+cancel: Cancel
+bookmarks:
+  save:
+    step1: 'Got it! In which collection do you want to save it?'
+    step2: 
+      question: 'Thank you! I saved it in the ${collection} collection. Do you want to name this bookmark?'
+      yes: 'yes'
+      no: 'no'
+    step3:
+      yes: 'All right, send me the name'
+      no: 'Perfect! I saved your bookmark'
+    conclusion: 'Perfect! I saved your bookmark as ${bookmark}'

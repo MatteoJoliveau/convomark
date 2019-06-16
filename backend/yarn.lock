@@ -2211,7 +2211,7 @@ fast-deep-equal@^2.0.1:
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
   integrity sha1-ewUhjd+WZ79/Nwv3/bLLFf3Qqkk=
 
-fast-json-parse@^1.0.2:
+fast-json-parse@^1.0.2, fast-json-parse@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/fast-json-parse/-/fast-json-parse-1.0.3.tgz#43e5c61ee4efa9265633046b770fb682a7577c4d"
   integrity sha512-FRWsaZRWEJ1ESVNbDWmsAlqDk96gPQezzLghafp5J4GUKjbCz3OkAHuZs5TuPEtkbVQERysLp9xv6c24fBm8Aw==
@@ -2230,6 +2230,11 @@ fast-redact@^1.4.4:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/fast-redact/-/fast-redact-1.5.0.tgz#302892f566750c4f5eec7b830bfc9bc473484034"
   integrity sha512-Afo61CgUjkzdvOKDHn08qnZ0kwck38AOGcMlvSGzvJbIab6soAP5rdoQayecGCDsD69AiF9vJBXyq31eoEO2tQ==
+
+fast-safe-stringify@^1.0.8, fast-safe-stringify@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-1.2.3.tgz#9fe22c37fb2f7f86f06b8f004377dbf8f1ee7bc1"
+  integrity sha512-QJYT/i0QYoiZBQ71ivxdyTqkwKkQ0oxACXHYxH2zYHJEgzi2LsbjgvtzTbLi1SZcF190Db2YP7I7eTsU2egOlw==
 
 fast-safe-stringify@^2.0.6:
   version "2.0.6"
@@ -2305,7 +2310,7 @@ flat@^4.1.0:
   dependencies:
     is-buffer "~2.0.3"
 
-flatstr@^1.0.9:
+flatstr@^1.0.5, flatstr@^1.0.9:
   version "1.0.12"
   resolved "https://registry.yarnpkg.com/flatstr/-/flatstr-1.0.12.tgz#c2ba6a08173edbb6c9640e3055b95e287ceb5931"
   integrity sha512-4zPxDyhCyiN2wIAtSLI6gc82/EjqZc1onI4Mz/l0pWrAlsSfYH/2ZIcU+e3oA2wDwbzIWNKwa23F8rh6+DRWkw==
@@ -4371,6 +4376,13 @@ pino-clf@^1.0.6:
     pump "^1.0.2"
     through2 "^2.0.3"
 
+pino-debug@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/pino-debug/-/pino-debug-1.3.0.tgz#8d4d6e57f0880370587728935bdce63cf753f2d2"
+  integrity sha512-vmzrp1AXi5zTWlG7DSa0olmBhs4FbxwhI4DttKmaA1pPWbt2VB/EYvJ+mOsJQE5Cmi3qd9obYaX3ZmhwZ2N6bA==
+  dependencies:
+    pino "^4.0.2"
+
 pino-pretty@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-3.1.0.tgz#8309ea065f40dab8df0c2638b4fbbafd8148d1e7"
@@ -4386,7 +4398,7 @@ pino-pretty@^3.1.0:
     readable-stream "^3.3.0"
     split2 "^3.1.1"
 
-pino-std-serializers@^2.3.0:
+pino-std-serializers@^2.0.0, pino-std-serializers@^2.3.0:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/pino-std-serializers/-/pino-std-serializers-2.4.2.tgz#cb5e3e58c358b26f88969d7e619ae54bdfcc1ae1"
   integrity sha512-WaL504dO8eGs+vrK+j4BuQQq6GLKeCCcHaMB2ItygzVURcL1CycwNEUHTD/lHFHs/NL5qAz2UKrjYWXKSf4aMQ==
@@ -4402,6 +4414,20 @@ pino-toke@^1.0.0:
     ndjson "^1.4.3"
     pump "^1.0.2"
     through2 "^2.0.1"
+
+pino@^4.0.2:
+  version "4.17.6"
+  resolved "https://registry.yarnpkg.com/pino/-/pino-4.17.6.tgz#8c237f3a29f4104f89321c25037deab6a7998fb4"
+  integrity sha512-LFDwmhyWLBnmwO/2UFbWu1jEGVDzaPupaVdx0XcZ3tIAx1EDEBauzxXf2S0UcFK7oe+X9MApjH0hx9U1XMgfCA==
+  dependencies:
+    chalk "^2.4.1"
+    fast-json-parse "^1.0.3"
+    fast-safe-stringify "^1.2.3"
+    flatstr "^1.0.5"
+    pino-std-serializers "^2.0.0"
+    pump "^3.0.0"
+    quick-format-unescaped "^1.1.2"
+    split2 "^2.2.0"
 
 pino@^5.12.2:
   version "5.12.6"
@@ -4536,6 +4562,13 @@ qs@6.7.0, qs@^6.5.0, qs@^6.5.1, qs@^6.5.2:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
+
+quick-format-unescaped@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/quick-format-unescaped/-/quick-format-unescaped-1.1.2.tgz#0ca581de3174becef25ac3c2e8956342381db698"
+  integrity sha1-DKWB3jF0vs7yWsPC6JVjQjgdtpg=
+  dependencies:
+    fast-safe-stringify "^1.0.8"
 
 quick-format-unescaped@^3.0.2:
   version "3.0.2"
@@ -5130,7 +5163,7 @@ split-string@^3.0.1, split-string@^3.0.2:
   dependencies:
     extend-shallow "^3.0.0"
 
-split2@^2.1.0:
+split2@^2.1.0, split2@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/split2/-/split2-2.2.0.tgz#186b2575bcf83e85b7d18465756238ee4ee42493"
   integrity sha512-RAb22TG39LhI31MbreBgIuKiIKhVsawfTgEGqKHTK87aG+ul/PB8Sqoi3I7kVdRWiCfrKxK3uo4/YUkpNvhPbw==
