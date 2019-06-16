@@ -39,6 +39,10 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
   ) {
     this.bot = new Telegraf(token);
 
+    if (maintenance) {
+      this.setUpMaintenanceMode();
+    }
+
     this.bot.use(sessionMiddleware.middleware());
     this.bot.use(localizationMiddleware.middleware());
 
@@ -65,9 +69,6 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
     if (mode === 'production') {
       const webhook = `${domain}/bot/updates/${secret.toString('hex')}`;
       this.setUpWebhook(webhook);
-    }
-    if (maintenance) {
-      this.setUpMaintenanceMode();
     }
   }
 
