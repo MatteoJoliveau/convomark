@@ -10,6 +10,7 @@ import {
   BookmarkCollectionRepository,
 } from '../../../repositories';
 import {Collection, Bookmark, BookmarkCollection} from '../../../models';
+import { validateTelegramLink } from '../../../validators';
 
 @logger()
 export class SaveBookmarksSceneProvider
@@ -29,11 +30,24 @@ export class SaveBookmarksSceneProvider
       'save-bookmark',
       async ctx => {
         const {entities, text} = ctx.message!;
-        const entity = entities!.find(e => e.type === 'url')!;
-        ctx.session.messageLink = text!.substring(
+        if (!entities) {
+          this.logger.error('No entities!', ctx.message);
+          return ctx.scene.leave();
+        }
+        const entity = entities.find(e => e.type === 'url')!;
+        const link = text!.substring(
           entity.offset,
           entity.offset + entity.length,
         );
+        try {
+          validateTelegramLink(link);
+        } catch (e) {
+          this.logger.warn(e.message, { user: ctx.from!.id, message: ctx.message });
+          ctx.reply(ctx.i18n.t('validations.telegramLink', { link }));
+          ctx.session = null;
+          return ctx.scene.leave();
+        }
+        ctx.session.messageLink = link;
         const collections = await this.userRepository
           .collections(ctx.from!.id)
           .find();

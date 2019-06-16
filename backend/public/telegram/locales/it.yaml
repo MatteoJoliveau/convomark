@@ -11,3 +11,5 @@ bookmarks:
       yes: 'Va bene, scrivimi il nome'
       no: 'Perfetto! Ho salvato il messaggio'
     conclusion: 'Perfetto! Ho salvato il messaggio con il nome ${bookmark}'
+validations:
+  telegramLink: 'Mi dispiace! ${link} non sembra essere un link Telegram!'

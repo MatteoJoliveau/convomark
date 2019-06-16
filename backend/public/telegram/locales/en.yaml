@@ -11,3 +11,5 @@ bookmarks:
       yes: 'All right, send me the name'
       no: 'Perfect! I saved your bookmark'
     conclusion: 'Perfect! I saved your bookmark as ${bookmark}'
+validations:
+  telegramLink: 'Sorry! ${link} is not a Telegram link!'
