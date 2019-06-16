@@ -34,7 +34,7 @@
     "eslint": "lb-eslint --report-unused-disable-directives .",
     "eslint:fix": "yarn eslint --fix",
     "pretest": "yarn clean && yarn build",
-    "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
+    "test": "lb-mocha --allow-console-logs \"dist/__tests__\" --exit",
     "posttest": "yarn lint",
     "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && yarn posttest",
     "docker:build": "docker build -t matteojoliveau/convomark:latest .",
