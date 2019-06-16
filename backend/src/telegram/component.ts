@@ -15,8 +15,12 @@ import {
   I18nProvider,
 } from './providers';
 import {TelegramBindings} from './keys';
-import { TelegramCommandBindings } from './commands/keys';
-import { CommandProvider, SaveBookmarksSceneProvider, StageProvider } from './commands';
+import {TelegramCommandBindings} from './commands/keys';
+import {
+  CommandProvider,
+  SaveBookmarksSceneProvider,
+  StageProvider,
+} from './commands';
 
 export class TelegramComponent implements Component {
   providers = {
@@ -28,7 +32,8 @@ export class TelegramComponent implements Component {
     // Commands
     [TelegramCommandBindings.COMMANDS.key]: CommandProvider,
     [TelegramCommandBindings.STAGE.key]: StageProvider,
-    [TelegramCommandBindings.SAVE_BOOKMARK_SCENE.key]: SaveBookmarksSceneProvider,
+    [TelegramCommandBindings.SAVE_BOOKMARK_SCENE
+      .key]: SaveBookmarksSceneProvider,
   };
   controllers = [UpdateController];
   bindings: Binding[];

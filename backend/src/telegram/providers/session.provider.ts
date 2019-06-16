@@ -1,12 +1,10 @@
 import {Provider} from '@loopback/context';
 import RedisSession from 'telegraf-session-redis';
-import {Middleware, ContextMessageUpdate} from 'telegraf';
 import {logger, Loggable, Logger} from '../../logging';
-import { MiddlewareProvider } from '../types';
+import {MiddlewareProvider} from '../types';
 
 @logger()
-export class SessionProvider
-  implements Provider<MiddlewareProvider>, Loggable {
+export class SessionProvider implements Provider<MiddlewareProvider>, Loggable {
   logger: Logger;
 
   value(): Promise<MiddlewareProvider> {

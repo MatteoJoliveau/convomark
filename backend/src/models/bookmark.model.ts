@@ -24,7 +24,7 @@ export class Bookmark extends Entity {
   messageLink: string;
 
   @property({
-    type: 'string'
+    type: 'string',
   })
   name?: string;
 

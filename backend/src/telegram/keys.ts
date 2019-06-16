@@ -1,5 +1,5 @@
 import {BindingKey} from '@loopback/context';
-import { MiddlewareProvider } from './types';
+import {MiddlewareProvider} from './types';
 
 export namespace TelegramBindings {
   export const TELEGRAM_TOKEN = BindingKey.create<string>('telegram.token');
@@ -8,10 +8,10 @@ export namespace TelegramBindings {
   export const TELEGRAM_MAINTENANCE = BindingKey.create<boolean>(
     'telegram.maintenance',
   );
-  export const TELEGRAM_SESSION = BindingKey.create<
-    MiddlewareProvider
-  >('telegram.session');
-  export const TELEGRAM_I18N = BindingKey.create<
-    MiddlewareProvider
-  >('telegram.i18n');
+  export const TELEGRAM_SESSION = BindingKey.create<MiddlewareProvider>(
+    'telegram.session',
+  );
+  export const TELEGRAM_I18N = BindingKey.create<MiddlewareProvider>(
+    'telegram.i18n',
+  );
 }

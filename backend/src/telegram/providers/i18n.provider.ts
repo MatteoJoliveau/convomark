@@ -4,11 +4,10 @@ import {logger, Loggable, Logger} from '../../logging';
 import {CoreBindings} from '@loopback/core';
 import {ConvoMarkApplication} from '../..';
 import path from 'path';
-import { MiddlewareProvider } from '../types';
+import {MiddlewareProvider} from '../types';
 
 @logger()
-export class I18nProvider
-  implements Provider<MiddlewareProvider>, Loggable {
+export class I18nProvider implements Provider<MiddlewareProvider>, Loggable {
   logger: Logger;
 
   constructor(

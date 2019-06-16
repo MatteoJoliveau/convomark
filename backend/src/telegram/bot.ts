@@ -1,4 +1,4 @@
-import Telegraf, { Middleware, ContextMessageUpdate } from 'telegraf';
+import Telegraf, {Middleware, ContextMessageUpdate} from 'telegraf';
 import {
   inject,
   lifeCycleObserver,
@@ -6,16 +6,16 @@ import {
   CoreBindings,
   ApplicationConfig,
 } from '@loopback/core';
-import { Update } from 'telegram-typings';
-import { TelegramBindings } from './keys';
-import { ConvoMarkBindings, ApplicationMode } from '../providers';
-import { Loggable, Logger, logger } from '../logging';
-import { TelegramCommandBindings } from './commands/keys';
+import {Update} from 'telegram-typings';
+import {TelegramBindings} from './keys';
+import {ConvoMarkBindings, ApplicationMode} from '../providers';
+import {Loggable, Logger, logger} from '../logging';
+import {TelegramCommandBindings} from './commands/keys';
 import Stage from 'telegraf/stage';
-import { MiddlewareProvider } from './types';
-import { repository } from '@loopback/repository';
-import { UserRepository } from '../repositories';
-const { enter } = Stage;
+import {MiddlewareProvider} from './types';
+import {repository} from '@loopback/repository';
+import {UserRepository} from '../repositories';
+const {enter} = Stage;
 
 @logger()
 @lifeCycleObserver()
@@ -31,9 +31,10 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
     sessionMiddleware: MiddlewareProvider,
     @inject(TelegramBindings.TELEGRAM_I18N)
     localizationMiddleware: MiddlewareProvider,
-    @inject(TelegramCommandBindings.COMMANDS) commands: Middleware<ContextMessageUpdate>[],
+    @inject(TelegramCommandBindings.COMMANDS)
+    commands: Middleware<ContextMessageUpdate>[],
     @inject(ConvoMarkBindings.APPLICATION_MODE) mode: ApplicationMode,
-    @inject(CoreBindings.APPLICATION_CONFIG) { domain }: ApplicationConfig,
+    @inject(CoreBindings.APPLICATION_CONFIG) {domain}: ApplicationConfig,
     @repository(UserRepository) userRepository: UserRepository,
   ) {
     this.bot = new Telegraf(token);
@@ -41,12 +42,12 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
     this.bot.use(sessionMiddleware.middleware());
     this.bot.use(localizationMiddleware.middleware());
 
-    this.bot.command('/del', async (ctx) => {
-      const { count } = await userRepository.bookmarks(ctx.from!.id).delete();
+    this.bot.command('/del', async ctx => {
+      const {count} = await userRepository.bookmarks(ctx.from!.id).delete();
       ctx.reply(`Deleted ${count} bookmarks`);
-    })
+    });
 
-    this.bot.command('get', async (ctx) => {
+    this.bot.command('get', async ctx => {
       const bookmarks = await userRepository.bookmarks(ctx.from!.id).find();
       ctx.reply(JSON.stringify(bookmarks));
     });
@@ -57,8 +58,8 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
 
     this.bot.entity('url', enter('save-bookmark'));
 
-    this.bot.on('message', ({ from, reply, i18n }) => {
-      reply(i18n.t('greetings', { from }));
+    this.bot.on('message', ({from, reply, i18n}) => {
+      reply(i18n.t('greetings', {from}));
     });
 
     if (mode === 'production') {
@@ -80,8 +81,8 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
       this.logger.error(e);
       throw new Error(e);
     });
-    const { username } = await this.bot.telegram.getMe();
-    this.logger.info('Bot is running', { username });
+    const {username} = await this.bot.telegram.getMe();
+    this.logger.info('Bot is running', {username});
     return Promise.resolve();
   }
 
@@ -95,11 +96,11 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
     try {
       const webhookInfo = await this.bot.telegram.getWebhookInfo();
       if (webhookInfo.url && webhookInfo.url === webhook) {
-        this.logger.info('Webhook already set', { webhook });
+        this.logger.info('Webhook already set', {webhook});
       } else {
         const success = await this.bot.telegram.setWebhook(webhook);
         if (success) {
-          this.logger.info('Registered bot webook', { webhook });
+          this.logger.info('Registered bot webook', {webhook});
         } else {
           this.logger.error('Something went wrong when setting the webhook');
         }
@@ -111,7 +112,7 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
 
   setUpMaintenanceMode() {
     this.logger.warn('Activated maintenance mode');
-    this.bot.use(({ from, reply }) => {
+    this.bot.use(({from, reply}) => {
       reply(`Hello ${from!.first_name}, the bot is under maintenance.
 Please try again later`);
     });
