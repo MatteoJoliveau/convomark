@@ -25,7 +25,7 @@ export default {
       body: `ConvoMark is a Telegram Bot and website that allows you to
       bookmark important messages, so that you can recover them later.
       It was born from an idea of <a href="https://t.me/FraYoshi" target="_blank">FraYoshi</a> over at
-      <a href="https://t.me/morrolinux" target="_blank">Morrlinux's Group</a> and developed by
+      <a href="https://t.me/morrolinux" target="_blank">Morrolinux's Group</a> and developed by
       <a href="https://t.me/GamesCodex" target="_blank">GamesCodex</a>.`,
       technical: `For the developers amongst you, ConvoMark is composed of two main parts:<br/>
       <ul>
@@ -43,5 +43,9 @@ export default {
         Any donation, althought absolutely not required, are much appreciated!`,
       },
     },
+  },
+  alerts: {
+    deleted: '{object} deleted!',
+    error: 'Ops! There was an error!',
   },
 };

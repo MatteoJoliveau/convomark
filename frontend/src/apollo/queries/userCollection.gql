@@ -5,6 +5,7 @@ query UserCollection($slug: String!) {
             slug
             bookmarks {
                 id
+                name
                 messageLink
             }
             bookmarkCount
