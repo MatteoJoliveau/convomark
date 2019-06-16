@@ -27,7 +27,7 @@
           <router-link v-for="collection in collections"
             :key="collection.slug"
             :to="{ name: 'collection', params: { slug: collection.slug } }"
-            class="navbar-item" >
+            class="navbar-item">
             {{ collection.title }}
           </router-link>
         </div>
@@ -78,6 +78,12 @@ export default {
     toggleMenu() {
       this.menuActive = !this.menuActive;
     },
+  },
+  created() {
+    this.$router.beforeResolve((_to, _from, next) => {
+      this.menuActive = false;
+      next();
+    });
   },
 };
 </script>
