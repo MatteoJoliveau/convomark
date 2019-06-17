@@ -30,3 +30,10 @@ declare module 'telegraf' {
     scene: WizardScene;
   }
 }
+
+export interface CrudMiddlewares {
+  create: Middleware<ContextMessageUpdate>
+  read: Middleware<ContextMessageUpdate>
+  update: Middleware<ContextMessageUpdate>
+  delete: Middleware<ContextMessageUpdate>
+}
