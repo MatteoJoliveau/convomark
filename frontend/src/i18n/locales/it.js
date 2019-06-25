@@ -45,6 +45,6 @@ export default {
     deleted: '{object} cancellato!',
     error: "Ops! C'è stato un errore!",
   },
-  cookies: `Questo sito web utilizza un'istanza privata di <a href="${process.env.MATOMO_HOST}">Matomo</a> per raccogliere dati di analitica su traffico e utilizzo. Questo processo è opzionale e disabilitato di default.<br/>
+  cookies: `Questo sito web utilizza un'istanza privata di <a href="${process.env.VUE_APP_MATOMO_HOST}">Matomo</a> per raccogliere dati di analitica su traffico e utilizzo. Questo processo è opzionale e disabilitato di default.<br/>
   Se desideri attivare questa funzionalità, per favore clicca il pulsante. Aiuterai a migliorare l'esperienza utente di tutti!`,
 };

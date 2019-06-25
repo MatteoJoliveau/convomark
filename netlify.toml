@@ -4,7 +4,7 @@ command = "yarn install && yarn build"
 publish = "frontend/dist"
 
 [build.environment]
-  MATOMO_HOST = "https://analytics.matteojoliveau.com"
+  VUE_APP_MATOMO_HOST = "https://analytics.matteojoliveau.com"
 
 [context.production]
   [context.production.environment]
