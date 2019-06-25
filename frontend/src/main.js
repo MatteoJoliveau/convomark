@@ -13,7 +13,8 @@ Vue.config.productionTip = false;
 
 Vue.use(Buefy);
 
-Vue.user(Matomo, {
+// if (process.env.MATOMO_HOST) {
+Vue.use(Matomo, {
   host: process.env.MATOMO_HOST,
   siteId: 1,
   trackerFileName: 'matomo',
@@ -22,6 +23,8 @@ Vue.user(Matomo, {
   requireConsent: true,
   debug: process.env.CONTEXT !== 'production',
 });
+// }
+
 
 new Vue({
   router,

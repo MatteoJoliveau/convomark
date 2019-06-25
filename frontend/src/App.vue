@@ -1,11 +1,17 @@
 <template>
   <div id="app">
+    <cookie-law theme="dark-lime" @accept="acceptTracking">
+      <div slot="message">
+        <p v-html="$t('cookies')"></p>
+      </div>
+    </cookie-law>
     <navbar />
     <router-view/>
   </div>
 </template>
 
 <script>
+import CookieLaw from 'vue-cookie-law';
 import Navbar from '@/components/Navbar.vue';
 import { REFRESH_TOKEN_STATE } from '@/store/auth';
 import authenticated from '@/mixins/authenticated';
@@ -13,7 +19,7 @@ import userLanguage from '@/apollo/queries/userLanguage.gql';
 
 export default {
   name: 'App',
-  components: { Navbar },
+  components: { CookieLaw, Navbar },
   mixins: [authenticated],
   data() {
     return {
@@ -32,6 +38,11 @@ export default {
       skip() {
         return !this.authenticated;
       }
+    },
+  },
+  methods: {
+    acceptTracking() {
+      this.$matomo.rememberConsentGiven();
     },
   },
   created() {
