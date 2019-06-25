@@ -48,6 +48,6 @@ export default {
     deleted: '{object} deleted!',
     error: 'Ops! There was an error!',
   },
-  cookies: `This website uses a private instance of <a href="${process.env.VUE_APP_MATOMO_HOST}">Matomo</a> to collect traffic and usage analytics. This process is optional and disable by default.<br/>
+  cookies: `This website uses a private instance of <a href="${process.env.VUE_APP_MATOMO_HOST}/index.php?module=CoreHome&action=index&idSite=1&period=day&date=yesterday#?idSite=1&period=day&date=yesterday&category=Dashboard_Dashboard&subcategory=1">Matomo</a> to collect traffic and usage analytics. This process is optional and disable by default.<br/>
   If you want to opt-in, please click on the button. You will help improving the user experience for you and everyone else!`,
 };
