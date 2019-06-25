@@ -10239,6 +10239,11 @@ timsort@^0.3.0:
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
+tiny-cookie@^2.1.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/tiny-cookie/-/tiny-cookie-2.3.1.tgz#f0ea9fa194f2aed631dcd5e69ac0d6587be928c8"
+  integrity sha512-C4x1e8dHfKf03ewuN9aIZzzOfN2a6QKhYlnHdzJxmmjMTLqcskI20F+EplszjODQ4SHmIGFJrvUUnBMS/bJbOA==
+
 tiny-emitter@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.1.0.tgz#1d1a56edfc51c43e863cbb5382a72330e3555423"
@@ -10751,6 +10756,13 @@ vue-cli-plugin-i18n@^0.6.0:
     vue-i18n "^8.0.0"
     vue-i18n-extract "^0.4.13"
 
+vue-cookie-law@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/vue-cookie-law/-/vue-cookie-law-1.10.0.tgz#a7620b58fc16c193c69da2bdfeed83c5cc735a5e"
+  integrity sha512-5bj4TfZyGEDD71gQ2QoQQoJnxGzbIJh44KwCVXT7OO3/Cofk0PuJy9jZgoXQjiozF9nJg+lVZTfoAFjY9YPe3g==
+  dependencies:
+    tiny-cookie "^2.1.1"
+
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-2.0.3.tgz#c268c96c6d94cfe3d938a5f7593959b0ca3360d1"
@@ -10816,6 +10828,11 @@ vue-loading-spinner@^1.0.11:
     node-sass "^4.5.3"
     sass-loader "^6.0.6"
     vue "^2.3.3"
+
+vue-matomo@^3.9.1-2:
+  version "3.9.1-2"
+  resolved "https://registry.yarnpkg.com/vue-matomo/-/vue-matomo-3.9.1-2.tgz#c409fac632c3eb3a3d2d6b88a3cf2edbc166cdb1"
+  integrity sha512-wq9DtgV6yp86xKw4O0s+3DWcG+wjiCYlHoalzFTTqcRPpkWiZl1esWYsvWkDYxVHXzzfAWjS+4bYK65cvFUBoA==
 
 vue-router@^3.0.2, vue-router@^3.0.3:
   version "3.0.6"
