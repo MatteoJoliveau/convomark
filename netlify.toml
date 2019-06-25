@@ -3,6 +3,9 @@ base = "frontend"
 command = "yarn install && yarn build"
 publish = "frontend/dist"
 
+[build.environment]
+  MATOMO_HOST = "https://analytics.matteojoliveau.com"
+
 [context.production]
   [context.production.environment]
     VUE_APP_TELEGRAM_BOT_NAME = "convomarkbot"
