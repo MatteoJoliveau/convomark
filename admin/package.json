@@ -7,7 +7,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:netlify": "vue-cli-service build --dest ../frontend/dist",
+    "build:netlify": "vue-cli-service build --dest ../frontend/dist/admin",
     "build:staging": "vue-cli-service build --mode staging",
     "preview": "node build/index.js --preview",
     "lint": "eslint --ext .js,.vue src",
