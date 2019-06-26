@@ -1,8 +1,6 @@
 module.exports = {
   devServer: {
-    port: 80,
-    public: 'http://microwave.home.local',
-    disableHostCheck: true,
+    disableHostCheck: true
   },
 
   pluginOptions: {
@@ -10,10 +8,10 @@ module.exports = {
       locale: 'en',
       fallbackLocale: 'en',
       localeDir: 'i18n',
-      enableInSFC: true,
+      enableInSFC: true
     },
     pwa: {
-      themeColor: '#fafafa',
-    },
-  },
-};
+      themeColor: '#fafafa'
+    }
+  }
+}
