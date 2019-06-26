@@ -8,5 +8,5 @@ import { ThreeDots } from 'vue-loading-spinner';
 export default {
   name: 'loading',
   components: { ThreeDots },
-}
+};
 </script>

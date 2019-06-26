@@ -5,13 +5,16 @@ publish = "frontend/dist"
 
 [build.environment]
   VUE_APP_MATOMO_HOST = "https://analytics.matteojoliveau.com"
+  VUE_APP_SENTRY_DSN = "https://6df2cb57dd9049f7a7091b4193e3ac11@sentry.io/1490786"
 
 [context.production]
   [context.production.environment]
     VUE_APP_TELEGRAM_BOT_NAME = "convomarkbot"
     VUE_APP_API_ENDPOINT = "https://api.convomark.matteojoliveau.com"
+    VUE_APP_SENTRY_CURRENT_ENV = "production"
 
 [context.develop]
   [context.develop.environment]
     VUE_APP_TELEGRAM_BOT_NAME = "convomarkstagingbot"
     VUE_APP_API_ENDPOINT = "https://convomark-staging.server.matteojoliveau.com"
+    VUE_APP_SENTRY_CURRENT_ENV = "staging"

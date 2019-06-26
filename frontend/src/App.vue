@@ -12,7 +12,7 @@
         <div class="Cookie__buttons">
           <button class="Cookie__button" @click="accept">{{ $t('cookies.accept') }}</button>
           <button class="Cookie__button" @click="refuseTracking">{{ $t('cookies.refuse') }}</button>
-          <router-link :to="{ name: 'about' }" class="button-link">{{ $t('cookies.link') }}</router-link>
+          <router-link :to="{ name: 'privacy' }" class="button-link">{{ $t('cookies.link') }}</router-link>
         </div>
       </template>
     </cookie-law>
@@ -22,48 +22,48 @@
 </template>
 
 <script>
-  import CookieLaw from 'vue-cookie-law'
-  import Navbar from '@/components/Navbar.vue'
-  import { REFRESH_TOKEN_STATE } from '@/store/auth'
-  import authenticated from '@/mixins/authenticated'
-  import userLanguage from '@/apollo/queries/userLanguage.gql'
+import CookieLaw from 'vue-cookie-law';
+import Navbar from '@/components/Navbar.vue';
+import { REFRESH_TOKEN_STATE } from '@/store/auth';
+import authenticated from '@/mixins/authenticated';
+import userLanguage from '@/apollo/queries/userLanguage.gql';
 
-  export default {
-    name: 'App',
-    components: { CookieLaw, Navbar },
-    mixins: [authenticated],
-    data () {
-      return {
-        currentUser: {},
-      }
-    },
-    apollo: {
-      currentUser: {
-        query: userLanguage,
-        result ({ data, loading }) {
-          if (!loading) {
-            const { currentUser: { languageCode } } = data
-            this.$i18n.locale = languageCode
-          }
-        },
-        skip () {
-          return !this.authenticated
-        },
+export default {
+  name: 'App',
+  components: { CookieLaw, Navbar },
+  mixins: [authenticated],
+  data() {
+    return {
+      currentUser: {},
+    };
+  },
+  apollo: {
+    currentUser: {
+      query: userLanguage,
+      result({ data, loading }) {
+        if (!loading) {
+          const { currentUser: { languageCode } } = data;
+          this.$i18n.locale = languageCode;
+        }
+      },
+      skip() {
+        return !this.authenticated;
       },
     },
-    methods: {
-      acceptTracking () {
-        this.$matomo.rememberConsentGiven()
-      },
-      refuseTracking () {
-        this.$refs.cookies.close();
-        this.$refs.cookies.setVisited();
-      },
+  },
+  methods: {
+    acceptTracking() {
+      this.$matomo.rememberConsentGiven();
     },
-    created () {
-      this.$store.dispatch(`auth/${REFRESH_TOKEN_STATE}`, { apolloClient: this.$apollo.provider.clients.defaultClient })
+    refuseTracking() {
+      this.$refs.cookies.close();
+      this.$refs.cookies.setVisited();
     },
-  }
+  },
+  created() {
+    this.$store.dispatch(`auth/${REFRESH_TOKEN_STATE}`, { apolloClient: this.$apollo.provider.clients.defaultClient });
+  },
+};
 </script>
 
 

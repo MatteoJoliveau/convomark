@@ -1,3 +1,5 @@
+import { MATOMO_URL } from '../../constants';
+
 export default {
   names: {
     bookmarks: 'Bookmarks',
@@ -40,6 +42,31 @@ export default {
         Ogni donazione, per quanto assolutamente non obbligatoria, è estremamente ben accetta!`,
       },
     },
+    privacy: {
+      title: 'Privacy e Trasparenza',
+      body: `ConvoMark mira ad essere il più aperto e trasparente possibile. La privacy dei nostri utenti è un tema prioritario e puntiamo
+      a proteggere il più possibile le informazioni personali che raccogliamo. Allo stesso tempo vogliamo essere il più trasparenti possibili
+      sull'andamento della piattaforma, le metriche di utilizzo e la gestione dei dati personali. Al fine di offrire la migliora esperienza possibile
+      ai nostri utenti e per semplificare i lavori di sviluppo, ConvoMark si avvale di alcune tecnologie di tracciamento.`,
+      matomo: {
+        title: 'Tracking',
+        body: `L'analisi dei comportamenti degli utenti permette di comprendere come viene usata la piattaforma, quali punti possono essere migliorati
+        e dove focalizzare lo sviluppo. ConvoMark si avvale di un'installazione privata di <a href="https://matomo.org/" target="_blank">Matomo</a> per tracciare
+        l'attività utente sulle pagine del sito, realizzare un profilo demografico dell'utenza e identificare i colli di bottiglia. Nel rispetto della privacy
+        utente tutte le impostazioni di anonimizzazione sono state attivate (IP registration a soli due byte, sostituzione dello user ID con uno pseudonimo, geolocalizzazione IP
+        a bassa risoluzione) ed il tracking è disabilitato di default. L'utente deve dare esplicito consenso per essere profilato. Il server di analytics è inoltre configurato per rispettare
+        le impostazioni <a href="https://allaboutdnt.com/" target="_blank">DoNotTrack</a> del browser.
+        I dati aggregati raccolti sono pubblicamente visibili a <a href="${MATOMO_URL}" target="_blank">questo indirizzo.</a>`,
+      },
+      sentry: {
+        title: 'Raccolta Errori',
+        body: `Al fine di semplificare la risoluzione dei problemi tecnici legati alla piattaforma, ConvoMark utilizza <a href="https://sentry.io" target="_blank">Sentry</a> come
+        servizio di raccolta errori. Eventuali errori applicativi generati dal sito, dal server API o dal bot verranno raccolti ed inviati ai server di Sentry per l'elaborazione.
+        Qualora l'utente sia autenticato quando l'errore occorre, una copia dei dati di autenticazione forniti da Telegram (elencati <a href="https://telegram.org/blog/login" target="_blank">qui</a>) verranno allegati all'errore per aiutare nel processo di troubleshooting.
+        L'IP utente NON viene salvato. Potranno venir allegate ulteriori informazioni relative, ad esempio, al sistema operativo, la versione del browser o del dispositivo utilizzato al fine di aiutare
+        gli sviluppatori nella risoluzione del problema. Nessuno di questi dati verrà utilizzato per profilazioni o statistiche al di fuori dei lavori di sviluppo.`
+      },
+    },
   },
   alerts: {
     deleted: '{object} cancellato!',
@@ -49,7 +76,7 @@ export default {
     accept: 'Accetto',
     refuse: 'No grazie',
     link: 'Maggiori informazioni',
-    message: `Questo sito web utilizza un'istanza privata di <a href="${process.env.VUE_APP_MATOMO_HOST}/index.php?module=CoreHome&action=index&idSite=1&period=day&date=yesterday#?idSite=1&period=day&date=yesterday&category=Dashboard_Dashboard&subcategory=1">Matomo</a> per raccogliere dati di analitica su traffico e utilizzo. Questo processo è opzionale e disabilitato di default.<br/>
+    message: `Questo sito web utilizza un'istanza privata di <a href="${MATOMO_URL}">Matomo</a> per raccogliere dati di analitica su traffico e utilizzo. Questo processo è opzionale e disabilitato di default.<br/>
   Se desideri attivare questa funzionalità, per favore clicca il pulsante. Aiuterai a migliorare l'esperienza utente di tutti!`,
   },
 };

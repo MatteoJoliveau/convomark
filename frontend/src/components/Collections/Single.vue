@@ -17,7 +17,7 @@
 
 <script>
 import { BOT_LINK } from '@/constants';
-import BookmarkCard from '@/components/Bookmarks/Card.vue'
+import BookmarkCard from '@/components/Bookmarks/Card.vue';
 
 export default {
   name: 'collection',

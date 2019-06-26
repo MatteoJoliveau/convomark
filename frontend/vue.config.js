@@ -1,6 +1,6 @@
 module.exports = {
   devServer: {
-    disableHostCheck: true
+    disableHostCheck: true,
   },
 
   pluginOptions: {
@@ -8,10 +8,10 @@ module.exports = {
       locale: 'en',
       fallbackLocale: 'en',
       localeDir: 'i18n',
-      enableInSFC: true
+      enableInSFC: true,
     },
     pwa: {
-      themeColor: '#fafafa'
-    }
-  }
-}
+      themeColor: '#fafafa',
+    },
+  },
+};

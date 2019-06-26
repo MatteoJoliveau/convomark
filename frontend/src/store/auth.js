@@ -4,6 +4,7 @@
 import jwtDecode from 'jwt-decode';
 import isAfter from 'date-fns/is_after';
 import differenceInMilliseconds from 'date-fns/difference_in_milliseconds';
+import * as Sentry from '@sentry/browser';
 import { onLogin, onLogout } from '@/apollo';
 import { API_ENDPOINT } from '@/constants';
 
@@ -81,9 +82,15 @@ const auth = {
         onLogin(apolloClient, access_token);
         commit(STORE_USER, user);
         commit(STORE_TOKENS, tokens);
+        Sentry.configureScope((scope) => {
+          scope.setUser(user);
+        });
       } else {
         onLogout(apolloClient);
         commit(PERFORM_LOGOUT);
+        Sentry.configureScope((scope) => {
+          scope.setUser(null);
+        });
         throw new Error(res.statusText);
       }
     },

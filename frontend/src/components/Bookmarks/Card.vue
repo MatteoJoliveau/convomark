@@ -26,10 +26,10 @@ export default {
   computed: {
     messageHeader() {
       if (this.bookmark.name) {
-        return `${this.bookmark.name} - ${this.bookmark.messageLink}`
+        return `${this.bookmark.name} - ${this.bookmark.messageLink}`;
       }
       return this.bookmark.messageLink;
-    }
+    },
   },
 };
 </script>

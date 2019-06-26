@@ -23,6 +23,8 @@
   },
   "dependencies": {
     "@mdi/font": "^2.6.95",
+    "@sentry/browser": "^5.4.3",
+    "@sentry/integrations": "^5.4.2",
     "apollo-cache-inmemory": "^1.6.2",
     "buefy": "^0.7.7",
     "bulma": "^0.7.5",

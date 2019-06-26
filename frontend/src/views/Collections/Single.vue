@@ -10,22 +10,22 @@
 </template>
 
 <script>
-import bookmarkDelete from "@/apollo/mutations/bookmarkDelete.gql";
-import userCollection from "@/apollo/queries/userCollection.gql";
-import collection from "@/mixins/collection";
-import Loading from "@/components/Loading.vue";
-import Collection from "@/components/Collections/Single.vue";
-import remove from "lodash/remove";
+import bookmarkDelete from '@/apollo/mutations/bookmarkDelete.gql';
+import userCollection from '@/apollo/queries/userCollection.gql';
+import collection from '@/mixins/collection';
+import Loading from '@/components/Loading.vue';
+import Collection from '@/components/Collections/Single.vue';
+import remove from 'lodash/remove';
 
 export default {
-  name: "collection-single-view",
+  name: 'collection-single-view',
   components: { Collection, Loading },
   mixins: [collection],
   props: {
     slug: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {};
@@ -33,9 +33,9 @@ export default {
   watch: {
     collection(updated) {
       if (!updated) {
-        this.$router.replace({ name: "not-found" });
+        this.$router.replace({ name: 'not-found' });
       }
-    }
+    },
   },
   methods: {
     onBookmarkDeleted({ id }) {
@@ -43,40 +43,38 @@ export default {
         .mutate({
           mutation: bookmarkDelete,
           variables: {
-            id
+            id,
           },
           update: (store, { data: { bookmarkDelete } }) => {
             const variables = {
-              slug: this.slug
+              slug: this.slug,
             };
             const data = store.readQuery({
               query: userCollection,
-              variables
+              variables,
             });
 
             const predicate = bookmark => bookmark.id === id;
             remove(data.currentUser.collection.bookmarks, predicate);
             data.currentUser.collection.bookmarkCount -= 1;
             store.writeQuery({ query: userCollection, variables, data });
-          }
+          },
         })
-        .then(() =>
-          this.$notification.open({
-            message: this.$t('alerts.deleted', { object: 'Bookmark' }),
-            type: "is-success",
-            hasIcon: true
-          })
-        )
+        .then(() => this.$notification.open({
+          message: this.$t('alerts.deleted', { object: 'Bookmark' }),
+          type: 'is-success',
+          hasIcon: true,
+        }))
         .catch((e) => {
           this.$notification.open({
             message: this.$t('alerts.error'),
-            type: "is-danger",
-            hasIcon: true
+            type: 'is-danger',
+            hasIcon: true,
           });
           console.error(e);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
