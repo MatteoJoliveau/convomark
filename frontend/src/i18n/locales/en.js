@@ -56,12 +56,12 @@ export default {
         Aggregated data are publicy visible at this <a href="${MATOMO_URL}" target="_blank">link</a>.`
       },
       sentry: {
-        title: 'Raccolta Errori',
-        body: `Al fine di semplificare la risoluzione dei problemi tecnici legati alla piattaforma, ConvoMark utilizza <a href="https://sentry.io" target="_blank">Sentry</a> come
-        servizio di raccolta errori. Eventuali errori applicativi generati dal sito, dal server API o dal bot verranno raccolti ed inviati ai server di Sentry per l'elaborazione.
-        Qualora l'utente sia autenticato quando l'errore occorre, una copia dei dati di autenticazione forniti da Telegram (elencati <a href="https://telegram.org/blog/login" target="_blank">qui</a>) verranno allegati all'errore per aiutare nel processo di troubleshooting.
-        L'IP utente NON viene salvato. Potranno venir allegate ulteriori informazioni relative, ad esempio, al sistema operativo, la versione del browser o del dispositivo utilizzato al fine di aiutare
-        gli sviluppatori nella risoluzione del problema. Nessuno di questi dati verrà utilizzato per profilazioni o statistiche al di fuori dei lavori di sviluppo.`
+        title: 'Error Reporting',
+        body: `In order to simplify the resolution of technical issues related to the platform, ConvoMark uses <a href="https://sentry.io" target="_blank">Sentry</a> as its
+        error reporting service. Application errors generated on the website, the API server or the bot are collected and sent to Sentry servers to be processed.
+        If the user is authenticated when the error occurs, a copy of the authentication data provided by Telegram (listed <a href="https://telegram.org/blog/login" target="_blank">here</a>) will be attached to the error ticket to help in the troubleshooting process.
+        The user IP will NOT be persisted. Other informations such as the operating system, browser or device version could be attached too in order to help the development team.
+        None of these data will be used for analytical or tracking purposes.`
       },
     },
   },
