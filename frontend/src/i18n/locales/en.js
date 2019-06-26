@@ -1,4 +1,4 @@
-// href="" target="_blank"
+import { MATOMO_URL } from '../../constants';
 
 export default {
   names: {
@@ -43,11 +43,37 @@ export default {
         Any donation, althought absolutely not required, are much appreciated!`,
       },
     },
+    privacy: {
+      title: 'Privacy and Transparency',
+      body: `ConvoMark aims at being as open and transparent as possible`,
+      matomo: {
+        title: 'Tracking',
+        body: `User behavior analysis allows to better understand how the platform is being used, which parts can be improved and where to focus the development
+        effort. ConvoMark uses a private installation of <a href="https://matomo.org/" target="_blank">Matomo</a> to track user activity on the website, compile a demographic profile of the user base
+        and identity bottlenecks. To protect our users' privacy all anonymization features have been enabled (2 bytes IP masking, replacing user ID with a pseudonym, low resolution IP geocoding)
+        and users must willingly opt-in in the tracking. We never send any kind of data without the user's consent. The server is also configured to respect the browser's <a href="https://allaboutdnt.com/" target="_blank">DoNotTrack</a>
+        settings.
+        Aggregated data are publicy visible at this <a href="${MATOMO_URL}" target="_blank">link</a>.`
+      },
+      sentry: {
+        title: 'Error Reporting',
+        body: `In order to simplify the resolution of technical issues related to the platform, ConvoMark uses <a href="https://sentry.io" target="_blank">Sentry</a> as its
+        error reporting service. Application errors generated on the website, the API server or the bot are collected and sent to Sentry servers to be processed.
+        If the user is authenticated when the error occurs, a copy of the authentication data provided by Telegram (listed <a href="https://telegram.org/blog/login" target="_blank">here</a>) will be attached to the error ticket to help in the troubleshooting process.
+        The user IP will NOT be persisted. Other informations such as the operating system, browser or device version could be attached too in order to help the development team.
+        None of these data will be used for analytical or tracking purposes.`
+      },
+    },
   },
   alerts: {
     deleted: '{object} deleted!',
     error: 'Ops! There was an error!',
   },
-  cookies: `This website uses a private instance of <a href="${process.env.VUE_APP_MATOMO_HOST}">Matomo</a> to collect traffic and usage analytics. This process is optional and disable by default.<br/>
+  cookies: {
+    accept: 'I Accept',
+    refuse: 'No thanks',
+    link: 'More info',
+    message: `This website uses a private instance of <a href="${process.env.VUE_APP_MATOMO_HOST}/index.php?module=CoreHome&action=index&idSite=1&period=day&date=yesterday#?idSite=1&period=day&date=yesterday&category=Dashboard_Dashboard&subcategory=1">Matomo</a> to collect traffic and usage analytics. This process is optional and disable by default.<br/>
   If you want to opt-in, please click on the button. You will help improving the user experience for you and everyone else!`,
+  },
 };

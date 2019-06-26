@@ -1,11 +1,22 @@
 <template>
   <div id="app">
-    <cookie-law theme="dark-lime" @accept="acceptTracking">
-      <div slot="message">
-        <p v-html="$t('cookies')"></p>
-      </div>
+    <cookie-law ref="cookies" theme="dark-lime"
+                :buttonText="$t('cookies.accept')"
+                buttonLink=""
+                :buttonLinkText="$t('cookies.link')"
+                @accept="acceptTracking">
+      <template slot-scope="{ accept }">
+        <div class="Cookie__content">
+          <p v-html="$t('cookies.message')"></p>
+        </div>
+        <div class="Cookie__buttons">
+          <button class="Cookie__button" @click="accept">{{ $t('cookies.accept') }}</button>
+          <button class="Cookie__button" @click="refuseTracking">{{ $t('cookies.refuse') }}</button>
+          <router-link :to="{ name: 'privacy' }" class="button-link">{{ $t('cookies.link') }}</router-link>
+        </div>
+      </template>
     </cookie-law>
-    <navbar />
+    <navbar/>
     <router-view/>
   </div>
 </template>
@@ -37,12 +48,16 @@ export default {
       },
       skip() {
         return !this.authenticated;
-      }
+      },
     },
   },
   methods: {
     acceptTracking() {
       this.$matomo.rememberConsentGiven();
+    },
+    refuseTracking() {
+      this.$refs.cookies.close();
+      this.$refs.cookies.setVisited();
     },
   },
   created() {
@@ -53,21 +68,24 @@ export default {
 
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
     color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+  }
+
+  #nav {
+    padding: 30px;
+
+    a {
+      font-weight: bold;
+      color: #2c3e50;
+
+      &.router-link-exact-active {
+        color: #42b983;
+      }
     }
   }
-}
 </style>

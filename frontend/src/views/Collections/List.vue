@@ -15,7 +15,7 @@ export default {
   name: 'collection-list-view',
   components: { CollectionList, Loading },
   mixins: [collections],
-}
+};
 </script>
 
 <style>

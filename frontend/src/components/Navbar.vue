@@ -36,6 +36,7 @@
         Bot
       </a>
       <router-link class="navbar-item" :to="{ name: 'about' }">About</router-link>
+      <router-link class="navbar-item" :to="{ name: 'privacy' }">Privacy</router-link>
     </div>
 
     <div class="navbar-end">

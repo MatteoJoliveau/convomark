@@ -22,11 +22,11 @@ export default {
     script.src = 'https://telegram.org/js/telegram-widget.js?6';
 
     script.setAttribute('data-telegram-post', this.post);
-    script.setAttribute('data-width', '100%')
+    script.setAttribute('data-width', '100%');
 
     this.$refs.telegram.appendChild(script);
-  }
-}
+  },
+};
 </script>
 
 <style>
