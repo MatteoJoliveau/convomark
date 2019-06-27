@@ -72,6 +72,7 @@
     "telegraf": "^3.30.1",
     "telegraf-i18n": "^6.5.0",
     "telegraf-session-redis": "^5.1.0",
+    "telegraf-widget": "^0.1.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

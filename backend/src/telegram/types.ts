@@ -28,6 +28,7 @@ declare module 'telegraf' {
     i18n: I18nContext;
     wizard: WizardContext;
     scene: WizardScene;
+    widget: any;
   }
 }
 

@@ -8,12 +8,11 @@ import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import {AuthenticationSequence} from './sequence';
-import {SentryBindings, TelegramComponent} from './telegram';
+import {TelegramComponent} from './telegram';
 import {
     AuthenticationComponent,
     registerAuthenticationStrategy,
 } from '@loopback/authentication';
-import {} from './authentication/keys';
 import {UserService} from './services';
 import {
     TokenStrategy,
@@ -22,11 +21,12 @@ import {
     TokenServiceConstants,
     UserServiceBindings,
 } from './authentication';
-import {ConvoMarkBindings, ApplicationModeProvider} from './providers';
+import {ApplicationModeProvider} from './providers';
 import {LoggingComponent} from './logging';
 import {GraphQLComponent} from './graphql';
 import {SentryDSNProvider, SentryEnvProvider} from "./providers";
 import {SentryBooter} from "./booters";
+import {ConvoMarkBindings, SentryBindings} from './keys';
 
 export class ConvoMarkApplication extends BootMixin(
     ServiceMixin(RepositoryMixin(RestApplication)),

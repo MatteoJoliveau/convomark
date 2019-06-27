@@ -5546,6 +5546,13 @@ telegraf-session-redis@^5.1.0:
     debug "^4.1.1"
     redis "^2.6.0-1"
 
+telegraf-widget@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/telegraf-widget/-/telegraf-widget-0.1.0.tgz#cbfeac48c373532307936d9107cf0ccd4e51b44d"
+  integrity sha512-emrgzjiXeIoCKnpIFfVONL4UCpANN/wA5vOroxd9hVTbRan7EFMoLtQOAw5rBQmeMhIiAr35J7KF85t+Ad5lbQ==
+  dependencies:
+    debug "^4.1.0"
+
 telegraf@^3.30.1:
   version "3.30.1"
   resolved "https://registry.yarnpkg.com/telegraf/-/telegraf-3.30.1.tgz#981e5cfe0a8dba1e0bfd0fffeff97929f33cbe01"

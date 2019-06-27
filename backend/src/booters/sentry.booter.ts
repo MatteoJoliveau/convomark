@@ -1,7 +1,7 @@
 import {Booter} from "@loopback/boot";
 import * as Sentry from '@sentry/node';
 import {inject} from "@loopback/context";
-import {SentryBindings} from "../telegram";
+import {SentryBindings} from "../keys";
 import {Loggable, Logger, logger} from '../logging';
 
 @logger()

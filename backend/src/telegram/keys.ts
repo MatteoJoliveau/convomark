@@ -15,8 +15,3 @@ export namespace TelegramBindings {
     'telegram.i18n',
   );
 }
-
-export namespace SentryBindings {
-    export const SENTRY_DSN = BindingKey.create<string | undefined>('sentry.dsn');
-    export const SENTRY_ENV = BindingKey.create<string>('sentry.env');
-}

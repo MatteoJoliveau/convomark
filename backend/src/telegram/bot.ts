@@ -7,6 +7,8 @@ import {
     ApplicationConfig,
 } from '@loopback/core';
 import {Update} from 'telegram-typings';
+// @ts-ignore
+import {sendWidget} from 'telegraf-widget';
 import {TelegramBindings} from './keys';
 import {ConvoMarkBindings, ApplicationMode} from '../providers';
 import {Loggable, Logger, logger} from '../logging';
@@ -15,6 +17,7 @@ import Stage from 'telegraf/stage';
 import {MiddlewareProvider} from './types';
 import {repository} from '@loopback/repository';
 import {UserRepository} from '../repositories';
+import {TelegramWidgetBindings} from "./widgets";
 
 const {enter} = Stage;
 
@@ -32,6 +35,8 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
             sessionMiddleware: MiddlewareProvider,
         @inject(TelegramBindings.TELEGRAM_I18N)
             localizationMiddleware: MiddlewareProvider,
+        @inject(TelegramWidgetBindings.WIDGET)
+            widgetMiddleware: MiddlewareProvider,
         @inject(TelegramCommandBindings.COMMANDS)
             commands: Middleware<ContextMessageUpdate>[],
         @inject(ConvoMarkBindings.APPLICATION_MODE) mode: ApplicationMode,
@@ -46,6 +51,7 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
 
         this.bot.use(sessionMiddleware.middleware());
         this.bot.use(localizationMiddleware.middleware());
+        this.bot.use(widgetMiddleware.middleware());
 
         this.bot.command('/del', async ctx => {
             const {count} = await userRepository.bookmarks(ctx.from!.id).delete();
@@ -65,6 +71,7 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
         this.bot.entity('url', enter('save-bookmark'));
 
         // Collections
+        this.bot.command('collections', sendWidget('collections'));
         this.bot.command('createcollection', enter('create-collection'));
 
         this.bot.on('message', ({from, reply, i18n}) => {

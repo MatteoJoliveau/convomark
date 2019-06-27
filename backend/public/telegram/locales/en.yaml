@@ -12,6 +12,8 @@ bookmarks:
       no: Perfect! I saved your bookmark
     conclusion: Perfect! I saved your bookmark as ${bookmark}
 collections:
+  list:
+    header: Here are your collections. Select one to list its bookmarks
   create:
     step1: Ok, how do you wanna name the new collection?
     success: Thank you, I created your new collection named ${title}!

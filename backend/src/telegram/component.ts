@@ -21,6 +21,8 @@ import {
     SaveBookmarksSceneProvider,
     StageProvider,
 } from './commands';
+import {CollectionListWidgetProvider, TelegramWidgetBindings} from "./widgets";
+import {WidgetProvider} from "./providers/widget.provider";
 
 export class TelegramComponent implements Component {
     providers = {
@@ -29,6 +31,9 @@ export class TelegramComponent implements Component {
         [TelegramBindings.TELEGRAM_SESSION.key]: SessionProvider,
         [TelegramBindings.TELEGRAM_I18N.key]: I18nProvider,
         [TelegramBindings.TELEGRAM_MAINTENANCE.key]: MaintenanceProvider,
+        // Widgets
+        [TelegramWidgetBindings.WIDGET.key]: WidgetProvider,
+        [TelegramWidgetBindings.COLLECTION_LIST.key]: CollectionListWidgetProvider,
         // Commands
         [TelegramCommandBindings.COMMANDS.key]: CommandProvider,
         [TelegramCommandBindings.STAGE.key]: StageProvider,
