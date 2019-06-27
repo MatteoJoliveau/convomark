@@ -1,6 +1,6 @@
 [build]
 base = "frontend"
-command = "yarn install && yarn build"
+command = "yarn install && yarn build && cd ../admin && yarn install && yarn build:netlify"
 publish = "frontend/dist"
 
 [build.environment]
