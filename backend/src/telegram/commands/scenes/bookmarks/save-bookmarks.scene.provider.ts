@@ -1,16 +1,16 @@
-/// <reference path="../../telegraf.d.ts" />
+/// <reference path="../../../telegraf.d.ts" />
 import WizardScene from 'telegraf/scenes/wizard';
 import {Markup} from 'telegraf';
 import {Provider} from '@loopback/context';
-import {logger, Loggable, Logger} from '../../../logging';
+import {logger, Loggable, Logger} from '../../../../logging';
 import {repository} from '@loopback/repository';
 import {
   UserRepository,
   BookmarkRepository,
   BookmarkCollectionRepository,
-} from '../../../repositories';
-import {Collection, Bookmark, BookmarkCollection} from '../../../models';
-import {validateTelegramLink} from '../../../validators';
+} from '../../../../repositories';
+import {Collection, Bookmark, BookmarkCollection} from '../../../../models';
+import {validateTelegramLink} from '../../../../validators';
 
 @logger()
 export class SaveBookmarksSceneProvider

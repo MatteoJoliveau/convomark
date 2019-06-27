@@ -49,7 +49,6 @@ export class CollectionRepository extends DefaultCrudRepository<
     opts?: AnyObject | undefined,
   ): Promise<Collection> {
     const user = await this.getCollectionUser(entity.userId);
-    entity.id = entity.id || uuid();
     const username = user.username || user.id;
     entity.slug = slug(`${username} ${entity.title}`, {lower: true});
 

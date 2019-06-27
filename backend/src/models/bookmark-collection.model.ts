@@ -11,6 +11,7 @@ export class BookmarkCollection extends Entity {
     type: 'string',
     id: true,
     required: true,
+      default: uuid
   })
   id: string;
 
@@ -22,7 +23,6 @@ export class BookmarkCollection extends Entity {
 
   constructor(data?: Partial<BookmarkCollection>) {
     super(data);
-    this.id = this.id || uuid();
   }
 }
 

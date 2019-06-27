@@ -1,7 +1,7 @@
-import {Provider, inject} from '@loopback/core';
-import pino, {Logger, Level} from 'pino';
+import {inject, Provider} from '@loopback/core';
+import pino, {Level, Logger} from 'pino';
 import {LoggingBindings} from '../keys';
-import {ConvoMarkBindings, ApplicationMode} from '../../providers';
+import {ApplicationMode, ConvoMarkBindings} from '../../providers';
 
 export class LoggerProvider implements Provider<Logger> {
   constructor(
@@ -10,12 +10,10 @@ export class LoggerProvider implements Provider<Logger> {
   ) {}
 
   value(): Logger {
-    const logger = pino({
-      level: this.logLevel,
-      enabled: true,
-      prettyPrint: this.mode !== 'production' || false,
+      return pino({
+        level: this.logLevel,
+        enabled: true,
+        prettyPrint: this.mode !== 'production' || false,
     });
-
-    return logger;
   }
 }

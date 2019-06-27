@@ -2,14 +2,24 @@ greetings: Hello ${from.first_name}!
 cancel: Cancel
 bookmarks:
   save:
-    step1: 'Got it! In which collection do you want to save it?'
+    step1: Got it! In which collection do you want to save it?
     step2: 
-      question: 'Thank you! I saved it in the ${collection} collection. Do you want to name this bookmark?'
-      yes: 'yes'
-      no: 'no'
+      question: Thank you! I saved it in the ${collection} collection. Do you want to name this bookmark?
+      yes: yes
+      no: no
     step3:
-      yes: 'All right, send me the name'
-      no: 'Perfect! I saved your bookmark'
-    conclusion: 'Perfect! I saved your bookmark as ${bookmark}'
+      yes: All right, send me the name
+      no: Perfect! I saved your bookmark
+    conclusion: Perfect! I saved your bookmark as ${bookmark}
+collections:
+  create:
+    step1: Ok, how do you wanna name the new collection?
+    success: Thank you, I created your new collection named ${title}!
+    duplicated: Mmmh, it seems you already have a collection named ${title}. Send me another name or "Cancel".
+    nevermind: Got it, operation cancelled.
 validations:
-  telegramLink: 'Sorry! ${link} is not a Telegram link!'
+  telegramLink: Sorry! ${link} is not a Telegram link!
+sentry:
+  error: |
+    Wops! It seems we had a problem back here. Our developers have already been informed, if you need assistance
+    please contact one of them. Your ticket number is <code>${eventId}</code>

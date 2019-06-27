@@ -1,47 +1,52 @@
 import {
-  Entity,
-  model,
-  property,
-  belongsTo,
-  hasMany,
+    Entity,
+    model,
+    property,
+    belongsTo,
+    hasMany,
 } from '@loopback/repository';
 import {User} from './';
 import {BookmarkCollection} from './bookmark-collection.model';
+import { v4 as uuid } from 'uuid';
 
 @model()
 export class Collection extends Entity {
-  @property({
-    type: 'string',
-    id: true,
-    required: true,
-  })
-  id: string;
+    @property({
+        type: 'string',
+        id: true,
+        required: true,
+        default: uuid
+    })
+    id: string;
 
-  @property({
-    type: 'string',
-    required: true,
-  })
-  title: string;
+    @property({
+        type: 'string',
+        required: true,
+    })
+    title: string;
 
-  @property({
-    type: 'string',
-    required: true,
-  })
-  slug: string;
+    @property({
+        type: 'string',
+        required: true,
+        index: {
+            unique: true
+        }
+    })
+    slug: string;
 
-  @belongsTo(() => User)
-  userId: number;
+    @belongsTo(() => User)
+    userId: number;
 
-  @hasMany(() => BookmarkCollection)
-  bookmarkCollections: BookmarkCollection[];
+    @hasMany(() => BookmarkCollection)
+    bookmarkCollections: BookmarkCollection[];
 
-  constructor(data?: Partial<Collection>) {
-    super(data);
-  }
+    constructor(data?: Partial<Collection>) {
+        super(data);
+    }
 }
 
 export interface CollectionRelations {
-  user?: User;
+    user?: User;
 }
 
 export type CollectionWithRelations = Collection & CollectionRelations;

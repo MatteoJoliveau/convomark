@@ -10,5 +10,8 @@ export namespace TelegramCommandBindings {
   export const SAVE_BOOKMARK_SCENE = BindingKey.create<WizardScene>(
     'telegram.commands.scenes.save-bookmark',
   );
+  export const CREATE_COLLECTION_SCENE = BindingKey.create<WizardScene>(
+    'telegram.commands.scenes.create-collection',
+  );
   export const STAGE = BindingKey.create<Stage>('telegram.commands.stage');
 }

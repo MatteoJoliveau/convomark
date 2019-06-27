@@ -2,14 +2,24 @@ greetings: Ciao ${from.first_name}!
 cancel: Cancella
 bookmarks:
   save:
-    step1: 'Ricevto! In che collezione vuoi che lo salvi?'
+    step1: Ricevuto! In che collezione vuoi che lo salvi?
     step2: 
-      question: 'Grazie! Ho salvato il messaggio nella collezione ${collection}. Desideri dargli un nome?'
-      yes: 'Si'
-      no: 'No'
+      question: Grazie! Ho salvato il messaggio nella collezione ${collection}. Desideri dargli un nome?
+      yes: Si
+      no: No
     step3:
-      yes: 'Va bene, scrivimi il nome'
-      no: 'Perfetto! Ho salvato il messaggio'
-    conclusion: 'Perfetto! Ho salvato il messaggio con il nome ${bookmark}'
+      yes: Va bene, scrivimi il nome
+      no: Perfetto! Ho salvato il messaggio
+    conclusion: Perfetto! Ho salvato il messaggio con il nome ${bookmark}
+collections:
+  create:
+    step1: Ok, come vuoi chiamare la nuova collezione?
+    success: Grazie, ho create la tua nuova collezione chiamata ${title}!
+    duplicated: Mmmh, sembra che tu abbia già una collezione chiamata ${title}. Mandami un nuovo nome o "Cancella per annullare"
+    nevermind: Ricevuto, annullo loperazione
 validations:
-  telegramLink: 'Mi dispiace! ${link} non sembra essere un link Telegram!'
+  telegramLink: Mi dispiace! ${link} non sembra essere un link Telegram!
+sentry:
+  error: |
+    Wops! Sembra ci sia stato un problema. I nostri sviluppatori sono già stati informati, se hai bisogno di aiuto
+    contattali con questo numero di ticket: <code>${eventId}</code>

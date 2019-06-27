@@ -16,8 +16,10 @@ export class StageProvider implements Provider<Stage>, Loggable {
   constructor(
     @inject(TelegramCommandBindings.SAVE_BOOKMARK_SCENE)
     saveBookmarkScene: WizardScene,
+    @inject(TelegramCommandBindings.CREATE_COLLECTION_SCENE)
+    createCollectionScene: WizardScene,
   ) {
-    this.scenes = [saveBookmarkScene];
+    this.scenes = [saveBookmarkScene, createCollectionScene];
   }
 
   value(): Stage {

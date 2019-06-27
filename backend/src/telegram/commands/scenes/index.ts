@@ -1,1 +1,2 @@
-export * from './save-bookmarks-scene.provider';
+export * from './bookmarks';
+export * from './collections';
