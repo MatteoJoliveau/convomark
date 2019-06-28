@@ -28,6 +28,7 @@ export class BookmarkListWidgetProvider implements Provider<Widget>, Loggable {
 
     widget.on('list', async (ctx: ContextMessageUpdate) => {
       try {
+        this.logger.info('Fetching bookmarks in collection');
         const {
           query: {shortId, off},
         } = get(ctx, 'widget.data');
@@ -35,6 +36,7 @@ export class BookmarkListWidgetProvider implements Provider<Widget>, Loggable {
         const collection = await this.collectionRepository.findOne({
           where: {shortId},
         });
+        this.logger.debug('Collection', collection);
         if (!collection) {
           return ctx.replyWithHTML(
             ctx.i18n.t('errors.entityNotFound', {
@@ -48,6 +50,7 @@ export class BookmarkListWidgetProvider implements Provider<Widget>, Loggable {
         const bookmarks = await this.collectionRepository.bookmarks({
           where: {shortId},
         })({limit: LIMIT, offset});
+        this.logger.debug('Bookmarks', bookmarks);
         const extra = this.generateKeyboard(
           ctx.i18n,
           widget,
