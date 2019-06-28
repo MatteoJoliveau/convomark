@@ -9,7 +9,7 @@ export interface MiddlewareProvider {
   middleware(): Middleware<ContextMessageUpdate>;
 }
 
-declare class I18nContext {
+export declare class I18nContext {
   t(resourceKey: string, context?: any): string;
   locale(): string;
   locale(languageCode: string): void;

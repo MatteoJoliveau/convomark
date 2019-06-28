@@ -34,6 +34,14 @@ export class Collection extends Entity {
     })
     slug: string;
 
+    @property({
+        type: 'string',
+        index: {
+            unique: true
+        }
+    })
+    shortId: string;
+
     @belongsTo(() => User)
     userId: number;
 

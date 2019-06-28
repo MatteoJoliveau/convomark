@@ -51,7 +51,7 @@ export class CreateCollectionSceneProvider
                     } else {
                         this.logger.error(e);
                         const eventId = Sentry.captureException(e);
-                        await ctx.replyWithHTML(ctx.i18n.t('sentry.error', {eventId}));
+                        await ctx.replyWithHTML(ctx.i18n.t('errors.sentry', {eventId}));
                         await ctx.scene.leave();
                     }
                 }

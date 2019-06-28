@@ -1,6 +1,10 @@
 greetings: Ciao ${from.first_name}!
 cancel: Cancella
+backward: Indietro
+forward: Avanti
 bookmarks:
+  one: Bookmark
+  many: Bookmarks
   save:
     step1: Ricevuto! In che collezione vuoi che lo salvi?
     step2: 
@@ -12,6 +16,10 @@ bookmarks:
       no: Perfetto! Ho salvato il messaggio
     conclusion: Perfetto! Ho salvato il messaggio con il nome ${bookmark}
 collections:
+  one: Collezione
+  many: Collezioni
+  list:
+    header: Ecco le tue collezioni. Scegline una per mostrare i suoi bookmark
   create:
     step1: Ok, come vuoi chiamare la nuova collezione?
     success: Grazie, ho create la tua nuova collezione chiamata ${title}!
@@ -19,7 +27,8 @@ collections:
     nevermind: Ricevuto, annullo loperazione
 validations:
   telegramLink: Mi dispiace! ${link} non sembra essere un link Telegram!
-sentry:
-  error: |
+errors:
+  entityNotFound: Sembra che non sia riuscito a trovare il/la ${entity} che hai chiesto...
+  sentry: |
     Wops! Sembra ci sia stato un problema. I nostri sviluppatori sono già stati informati, se hai bisogno di aiuto
     contattali con questo numero di ticket: <code>${eventId}</code>

@@ -7,10 +7,12 @@ import {MiddlewareProvider} from '../types';
 export class WidgetProvider implements Provider<MiddlewareProvider> {
     constructor(
         @inject(TelegramWidgetBindings.COLLECTION_LIST) private collectionWidget: Widget,
+        @inject(TelegramWidgetBindings.BOOKMARK_LIST) private bookmarkWidget: Widget,
     ) {}
     value(): TelegrafWidget {
         return new TelegrafWidget([
             this.collectionWidget,
+            this.bookmarkWidget,
         ]);
     }
 

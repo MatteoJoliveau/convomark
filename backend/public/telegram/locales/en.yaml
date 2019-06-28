@@ -1,6 +1,10 @@
 greetings: Hello ${from.first_name}!
 cancel: Cancel
+backward: Back
+forward: More
 bookmarks:
+  one: Bookmark
+  many: Bookmarks
   save:
     step1: Got it! In which collection do you want to save it?
     step2: 
@@ -12,6 +16,8 @@ bookmarks:
       no: Perfect! I saved your bookmark
     conclusion: Perfect! I saved your bookmark as ${bookmark}
 collections:
+  one: Collection
+  many: Collections
   list:
     header: Here are your collections. Select one to list its bookmarks
   create:
@@ -21,7 +27,8 @@ collections:
     nevermind: Got it, operation cancelled.
 validations:
   telegramLink: Sorry! ${link} is not a Telegram link!
-sentry:
-  error: |
+errors:
+  entityNotFound: It seems I couldn't find the ${entity} you requested...
+  sentry: |
     Wops! It seems we had a problem back here. Our developers have already been informed, if you need assistance
     please contact one of them. Your ticket number is <code>${eventId}</code>
