@@ -8,6 +8,6 @@ export namespace ConvoMarkBindings {
 }
 
 export namespace SentryBindings {
-    export const SENTRY_DSN = BindingKey.create<string | undefined>('sentry.dsn');
-    export const SENTRY_ENV = BindingKey.create<string>('sentry.env');
+  export const SENTRY_DSN = BindingKey.create<string | undefined>('sentry.dsn');
+  export const SENTRY_ENV = BindingKey.create<string>('sentry.env');
 }

@@ -33,8 +33,8 @@ declare module 'telegraf' {
 }
 
 export interface CrudMiddlewares {
-  create: Middleware<ContextMessageUpdate>
-  read: Middleware<ContextMessageUpdate>
-  update: Middleware<ContextMessageUpdate>
-  delete: Middleware<ContextMessageUpdate>
+  create: Middleware<ContextMessageUpdate>;
+  read: Middleware<ContextMessageUpdate>;
+  update: Middleware<ContextMessageUpdate>;
+  delete: Middleware<ContextMessageUpdate>;
 }

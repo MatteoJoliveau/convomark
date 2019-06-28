@@ -7,7 +7,7 @@ import {
 } from '@loopback/repository';
 import {User} from './user.model';
 import {BookmarkCollection} from '.';
-import { v4 as uuid } from 'uuid';
+import {v4 as uuid} from 'uuid';
 
 @model()
 export class Bookmark extends Entity {
@@ -15,7 +15,7 @@ export class Bookmark extends Entity {
     type: 'string',
     id: true,
     required: true,
-      default: uuid
+    default: uuid,
   })
   id: string;
 

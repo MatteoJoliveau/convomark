@@ -11,7 +11,7 @@ export class BookmarkCollection extends Entity {
     type: 'string',
     id: true,
     required: true,
-      default: uuid
+    default: uuid,
   })
   id: string;
 
