@@ -16,7 +16,7 @@ configMapGenerator:
       - FRONTEND_DOMAIN=https://convomark.matteojoliveau.com/
       - LOG_LEVEL=info
       - REDIS_HOST=redis
-      - TELEGRAM_BOT_MAINTENANCE=yes
+      - TELEGRAM_BOT_MAINTENANCE=no
       - SENTRY_DSN=https://c42503061d8d4f2b95a312d84bae60c7@sentry.io/1492000
       - SENTRY_CURRENT_ENV=production
     name: app-config
