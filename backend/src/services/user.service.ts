@@ -54,18 +54,20 @@ export class UserService
     try {
       const mapped = mapTelegramToUser(credentials);
       const found = await this.userRepository.findOne(credentials.id);
-      const entity = found ? this.userRepository.merge(found, mapped) : mapped;
-      const user = await this.userRepository.save(entity);
-      this.logger.debug({user}, 'Creating or updating user');
-      if ((await user.collections).length === 0) {
-        this.logger.debug(
-          'User has no collections. Creating Default collection',
-        );
+      if (found) {
+        this.logger.debug({user: found}, 'Updating user');
+        await this.userRepository.update(found, mapped);
+        return found;
+      } else {
+        this.logger.debug({user: mapped}, 'Creating user');
+        const user = await this.userRepository.save(mapped);
+        this.logger.debug('Creating Default collection');
         await this.collectionRepository.save(
           Collection.defaultCollection(user),
         );
+
+        return user;
       }
-      return user;
     } catch (e) {
       this.logger.error(e);
       Sentry.captureException(e);
