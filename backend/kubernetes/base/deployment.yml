@@ -61,4 +61,4 @@ spec:
             - secretRef:
                 name: db-secrets
           command: ["yarn"]
-          args: ["migrate"]
+          args: ["db:migrate"]

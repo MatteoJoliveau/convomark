@@ -1,0 +1,4 @@
+collections - List your collections
+collectioncreate - Create a new collection
+collectionrename - Rename one of your collections
+collectiondelete - Delete one of your collections and its bookmarks
