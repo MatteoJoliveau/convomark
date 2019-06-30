@@ -82,13 +82,13 @@ export class SaveBookmarksSceneProvider
           return ctx.wizard.selectStep(ctx.wizard.cursor);
         }
         const slug = ctx.callbackQuery.data;
+        await ctx.answerCbQuery();
         this.logger.debug({slug}, 'Asking about bookmark title');
         if (slug === 'cancel') {
           await ctx.reply(ctx.i18n.t('nevermind'));
           ctx.session = {};
           return ctx.scene.leave();
         }
-        await ctx.answerCbQuery();
         const collection = (ctx.session.collections || []).find(
           (c: Collection) => c.slug === slug,
         );
