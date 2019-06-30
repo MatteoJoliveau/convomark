@@ -10,8 +10,10 @@ import {
 } from '@loopback/authentication';
 import {differenceInMinutes} from 'date-fns';
 import {sortBy} from 'lodash';
+import * as Sentry from '@sentry/node';
 import {createHmac} from 'crypto';
 import {Collection, TelegramUserLoginData, User} from '../models';
+import {logger, Logger, Loggable} from '../logging';
 import {TelegramBindings} from '../telegram';
 import {
   CollectionRepository,
@@ -24,8 +26,11 @@ import {mapTelegramToUser} from '../mappers';
  * Adapted from
  * https://github.com/strongloop/loopback4-example-shopping/blob/master/packages/shopping/src/services/user-service.ts
  */
+@logger()
 export class UserService
-  implements AuthUserService<User, TelegramUserLoginData> {
+  implements AuthUserService<User, TelegramUserLoginData>, Loggable {
+  logger: Logger;
+
   constructor(
     @inject(TypeORMBindings.USER_REPOSITORY)
     private userRepository: UserRepository,
@@ -35,19 +40,29 @@ export class UserService
   ) {}
 
   async verifyCredentials(credentials: TelegramUserLoginData): Promise<User> {
+    this.logger.info('Verifying credentials for user %s', (credentials.username || credentials.id));
     try {
-      await this.validateTelegramHash(credentials);
+        await this.validateTelegramHash(credentials);
+    } catch (e) {
+        this.logger.warn(e);
+        throw new HttpErrors.Unauthorized(e);
+    }
 
-      const user = mapTelegramToUser(credentials);
-      const created = await this.userRepository.save(user);
-      if ((await created.collections).length === 0) {
+    try {
+      const mapped = mapTelegramToUser(credentials);
+      const user = await this.userRepository.save(mapped);
+      this.logger.debug({user}, 'Creating or updating user');
+      if ((await user.collections).length === 0) {
+        this.logger.debug('User has no collections. Creating Default collection');
         await this.collectionRepository.save(
-          Collection.defaultCollection(created),
+          Collection.defaultCollection(user),
         );
       }
-      return created;
+      return user;
     } catch (e) {
-      throw new HttpErrors.Unauthorized(e);
+      this.logger.error(e);
+      Sentry.captureException(e);
+      throw new HttpErrors.InternalServerError();
     }
   }
 
