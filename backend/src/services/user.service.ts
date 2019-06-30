@@ -53,7 +53,9 @@ export class UserService
 
     try {
       const mapped = mapTelegramToUser(credentials);
-      const user = await this.userRepository.save(mapped);
+      const found = await this.userRepository.findOne(credentials.id);
+      const entity = found ? this.userRepository.merge(found, mapped) : mapped;
+      const user = await this.userRepository.save(entity);
       this.logger.debug({user}, 'Creating or updating user');
       if ((await user.collections).length === 0) {
         this.logger.debug(
