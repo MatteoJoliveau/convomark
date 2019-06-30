@@ -6,6 +6,7 @@ declare module 'telegraf/scenes/wizard/context' {
       ctx: ContextMessageUpdate,
       steps: Middleware<ContextMessageUpdate>[],
     );
+    cursor: number;
     step: Middleware<ContextMessageUpdate> | false | undefined;
     selectStep(index: number): this;
     next(): this;

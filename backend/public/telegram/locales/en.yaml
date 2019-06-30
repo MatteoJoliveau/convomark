@@ -8,6 +8,7 @@ no: No
 bookmarks:
   one: Bookmark
   many: Bookmarks
+  duplicated: Mmmh, it seems you already have a bookmark for this link in the collection ${title}. Choose a different collection or hit <i>Cancel</i> to send another link;
   save:
     step1: Got it! In which collection do you want to save it?
     step2: 

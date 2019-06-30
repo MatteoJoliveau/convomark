@@ -8,6 +8,7 @@ no: No
 bookmarks:
   one: Bookmark
   many: Bookmarks
+  duplicated: Mmmh, sembra che tu abbia già quest bookmark nella collezione ${title}. Scegli una collezione diversa o clicca <i>Cancella</i> per mandarmi un altro link
   save:
     step1: Ricevuto! In che collezione vuoi che lo salvi?
     step2: 
