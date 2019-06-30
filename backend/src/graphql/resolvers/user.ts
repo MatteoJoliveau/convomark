@@ -1,16 +1,12 @@
-import {first} from 'lodash';
 import {User} from '../../models';
-import {UserRepository} from '../../repositories';
+import {CollectionRepository} from '../../typeorm';
 
-export function user(userRepo: UserRepository) {
+export function user(collectionRepo: CollectionRepository) {
   return {
     User: {
-      collections: ({id}: User) => userRepo.collections(id).find(),
-      collection: async ({id}: User, {slug}: {slug: string}) =>
-        userRepo
-          .collections(id)
-          .find({where: {slug}, limit: 1})
-          .then(first),
+      collections: ({collections}: User) => collections,
+      collection: async (u: User, {slug}: {slug: string}) =>
+        collectionRepo.findOne({where: {user: u, slug}}),
     },
   };
 }

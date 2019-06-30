@@ -2,6 +2,9 @@ greetings: Hello ${from.first_name}!
 cancel: Cancel
 backward: Back
 forward: More
+nevermind: Got it, operation cancelled.
+yes: Yes
+no: No
 bookmarks:
   one: Bookmark
   many: Bookmarks
@@ -9,8 +12,6 @@ bookmarks:
     step1: Got it! In which collection do you want to save it?
     step2: 
       question: Thank you! I saved it in the ${collection} collection. Do you want to name this bookmark?
-      yes: yes
-      no: no
     step3:
       yes: All right, send me the name
       no: Perfect! I saved your bookmark
@@ -18,16 +19,30 @@ bookmarks:
 collections:
   one: Collection
   many: Collections
+  duplicated: Mmmh, it seems you already have a collection named ${title}. Send me another name or "Cancel" to cancel
   list:
     header: Here are your collections. Select one to list its bookmarks
   create:
     step1: Ok, how do you wanna name the new collection?
     success: Thank you, I created your new collection named ${title}!
-    duplicated: Mmmh, it seems you already have a collection named ${title}. Send me another name or "Cancel".
-    nevermind: Got it, operation cancelled.
+  rename:
+    list: Here are your collections. Select one to rename
+    prompt: Ok! What's the new name for this collection?
+    success: Thank you, I changed the collection title to ${title}!
+  delete:
+    list: Here are your collections. Select one to delete
+    prompt: |
+      ⚠️ <b>WARNING</b> ⚠️
+
+      Deleting a collection will delete all of the bookmarks it contains.
+      <b>THIS CANNOT BE UNDONE</b>
+      Are you sure you want to proceed?
+    abort: All right, the collection will live to see another day...
+    success: Thank you, collection ${title} has been successfully deleted!
 validations:
   telegramLink: Sorry! ${link} is not a Telegram link!
 errors:
+  missing-cb: You need to select one of the button above.
   entityNotFound: It seems I couldn't find the ${entity} you requested...
   sentry: |
     Wops! It seems we had a problem back here. Our developers have already been informed, if you need assistance

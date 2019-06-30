@@ -1,6 +1,6 @@
-import {Logger} from 'pino';
+import {Logger, Level} from 'pino';
 
-export {Logger};
+export {Logger, Level};
 
 export interface Loggable {
   logger: Logger;

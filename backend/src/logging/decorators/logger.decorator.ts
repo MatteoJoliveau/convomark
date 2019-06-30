@@ -1,7 +1,4 @@
-import {Level} from 'pino';
-import {LoggerProvider} from '../providers/logger.provider';
-import {LogLevelProvider} from '..';
-import {ApplicationModeProvider} from '../../providers';
+import {getLogger, Level} from '..';
 
 export interface LoggerMetadata {
   name?: string;
@@ -10,11 +7,7 @@ export interface LoggerMetadata {
 
 export function logger({name, level}: LoggerMetadata = {}): ClassDecorator {
   return (targetClass: Function) => {
-    name = name || targetClass.name;
-    const logLevel = new LogLevelProvider().value();
-    level = level || logLevel;
-    const mode = new ApplicationModeProvider().value();
-    const masterLogger = new LoggerProvider(logLevel, mode).value();
+    const masterLogger = getLogger(name || targetClass.name, level);
     targetClass.prototype.logger = masterLogger.child({name, level});
   };
 }

@@ -18,16 +18,18 @@ import {
 import {TelegramBindings} from './keys';
 import {TelegramCommandBindings} from './commands/keys';
 import {
-  CommandProvider,
-  CreateCollectionSceneProvider,
-  SaveBookmarksSceneProvider,
-  StageProvider,
+    CommandProvider,
+    CreateCollectionSceneProvider,
+    RenameCollectionSceneProvider,
+    SaveBookmarksSceneProvider,
+    StageProvider,
 } from './commands';
 import {
   CollectionListWidgetProvider,
   TelegramWidgetBindings,
   BookmarkListWidgetProvider,
 } from './widgets';
+import {DeleteCollectionSceneProvider} from "./commands/scenes/collections/delete-collection.scene.provider";
 
 export class TelegramComponent implements Component {
   providers = {
@@ -47,6 +49,10 @@ export class TelegramComponent implements Component {
       .key]: SaveBookmarksSceneProvider,
     [TelegramCommandBindings.CREATE_COLLECTION_SCENE
       .key]: CreateCollectionSceneProvider,
+    [TelegramCommandBindings.RENAME_COLLECTION_SCENE
+      .key]: RenameCollectionSceneProvider,
+    [TelegramCommandBindings.DELETE_COLLECTION_SCENE
+          .key]: DeleteCollectionSceneProvider,
   };
   controllers = [UpdateController];
   bindings: Binding[];

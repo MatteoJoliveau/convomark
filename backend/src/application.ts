@@ -27,6 +27,7 @@ import {GraphQLComponent} from './graphql';
 import {SentryDSNProvider, SentryEnvProvider} from './providers';
 import {SentryBooter} from './booters';
 import {ConvoMarkBindings, SentryBindings} from './keys';
+import {TypeORMBooter} from './typeorm';
 
 export class ConvoMarkApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
@@ -59,8 +60,8 @@ export class ConvoMarkApplication extends BootMixin(
     this.component(AuthenticationComponent);
     registerAuthenticationStrategy(this, TokenStrategy);
 
-    // Set up Sentry
-    this.booters(SentryBooter);
+    // Set up custom Booters
+    this.booters(SentryBooter, TypeORMBooter);
 
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here

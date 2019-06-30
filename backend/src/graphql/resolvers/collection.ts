@@ -1,13 +1,12 @@
 import {Collection} from '../../models';
-import {CollectionRepository} from '../../repositories';
+import {BookmarkRepository} from '../../typeorm';
 
-export function collection(collectionRepo: CollectionRepository) {
+export function collection(bookmarkRepo: BookmarkRepository) {
   return {
     Collection: {
-      bookmarks: ({id}: Collection) =>
-        collectionRepo.bookmarks({where: {id}})(),
+      bookmarks: ({bookmarks}: Collection) => bookmarks,
       bookmarkCount: async ({id}: Collection) =>
-        (await collectionRepo.bookmarks({where: {id}})()).length,
+        bookmarkRepo.count({where: {collection: id}}),
     },
   };
 }

@@ -1,4 +1,5 @@
 const application = require('./dist');
+const orm = require('./ormconfig');
 
 module.exports = application;
 
@@ -16,6 +17,7 @@ if (require.main === module) {
         setServersFromRequest: true,
       },
     },
+    orm,
   };
   application.main(config).catch(err => {
     console.error('Cannot start the application.', err);

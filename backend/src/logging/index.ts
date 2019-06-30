@@ -3,3 +3,4 @@ export * from './types';
 export * from './component';
 export * from './providers';
 export * from './decorators';
+export * from './get-logger';

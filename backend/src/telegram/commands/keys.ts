@@ -13,5 +13,11 @@ export namespace TelegramCommandBindings {
   export const CREATE_COLLECTION_SCENE = BindingKey.create<WizardScene>(
     'telegram.commands.scenes.create-collection',
   );
+  export const RENAME_COLLECTION_SCENE = BindingKey.create<WizardScene>(
+    'telegram.commands.scenes.rename-collection',
+  );
+  export const DELETE_COLLECTION_SCENE = BindingKey.create<WizardScene>(
+    'telegram.commands.scenes.delete-collection',
+  );
   export const STAGE = BindingKey.create<Stage>('telegram.commands.stage');
 }

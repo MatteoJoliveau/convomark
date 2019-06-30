@@ -23,14 +23,17 @@ export class GraphQLController implements Loggable {
   @authenticate('TokenStrategy')
   @post('/graphql')
   async graphql(@requestBody() request: GraphQLRequest) {
-    this.logger.debug('Handling GraphQL request', {
-      request,
-      currentUser: this.currentUser,
-    });
+    this.logger.debug(
+      {
+        request,
+        currentUser: this.currentUser,
+      },
+      'Handling GraphQL request',
+    );
 
     const {http, ...res} = await this.server.executeOperation(request);
     if (http && http.status) {
-      this.logger.debug('Sending response', {status: http.status});
+      this.logger.debug({status: http.status}, 'Sending response');
       this.response.status(http.status);
       for (const [header, value] of http.headers) {
         this.response.header(header, value);

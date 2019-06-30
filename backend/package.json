@@ -40,6 +40,9 @@
     "docker:build": "docker build -t matteojoliveau/convomark:latest .",
     "docker:run": "docker run -p 3000:3000 -d matteojoliveau/convomark:latest",
     "migrate": "node -r dotenv/config ./dist/migrate",
+    "db:migrate": "node -r dotenv/config ./node_modules/typeorm/cli.js migration:run",
+    "db:rollback": "node -r dotenv/config ./node_modules/typeorm/cli.js migration:revert",
+    "db:drop": "node -r dotenv/config ./node_modules/typeorm/cli.js schema:drop",
     "prestart": "yarn clean && yarn build",
     "start": "node -r pino-debug -r dotenv/config .",
     "start:prod": "node .",
@@ -73,6 +76,7 @@
     "telegraf-i18n": "^6.5.0",
     "telegraf-session-redis": "^5.1.0",
     "telegraf-widget": "^0.1.0",
+    "typeorm": "^0.2.18",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

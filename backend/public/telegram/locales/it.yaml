@@ -2,6 +2,9 @@ greetings: Ciao ${from.first_name}!
 cancel: Cancella
 backward: Indietro
 forward: Avanti
+nevermind: Ricevuto, annullo l'operazione.
+yes: Si
+no: No
 bookmarks:
   one: Bookmark
   many: Bookmarks
@@ -9,8 +12,6 @@ bookmarks:
     step1: Ricevuto! In che collezione vuoi che lo salvi?
     step2: 
       question: Grazie! Ho salvato il messaggio nella collezione ${collection}. Desideri dargli un nome?
-      yes: Si
-      no: No
     step3:
       yes: Va bene, scrivimi il nome
       no: Perfetto! Ho salvato il messaggio
@@ -18,16 +19,30 @@ bookmarks:
 collections:
   one: Collezione
   many: Collezioni
+  duplicated: Mmmh, sembra che tu abbia già una collezione chiamata ${title}. Mandami un nuovo nome o "Cancella" per annullare
   list:
     header: Ecco le tue collezioni. Scegline una per mostrare i suoi bookmark
   create:
     step1: Ok, come vuoi chiamare la nuova collezione?
     success: Grazie, ho create la tua nuova collezione chiamata ${title}!
-    duplicated: Mmmh, sembra che tu abbia già una collezione chiamata ${title}. Mandami un nuovo nome o "Cancella per annullare"
-    nevermind: Ricevuto, annullo loperazione
+  rename:
+    list: Ecco le tue collezioni. Scegli quella che vuoi rinominare
+    prompt: Ok! Qual è il nuovo nome di questa collezione?
+    success: Grazie, ho rinominato la collezione in ${title}!
+  delete:
+    list: Ecco le tue collezioni. Scegli quella che vuoi cancellare
+    prompt: |
+      ⚠️ <b>ATTENZIONE</b> ⚠️
+
+      Cancellare una collezione comporta la perdita di tutti i bookmark che contiene.
+      <b>QUESTA PROCEDURA NON PUÒ ESSERE ANNULLATA</b>
+      Sei sicuro di voler procedere?
+    abort: Ottimo, la collezione vivrà per vedere un altro giorno...
+    success: Grazie, la collezione ${title} è stata eliminata con successo!
 validations:
   telegramLink: Mi dispiace! ${link} non sembra essere un link Telegram!
 errors:
+  missing-cb: Devi selezionare uno dei pulsanti.
   entityNotFound: Sembra che non sia riuscito a trovare il/la ${entity} che hai chiesto...
   sentry: |
     Wops! Sembra ci sia stato un problema. I nostri sviluppatori sono già stati informati, se hai bisogno di aiuto

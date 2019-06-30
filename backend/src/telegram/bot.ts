@@ -1,23 +1,19 @@
-import Telegraf, {Middleware, ContextMessageUpdate} from 'telegraf';
-import {
-  inject,
-  lifeCycleObserver,
-  LifeCycleObserver,
-  CoreBindings,
-  ApplicationConfig,
-} from '@loopback/core';
+import Telegraf, {ContextMessageUpdate, Middleware} from 'telegraf';
+import {ApplicationConfig, CoreBindings, inject, lifeCycleObserver, LifeCycleObserver,} from '@loopback/core';
 import {Update} from 'telegram-typings';
+import * as Sentry from '@sentry/node';
 // @ts-ignore
 import {sendWidget} from 'telegraf-widget';
 import {TelegramBindings} from './keys';
-import {ConvoMarkBindings, ApplicationMode} from '../providers';
+import {ApplicationMode, ConvoMarkBindings} from '../providers';
 import {Loggable, Logger, logger} from '../logging';
 import {TelegramCommandBindings} from './commands/keys';
 import Stage from 'telegraf/stage';
 import {MiddlewareProvider} from './types';
-import {repository} from '@loopback/repository';
-import {UserRepository} from '../repositories';
+import {BookmarkRepository, TypeORMBindings, UserRepository, CollectionRepository} from '../typeorm';
 import {TelegramWidgetBindings} from './widgets';
+import {mapTelegramToUser} from '../mappers';
+import {Collection} from "../models";
 
 const {enter} = Stage;
 
@@ -41,7 +37,12 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
     commands: Middleware<ContextMessageUpdate>[],
     @inject(ConvoMarkBindings.APPLICATION_MODE) mode: ApplicationMode,
     @inject(CoreBindings.APPLICATION_CONFIG) {domain}: ApplicationConfig,
-    @repository(UserRepository) userRepository: UserRepository,
+    @inject(TypeORMBindings.COLLECTION_REPOSITORY)
+    collectionRepository: CollectionRepository,
+    @inject(TypeORMBindings.USER_REPOSITORY)
+        userRepository: UserRepository,
+    @inject(TypeORMBindings.BOOKMARK_REPOSITORY)
+    bookmarkRepository: BookmarkRepository,
   ) {
     this.bot = new Telegraf(token);
 
@@ -49,19 +50,38 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
       this.setUpMaintenanceMode();
     }
 
+    this.bot.use((ctx, next) => {
+        if (next) return next().catch(async (e: Error) => {
+            this.logger.error(e);
+            const eventId = Sentry.captureException(e);
+            await ctx.replyWithHTML(ctx.i18n.t('errors.sentry', {eventId}));
+            ctx.session = null;
+            return ctx.scene.leave();
+        });
+    });
+
+    this.bot.use(async (ctx, next) => {
+        const from = ctx.from!;
+        ctx.state.currentUser = await userRepository.findOne(from.id!)
+                .then((found) => {
+                    if (found) return found;
+                    const mapped = mapTelegramToUser(from);
+                    return userRepository.save(mapped);
+                })
+            .then(async (saved) => {
+                if ((await saved.collections).length === 0) {
+                    await collectionRepository.save(Collection.defaultCollection(saved));
+                }
+                return saved;
+            });
+      if (next) return next();
+    });
+
     this.bot.use(sessionMiddleware.middleware());
     this.bot.use(localizationMiddleware.middleware());
     this.bot.use(widgetMiddleware.middleware());
 
-    this.bot.command('/del', async ctx => {
-      const {count} = await userRepository.bookmarks(ctx.from!.id).delete();
-      ctx.reply(`Deleted ${count} bookmarks`);
-    });
-
-    this.bot.command('get', async ctx => {
-      const bookmarks = await userRepository.bookmarks(ctx.from!.id).find();
-      ctx.reply(JSON.stringify(bookmarks));
-    });
+    // Commands
 
     for (const command of commands) {
       this.bot.use(command);
@@ -72,30 +92,33 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
 
     // Collections
     this.bot.command('collections', sendWidget('collections'));
-    this.bot.command('createcollection', enter('create-collection'));
+    this.bot.command('collectioncreate', enter('create-collection'));
+    this.bot.command('collectionrename', enter('rename-collection'));
+    this.bot.command('collectiondelete', enter('delete-collection'));
 
     this.bot.on('message', ({from, reply, i18n}) => {
-      reply(i18n.t('greetings', {from}));
+      return reply(i18n.t('greetings', {from}));
     });
 
     if (mode === 'production') {
       const webhook = `${domain}/bot/updates/${secret.toString('hex')}`;
-      this.setUpWebhook(webhook);
+      this.setUpWebhook(webhook).catch(this.logger.error.bind(this.logger));
     }
   }
 
   handleUpdate(rawUpdate: Update): Promise<object> {
-    this.logger.debug('Processing update', rawUpdate);
+    this.logger.debug({update: rawUpdate}, 'Processing update');
     return this.bot.handleUpdate(rawUpdate);
   }
 
   async start(): Promise<void> {
     this.bot.launch().catch((e: string) => {
       this.logger.error(e);
+      Sentry.captureException(e);
       throw new Error(e);
     });
     const {username} = await this.bot.telegram.getMe();
-    this.logger.info('Bot is running', {username});
+    this.logger.info({username}, 'Bot is running');
     return Promise.resolve();
   }
 
@@ -109,11 +132,12 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
     try {
       const webhookInfo = await this.bot.telegram.getWebhookInfo();
       if (webhookInfo.url && webhookInfo.url === webhook) {
-        this.logger.info('Webhook already set', {webhook});
+        this.logger.info('Webhook already set');
       } else {
         const success = await this.bot.telegram.setWebhook(webhook);
         if (success) {
-          this.logger.info('Registered bot webook', {webhook});
+          this.logger.info('Registered bot webook');
+          this.logger.debug({webhook});
         } else {
           this.logger.error('Something went wrong when setting the webhook');
         }

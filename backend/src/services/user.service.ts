@@ -4,17 +4,14 @@
 // License text available at https://opensource.org/licenses/MIT
 import {HttpErrors} from '@loopback/rest';
 import {inject} from '@loopback/context';
-import {
-  UserService as AuthUserService,
-  UserProfile,
-} from '@loopback/authentication';
-import {repository} from '@loopback/repository';
+import {UserProfile, UserService as AuthUserService,} from '@loopback/authentication';
 import {differenceInMinutes} from 'date-fns';
 import {sortBy} from 'lodash';
 import {createHmac} from 'crypto';
-import {TelegramUserLoginData, User, Collection} from '../models';
+import {Collection, TelegramUserLoginData, User} from '../models';
 import {TelegramBindings} from '../telegram';
-import {UserRepository, CollectionRepository} from '../repositories';
+import {CollectionRepository, TypeORMBindings, UserRepository,} from '../typeorm';
+import {mapTelegramToUser} from '../mappers';
 
 /**
  * Adapted from
@@ -23,8 +20,9 @@ import {UserRepository, CollectionRepository} from '../repositories';
 export class UserService
   implements AuthUserService<User, TelegramUserLoginData> {
   constructor(
-    @repository(UserRepository) private userRepository: UserRepository,
-    @repository(CollectionRepository)
+    @inject(TypeORMBindings.USER_REPOSITORY)
+    private userRepository: UserRepository,
+    @inject(TypeORMBindings.COLLECTION_REPOSITORY)
     private collectionRepository: CollectionRepository,
     @inject(TelegramBindings.TELEGRAM_SECRET) private telegramSecret: Buffer,
   ) {}
@@ -32,25 +30,13 @@ export class UserService
   async verifyCredentials(credentials: TelegramUserLoginData): Promise<User> {
     try {
       await this.validateTelegramHash(credentials);
-      const user = new User({
-        id: credentials.id,
-        firstName: credentials.first_name,
-        lastName: credentials.last_name,
-        username: credentials.username,
-        photoUrl: credentials.photo_url,
-      });
-      if (await this.userRepository.exists(user.id)) {
-        await this.userRepository.update(user);
-        return user;
-      } else {
-        const created = await this.userRepository.create(user);
-        const collection = new Collection({
-          title: 'Default',
-          userId: created.id,
-        });
-        await this.collectionRepository.create(collection);
-        return created;
+
+      const user = mapTelegramToUser(credentials);
+      const created = await this.userRepository.save(user);
+      if ((await created.collections).length === 0) {
+          await this.collectionRepository.save(Collection.defaultCollection(created));
       }
+      return created;
     } catch (e) {
       throw new HttpErrors.Unauthorized(e);
     }

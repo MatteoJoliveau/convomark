@@ -1,11 +1,9 @@
 /// <reference path="../../../telegraf.d.ts" />
 import WizardScene from 'telegraf/scenes/wizard';
-import {Provider} from '@loopback/context';
+import {inject, Provider} from '@loopback/context';
 import {Loggable, logger, Logger} from '../../../../logging';
-import {repository} from '@loopback/repository';
-import {CollectionRepository} from '../../../../repositories';
+import {CollectionRepository, TypeORMBindings} from '../../../../typeorm';
 import {Collection} from '../../../../models';
-import * as Sentry from '@sentry/node';
 
 @logger()
 export class CreateCollectionSceneProvider
@@ -13,7 +11,7 @@ export class CreateCollectionSceneProvider
   logger: Logger;
 
   constructor(
-    @repository(CollectionRepository)
+    @inject(TypeORMBindings.COLLECTION_REPOSITORY)
     private collectionRepository: CollectionRepository,
   ) {}
 
@@ -25,22 +23,21 @@ export class CreateCollectionSceneProvider
         return ctx.wizard.next();
       },
       async ctx => {
-        const user = ctx.from!;
-        const userId = user.id;
-        const newTitle = ctx.message!.text!;
+        const {currentUser: user} = ctx.state;
+        const newTitle = ctx.message!.text!.trim();
         if (newTitle.toLowerCase() === ctx.i18n.t('cancel').toLowerCase()) {
-          await ctx.replyWithHTML(ctx.i18n.t('collections.create.nevermind'));
+          await ctx.replyWithHTML(ctx.i18n.t('nevermind'));
           return ctx.scene.leave();
         }
         const collection = new Collection({
           title: newTitle,
-          userId,
+          user,
         });
         try {
-          const {id, title, slug} = await this.collectionRepository.create(
+          const {id, title, slug} = await this.collectionRepository.save(
             collection,
           );
-          this.logger.debug('Created new collection', {id, slug, title, user});
+          this.logger.debug({id, slug, title, user}, 'Created new collection');
           await ctx.replyWithHTML(
             ctx.i18n.t('collections.create.success', {title}),
           );
@@ -49,13 +46,10 @@ export class CreateCollectionSceneProvider
           if (e.message.startsWith('duplicate key')) {
             this.logger.warn(e);
             await ctx.replyWithHTML(
-              ctx.i18n.t('collections.create.duplicated', {title: newTitle}),
+              ctx.i18n.t('collections.duplicated', {title: newTitle}),
             );
           } else {
-            this.logger.error(e);
-            const eventId = Sentry.captureException(e);
-            await ctx.replyWithHTML(ctx.i18n.t('errors.sentry', {eventId}));
-            return ctx.scene.leave();
+            throw e;
           }
         }
       },
