@@ -1,5 +1,11 @@
 import Telegraf, {ContextMessageUpdate, Middleware} from 'telegraf';
-import {ApplicationConfig, CoreBindings, inject, lifeCycleObserver, LifeCycleObserver,} from '@loopback/core';
+import {
+  ApplicationConfig,
+  CoreBindings,
+  inject,
+  lifeCycleObserver,
+  LifeCycleObserver,
+} from '@loopback/core';
 import {Update} from 'telegram-typings';
 import * as Sentry from '@sentry/node';
 // @ts-ignore
@@ -10,10 +16,15 @@ import {Loggable, Logger, logger} from '../logging';
 import {TelegramCommandBindings} from './commands/keys';
 import Stage from 'telegraf/stage';
 import {MiddlewareProvider} from './types';
-import {BookmarkRepository, TypeORMBindings, UserRepository, CollectionRepository} from '../typeorm';
+import {
+  BookmarkRepository,
+  TypeORMBindings,
+  UserRepository,
+  CollectionRepository,
+} from '../typeorm';
 import {TelegramWidgetBindings} from './widgets';
 import {mapTelegramToUser} from '../mappers';
-import {Collection} from "../models";
+import {Collection} from '../models';
 
 const {enter} = Stage;
 
@@ -40,7 +51,7 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
     @inject(TypeORMBindings.COLLECTION_REPOSITORY)
     collectionRepository: CollectionRepository,
     @inject(TypeORMBindings.USER_REPOSITORY)
-        userRepository: UserRepository,
+    userRepository: UserRepository,
     @inject(TypeORMBindings.BOOKMARK_REPOSITORY)
     bookmarkRepository: BookmarkRepository,
   ) {
@@ -51,29 +62,33 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
     }
 
     this.bot.use((ctx, next) => {
-        if (next) return next().catch(async (e: Error) => {
-            this.logger.error(e);
-            const eventId = Sentry.captureException(e);
-            await ctx.replyWithHTML(ctx.i18n.t('errors.sentry', {eventId}));
-            ctx.session = null;
-            return ctx.scene.leave();
+      if (next)
+        return next().catch(async (e: Error) => {
+          this.logger.error(e);
+          const eventId = Sentry.captureException(e);
+          await ctx.replyWithHTML(ctx.i18n.t('errors.sentry', {eventId}));
+          ctx.session = null;
+          return ctx.scene.leave();
         });
     });
 
     this.bot.use(async (ctx, next) => {
-        const from = ctx.from!;
-        ctx.state.currentUser = await userRepository.findOne(from.id!)
-                .then((found) => {
-                    if (found) return found;
-                    const mapped = mapTelegramToUser(from);
-                    return userRepository.save(mapped);
-                })
-            .then(async (saved) => {
-                if ((await saved.collections).length === 0) {
-                    await collectionRepository.save(Collection.defaultCollection(saved));
-                }
-                return saved;
-            });
+      const from = ctx.from!;
+      ctx.state.currentUser = await userRepository
+        .findOne(from.id!)
+        .then(found => {
+          if (found) return found;
+          const mapped = mapTelegramToUser(from);
+          return userRepository.save(mapped);
+        })
+        .then(async saved => {
+          if ((await saved.collections).length === 0) {
+            await collectionRepository.save(
+              Collection.defaultCollection(saved),
+            );
+          }
+          return saved;
+        });
       if (next) return next();
     });
 

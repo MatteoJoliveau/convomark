@@ -24,10 +24,10 @@ export class StageProvider implements Provider<Stage>, Loggable {
     deleteCollection: WizardScene,
   ) {
     this.scenes = [
-        saveBookmark,
-        createCollection,
-        renameCollection,
-        deleteCollection,
+      saveBookmark,
+      createCollection,
+      renameCollection,
+      deleteCollection,
     ];
   }
 

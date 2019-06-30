@@ -23,15 +23,15 @@ export class CollectionListWidgetProvider
 
     widget.on('list-bookmarks', async (ctx: ContextMessageUpdate) => {
       const {currentUser} = ctx.state;
-        this.logger.debug({currentUser}, 'Listing user collections');
+      this.logger.debug({currentUser}, 'Listing user collections');
       const collections = await currentUser.collections;
-      const buttons = collections.map(({shortId, title}) =>(
-        widget.button(title, 'bookmarks', {id: shortId})
-      ));
+      const buttons = collections.map(({shortId, title}) =>
+        widget.button(title, 'bookmarks', {id: shortId}),
+      );
       this.logger.debug({buttons}, 'Building collection buttons');
       // @ts-ignore
       const extra = Markup.inlineKeyboard(buttons, {columns: 3}).extra();
-        const message = ctx.i18n.t('collections.list.header');
+      const message = ctx.i18n.t('collections.list.header');
       return CollectionListWidgetProvider.listReply(ctx, message, extra);
     });
 
@@ -40,8 +40,11 @@ export class CollectionListWidgetProvider
     return widget;
   }
 
-
-  private static listReply(ctx: ContextMessageUpdate, message: string, extra: ExtraEditMessage) {
+  private static listReply(
+    ctx: ContextMessageUpdate,
+    message: string,
+    extra: ExtraEditMessage,
+  ) {
     return ctx.replyWithHTML(message, extra);
   }
 }

@@ -4,13 +4,20 @@
 // License text available at https://opensource.org/licenses/MIT
 import {HttpErrors} from '@loopback/rest';
 import {inject} from '@loopback/context';
-import {UserProfile, UserService as AuthUserService,} from '@loopback/authentication';
+import {
+  UserProfile,
+  UserService as AuthUserService,
+} from '@loopback/authentication';
 import {differenceInMinutes} from 'date-fns';
 import {sortBy} from 'lodash';
 import {createHmac} from 'crypto';
 import {Collection, TelegramUserLoginData, User} from '../models';
 import {TelegramBindings} from '../telegram';
-import {CollectionRepository, TypeORMBindings, UserRepository,} from '../typeorm';
+import {
+  CollectionRepository,
+  TypeORMBindings,
+  UserRepository,
+} from '../typeorm';
 import {mapTelegramToUser} from '../mappers';
 
 /**
@@ -34,7 +41,9 @@ export class UserService
       const user = mapTelegramToUser(credentials);
       const created = await this.userRepository.save(user);
       if ((await created.collections).length === 0) {
-          await this.collectionRepository.save(Collection.defaultCollection(created));
+        await this.collectionRepository.save(
+          Collection.defaultCollection(created),
+        );
       }
       return created;
     } catch (e) {

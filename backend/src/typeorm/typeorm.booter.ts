@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import {User, Collection, Bookmark} from '../models';
 import {TypeORMBindings} from './keys';
-import {Logger as TLogger} from './logger'
+import {Logger as TLogger} from './logger';
 
 @logger()
 export class TypeORMBooter implements Booter, Loggable {
@@ -28,9 +28,9 @@ export class TypeORMBooter implements Booter, Loggable {
 
   async configure(): Promise<void> {
     this.config = {
-        ...this.appConfig.orm,
-        logger: new TLogger(),
-    }
+      ...this.appConfig.orm,
+      logger: new TLogger(),
+    };
   }
 
   async discover(): Promise<void> {
