@@ -49,6 +49,9 @@ export class MakeBookmarksUnique1561922614238 implements MigrationInterface {
       xor(results),
       map('id'),
     )(results);
-    await queryRunner.manager.delete(Bookmark, exceeding);
+
+    if (exceeding && exceeding.length > 0) {
+      await queryRunner.manager.delete(Bookmark, exceeding);
+    }
   }
 }
