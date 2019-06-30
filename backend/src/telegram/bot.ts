@@ -89,6 +89,10 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
           }
           return saved;
         });
+      Sentry.configureScope((scope) => {
+          const user = ctx.state.currentUser;
+          scope.setUser({...user, id: user.id.toString()});
+      });
       if (next) return next();
     });
 
