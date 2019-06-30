@@ -86,7 +86,7 @@ export class BookmarkListWidgetProvider implements Provider<Widget>, Loggable {
     const header = ctx.i18n.t('bookmarks.many');
     const bookmarkList = boookmarks.reduce((text, {name, messageLink}) => {
       const link = name
-        ? `<a href="${messageLink}">${name}</a> (${messageLink})`
+        ? `<a href="${messageLink}">${name}</a>`
         : messageLink;
       return `${text}${link}\n\n`;
     }, '');
