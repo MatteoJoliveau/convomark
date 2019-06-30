@@ -47,4 +47,4 @@ errors:
   entityNotFound: Sembra che non sia riuscito a trovare il/la ${entity} che hai chiesto...
   sentry: |
     Wops! Sembra ci sia stato un problema. I nostri sviluppatori sono già stati informati, se hai bisogno di aiuto
-    contattali con questo numero di ticket: <code>${eventId}</code>
+    apri un ticket <a href="https://github.com/MatteoJoliveau/convomark/issues/new?assignees=MatteoJoliveau&labels=bug&template=bug_report.md">qui</a> con questo codice errore: <code>${eventId}</code>
