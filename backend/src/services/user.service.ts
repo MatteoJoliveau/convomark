@@ -40,12 +40,15 @@ export class UserService
   ) {}
 
   async verifyCredentials(credentials: TelegramUserLoginData): Promise<User> {
-    this.logger.info('Verifying credentials for user %s', (credentials.username || credentials.id));
+    this.logger.info(
+      'Verifying credentials for user %s',
+      credentials.username || credentials.id,
+    );
     try {
-        await this.validateTelegramHash(credentials);
+      await this.validateTelegramHash(credentials);
     } catch (e) {
-        this.logger.warn(e);
-        throw new HttpErrors.Unauthorized(e);
+      this.logger.warn(e);
+      throw new HttpErrors.Unauthorized(e);
     }
 
     try {
@@ -53,7 +56,9 @@ export class UserService
       const user = await this.userRepository.save(mapped);
       this.logger.debug({user}, 'Creating or updating user');
       if ((await user.collections).length === 0) {
-        this.logger.debug('User has no collections. Creating Default collection');
+        this.logger.debug(
+          'User has no collections. Creating Default collection',
+        );
         await this.collectionRepository.save(
           Collection.defaultCollection(user),
         );
