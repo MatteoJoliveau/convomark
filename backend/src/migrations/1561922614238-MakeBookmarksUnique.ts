@@ -1,30 +1,41 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
-import {TableUnique} from "typeorm/schema-builder/table/TableUnique";
+import {MigrationInterface, QueryRunner} from 'typeorm';
+import {TableUnique} from 'typeorm/schema-builder/table/TableUnique';
 import {pipe, uniqBy, xor, map} from 'lodash/fp';
 import {Bookmark} from '../models';
 
 export class MakeBookmarksUnique1561922614238 implements MigrationInterface {
-
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        await this.removeDuplicateBookmarks(queryRunner);
-        const bookmarkTable = await queryRunner.getTable("bookmarks");
-        if (bookmarkTable) {
-            await queryRunner.createUniqueConstraint(bookmarkTable, new TableUnique({
-                name: 'UQ_bookmarks_link_collection',
-                columnNames: ['messageLink', 'collectionId'],
-            }));
-        }
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await this.removeDuplicateBookmarks(queryRunner);
+    const bookmarkTable = await queryRunner.getTable('bookmarks');
+    if (bookmarkTable) {
+      await queryRunner.createUniqueConstraint(
+        bookmarkTable,
+        new TableUnique({
+          name: 'UQ_bookmarks_link_collection',
+          columnNames: ['messageLink', 'collectionId'],
+        }),
+      );
     }
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        const bookmarkTable = await queryRunner.getTable("bookmarks");
-        if (bookmarkTable) {
-            await queryRunner.dropUniqueConstraints(bookmarkTable, bookmarkTable.uniques);
-        }
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    const bookmarkTable = await queryRunner.getTable('bookmarks');
+    if (bookmarkTable) {
+      await queryRunner.dropUniqueConstraints(
+        bookmarkTable,
+        bookmarkTable.uniques,
+      );
     }
+  }
 
-    private async removeDuplicateBookmarks(queryRunner: QueryRunner): Promise<void> {
-        const results: {id: string, collectionId: string, messageLink: string}[] = await queryRunner.manager.query(`
+  private async removeDuplicateBookmarks(
+    queryRunner: QueryRunner,
+  ): Promise<void> {
+    const results: {
+      id: string;
+      collectionId: string;
+      messageLink: string;
+    }[] = await queryRunner.manager.query(`
             select b.id, b."collectionId", b."messageLink"
             from bookmarks b
                      join (select "messageLink", "collectionId", count(*)
@@ -33,12 +44,11 @@ export class MakeBookmarksUnique1561922614238 implements MigrationInterface {
                            having count(*) > 1) bg
                           on b."messageLink" = bg."messageLink";
         `);
-        const exceeding = pipe(
-            uniqBy(({messageLink, collectionId}) => `${messageLink}-${collectionId}`),
-            xor(results),
-            map("id"),
-        )(results);
-        await queryRunner.manager.delete(Bookmark, exceeding);
-    }
-
+    const exceeding = pipe(
+      uniqBy(({messageLink, collectionId}) => `${messageLink}-${collectionId}`),
+      xor(results),
+      map('id'),
+    )(results);
+    await queryRunner.manager.delete(Bookmark, exceeding);
+  }
 }
