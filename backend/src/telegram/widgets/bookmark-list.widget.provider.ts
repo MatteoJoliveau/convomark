@@ -49,7 +49,7 @@ export class BookmarkListWidgetProvider implements Provider<Widget>, Loggable {
       }
       this.logger.debug({collection}, 'Found collection');
       const [bookmarks, total] = await this.bookmarkRepository.findAndCount({
-        where: {collectionId: collection.id},
+        where: {collection},
         take: LIMIT,
         skip: offset,
       });
