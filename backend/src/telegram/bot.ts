@@ -1,11 +1,5 @@
 import Telegraf, {ContextMessageUpdate, Middleware} from 'telegraf';
-import {
-  ApplicationConfig,
-  CoreBindings,
-  inject,
-  lifeCycleObserver,
-  LifeCycleObserver,
-} from '@loopback/core';
+import {ApplicationConfig, CoreBindings, inject, lifeCycleObserver, LifeCycleObserver,} from '@loopback/core';
 import {Update} from 'telegram-typings';
 import * as Sentry from '@sentry/node';
 // @ts-ignore
@@ -16,12 +10,7 @@ import {Loggable, Logger, logger} from '../logging';
 import {TelegramCommandBindings} from './commands/keys';
 import Stage from 'telegraf/stage';
 import {MiddlewareProvider} from './types';
-import {
-  BookmarkRepository,
-  TypeORMBindings,
-  UserRepository,
-  CollectionRepository,
-} from '../typeorm';
+import {BookmarkRepository, CollectionRepository, TypeORMBindings, UserRepository,} from '../typeorm';
 import {TelegramWidgetBindings} from './widgets';
 import {mapTelegramToUser} from '../mappers';
 import {Collection} from '../models';
@@ -46,7 +35,7 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
     widgetMiddleware: MiddlewareProvider,
     @inject(TelegramCommandBindings.COMMANDS)
     commands: Middleware<ContextMessageUpdate>[],
-    @inject(ConvoMarkBindings.APPLICATION_MODE) mode: ApplicationMode,
+    @inject(ConvoMarkBindings.APPLICATION_MODE) private mode: ApplicationMode,
     @inject(CoreBindings.APPLICATION_CONFIG) {domain}: ApplicationConfig,
     @inject(TypeORMBindings.COLLECTION_REPOSITORY)
     collectionRepository: CollectionRepository,
@@ -131,11 +120,13 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
   }
 
   async start(): Promise<void> {
-    this.bot.launch().catch((e: string) => {
-      this.logger.error(e);
-      Sentry.captureException(e);
-      throw new Error(e);
-    });
+      if (this.mode !== 'production') {
+        this.bot.startPolling().catch((e: string) => {
+            this.logger.error(e);
+            Sentry.captureException(e);
+            throw new Error(e);
+        });
+      }
     const {username} = await this.bot.telegram.getMe();
     this.logger.info({username}, 'Bot is running');
     return Promise.resolve();

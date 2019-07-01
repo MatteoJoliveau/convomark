@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /// <reference path="telegraf.d.ts" />
 
-import {Middleware, ContextMessageUpdate, HearsTriggers} from 'telegraf';
+import {ContextMessageUpdate, HearsTriggers, Middleware} from 'telegraf';
 import WizardContext from 'telegraf/scenes/wizard/context';
 import WizardScene from 'telegraf/scenes/wizard';
 import {User} from '../models';
