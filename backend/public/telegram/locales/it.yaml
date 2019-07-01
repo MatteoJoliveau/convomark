@@ -5,6 +5,29 @@ forward: Avanti
 nevermind: Ricevuto, annullo l'operazione.
 yes: Si
 no: No
+start: |
+  <b>Benvenuto ${from.first_name}!</b>
+  ConvoMark permette di salvare link a messaggi Telegram pubblici (come canali e gruppi pubblici) ed organizzarli in collezioni, così da poterli facilmente recuperare in futuro.
+  Lancia il comando /help per avere più informazioni riguardanti il mio funzionamento!
+  Non dimenticare di visitare la tua <a href="${frontendDomain}">dashboard personale</a>, dove puoi gestire tutti i tuoi bookmark e le tue collezioni!
+
+  <b>ATTENZIONE</b>
+  Questo bot è sperimentale e sotto sviluppo attivo. Per quanto improbabili possono avvenire bug, crash inaspettati.
+  Per qualsiasi problema contatta @convomarksupportbot
+help: |
+  Per iniziare a salvare conversazioni, mandami semplicemente il link ad un messggio. Ti guiderò io nei passi successivi.
+  Hai già a disposizione una collezione chiamata <i>Default</i>, ma puoi crearne quante ne vuoi!
+  Usa i comandi disponibili (quali /collections o /collectioncreate) per interagire con le collezioni.
+  Ognuno di essi avvia una procedura guidata, quindi non devi preoccuparti di niente.
+
+  Per finire ecco alcuni link utili:
+  - La tua <a href="${frontendDomain}">dashboard personale</a>
+  - Il <a href="https://github.com/matteojoliveau/convomark">sorgente completo del bot</a>
+  - La <a href="https://trello.com/b/tHqNdkZD/convomark">board di progetto</a>, per essere aggiornato sugli sviluppi futuri
+  - La nostra <a href="${frontendDomain}/privacy">informativa sulla privacy</a>
+  - Il nostro <a href="https://t.me/convomarksupportbot">bot di support</a>, qualora dovessi incontrare difficoltà o problemi
+
+  Buon divertimento!
 bookmarks:
   one: Bookmark
   many: Bookmarks

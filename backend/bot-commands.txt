@@ -1,3 +1,5 @@
+start - Start the bot
+help - Print the help screen and useful links
 collections - List your collections
 collectioncreate - Create a new collection
 collectionrename - Rename one of your collections

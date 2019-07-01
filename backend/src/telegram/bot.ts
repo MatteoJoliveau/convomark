@@ -55,6 +55,7 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
     @inject(TypeORMBindings.BOOKMARK_REPOSITORY)
     bookmarkRepository: BookmarkRepository,
   ) {
+    const frontendDomain = process.env.FRONTEND_DOMAIN;
     this.bot = new Telegraf(token);
 
     if (maintenance) {
@@ -105,6 +106,14 @@ export class TelegramBot implements LifeCycleObserver, Loggable {
     for (const command of commands) {
       this.bot.use(command);
     }
+
+    // Core
+    this.bot.start(({replyWithHTML, i18n, from}) => {
+      return replyWithHTML(i18n.t('start', {from, frontendDomain}));
+    });
+    this.bot.help(({replyWithHTML, i18n}) => {
+      return replyWithHTML(i18n.t('help', {frontendDomain}));
+    });
 
     // Bookmarks
     this.bot.entity('url', enter('save-bookmark'));
