@@ -26,6 +26,7 @@
     "build": "lb-tsc es2017 --outDir dist",
     "build:watch": "lb-tsc --watch",
     "clean": "lb-clean dist",
+    "console": "node --experimental-repl-await -r dotenv/config ./dist/console",
     "lint": "yarn prettier:check && yarn eslint",
     "lint:fix": "yarn eslint:fix && yarn prettier:fix",
     "prettier:cli": "lb-prettier \"**/*.ts\" \"**/*.js\"",

@@ -2,6 +2,7 @@ import {Booter} from '@loopback/boot';
 import {Loggable, Logger, logger} from '../logging';
 import {inject} from '@loopback/context';
 import {ApplicationConfig, CoreBindings} from '@loopback/core';
+import {resolve} from 'path';
 import {ConvoMarkApplication} from '../application';
 import {
   Connection,
@@ -27,8 +28,9 @@ export class TypeORMBooter implements Booter, Loggable {
   ) {}
 
   async configure(): Promise<void> {
+    const ormconfig = this.appConfig.orm || require(resolve(this.app.projectRoot, '../ormconfig.js'))
     this.config = {
-      ...this.appConfig.orm,
+      ...ormconfig,
       logger: new TLogger(),
     };
   }
