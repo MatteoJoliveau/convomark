@@ -11,7 +11,7 @@ bookmarks:
   duplicated: Mmmh, it seems you already have a bookmark for this link in the collection ${title}. Choose a different collection or hit <i>Cancel</i> to send another link;
   save:
     step1: Got it! In which collection do you want to save it?
-    step2: 
+    step2:
       question: Thank you! I saved it in the ${collection} collection. Do you want to name this bookmark?
     step3:
       yes: All right, send me the name
@@ -47,4 +47,5 @@ errors:
   entityNotFound: It seems I couldn't find the ${entity} you requested...
   sentry: |
     Wops! It seems we had a problem back here. Our developers have already been informed, if you need assistance
-    please open a ticket <a href="https://github.com/MatteoJoliveau/convomark/issues/new?assignees=MatteoJoliveau&labels=bug&template=bug_report.md">here</a>. Your error code is <code>${eventId}</code>
+    please contact our <a href="https://t.me/convomarksupportbot">Support Bot</a>. An operator will answer you as soon as possible.
+    Your error code is <code>${eventId}</code>
