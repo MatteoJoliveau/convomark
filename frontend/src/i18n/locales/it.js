@@ -16,7 +16,7 @@ export default {
     home: {
       title: 'Addio conversazioni smarrite!',
       body: `ConvoMark è la feature che mancava! Continui a perdere di vista le conversazioni nei gruppi? Mettile da parte!<br/>
-      Con ConvoMark puoi salvare quanti messaggi desider, organizzandoli in collezioni così che stiano belli ordinati.<br/>
+      Con ConvoMark puoi salvare quanti messaggi desideri, organizzandoli in collezioni così che stiano belli ordinati.<br/>
       Entra ora con il tuo account Telegram e comincia a salvare messaggi con il nostro amichevole bot!
       `,
     },
@@ -27,7 +27,7 @@ export default {
       Nato da un'idea di <a href="https://t.me/FraYoshi" target="_blank">FraYoshi</a> nel gruppo Telegram di
       <a href="https://t.me/morrolinux" target="_blank">Morrolinux</a>, è stato sviluppato da
       <a href="https://t.me/GamesCodex" target="_blank">GamesCodex</a> che ne gestisce anche il mantenimento.`,
-      technical: `Per gli sviluppatori tra di void, ConvoMark si compone di due parti principali:<br/>
+      technical: `Per gli sviluppatori tra di voi, ConvoMark si compone di due parti principali:<br/>
       <ul>
         <li>un'applicazione web (dove siete ora!), scritta in VueJS and hostata su Netlify</li>
         <li>un'applicazione backend, scritta in NodeJS and hostata su un'infrastruttura Kubernetes privata</li>
