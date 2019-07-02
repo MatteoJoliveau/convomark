@@ -28,7 +28,9 @@ export class TypeORMBooter implements Booter, Loggable {
   ) {}
 
   async configure(): Promise<void> {
-    const ormconfig = this.appConfig.orm || require(resolve(this.app.projectRoot, '../ormconfig.js'))
+    const ormconfig =
+      this.appConfig.orm ||
+      require(resolve(this.app.projectRoot, '../ormconfig.js'));
     this.config = {
       ...ormconfig,
       logger: new TLogger(),

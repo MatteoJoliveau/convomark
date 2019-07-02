@@ -2,8 +2,8 @@ import repl from 'repl';
 import {Context} from 'vm';
 import {ConvoMarkApplication} from './application';
 import {ConvoMarkBindings} from './keys';
-import {TelegramBindings} from './telegram/keys'
-import {TypeORMBindings} from './typeorm/keys'
+import {TelegramBindings} from './telegram/keys';
+import {TypeORMBindings} from './typeorm/keys';
 import {TelegramBot} from './telegram/bot';
 import lodash from 'lodash';
 const Models = require('./models');
@@ -14,10 +14,14 @@ async function addRepositories(ctx: Context, app: ConvoMarkApplication) {
   const userRepoP = app.get(TypeORMBindings.USER_REPOSITORY);
   const collectionRepoP = app.get(TypeORMBindings.COLLECTION_REPOSITORY);
   const bookmarkRepoP = app.get(TypeORMBindings.BOOKMARK_REPOSITORY);
-  const [userRepo, collectionRepo, bookmarkRepo] = await Promise.all([userRepoP, collectionRepoP, bookmarkRepoP]);
-  ctx.userRepo = userRepo
-  ctx.collectionRepo = collectionRepo
-  ctx.bookmarkRepo = bookmarkRepo
+  const [userRepo, collectionRepo, bookmarkRepo] = await Promise.all([
+    userRepoP,
+    collectionRepoP,
+    bookmarkRepoP,
+  ]);
+  ctx.userRepo = userRepo;
+  ctx.collectionRepo = collectionRepo;
+  ctx.bookmarkRepo = bookmarkRepo;
 }
 
 async function addModels(ctx: Context) {
@@ -42,11 +46,11 @@ async function shell(args: string[]) {
 
   const mode = await app.get(ConvoMarkBindings.APPLICATION_MODE);
   const ctx = repl.start(`loopback (${mode})> `).context;
-  addRepositories(ctx, app)
-  addModels(ctx)
-  addBot(ctx, app)
+  addRepositories(ctx, app);
+  addModels(ctx);
+  addBot(ctx, app);
+  addUtility(ctx);
   ctx.app = app;
-
 }
 
 shell(process.argv).catch(err => {

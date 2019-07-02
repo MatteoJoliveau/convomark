@@ -1,6 +1,6 @@
 import {BindingKey} from '@loopback/context';
 import {MiddlewareProvider} from './types';
-import { TelegramBot } from './bot';
+import {TelegramBot} from './bot';
 
 export namespace TelegramBindings {
   export const TELEGRAM_TOKEN = BindingKey.create<string>('telegram.token');

@@ -30,11 +30,11 @@ import {ConvoMarkBindings, SentryBindings} from './keys';
 import {TypeORMBooter} from './typeorm';
 
 @logger()
-export class ConvoMarkApplication extends BootMixin(
-  ServiceMixin(RepositoryMixin(RestApplication)),
-) implements Loggable {
+export class ConvoMarkApplication
+  extends BootMixin(ServiceMixin(RepositoryMixin(RestApplication)))
+  implements Loggable {
   logger: Logger;
-  
+
   constructor(options: ApplicationConfig = {}) {
     super(options);
 
