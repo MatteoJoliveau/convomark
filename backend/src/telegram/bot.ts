@@ -32,7 +32,7 @@ const {enter} = Stage;
 @lifeCycleObserver()
 export class TelegramBot implements LifeCycleObserver, Loggable {
   logger: Logger;
-  private bot: Telegraf<ContextMessageUpdate>;
+  bot: Telegraf<ContextMessageUpdate>;
 
   constructor(
     @inject(TelegramBindings.TELEGRAM_TOKEN) token: string,

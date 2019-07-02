@@ -22,16 +22,19 @@ import {
   UserServiceBindings,
 } from './authentication';
 import {ApplicationModeProvider} from './providers';
-import {LoggingComponent} from './logging';
+import {LoggingComponent, logger, Loggable, Logger} from './logging';
 import {GraphQLComponent} from './graphql';
 import {SentryDSNProvider, SentryEnvProvider} from './providers';
 import {SentryBooter} from './booters';
 import {ConvoMarkBindings, SentryBindings} from './keys';
 import {TypeORMBooter} from './typeorm';
 
+@logger()
 export class ConvoMarkApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
-) {
+) implements Loggable {
+  logger: Logger;
+  
   constructor(options: ApplicationConfig = {}) {
     super(options);
 
