@@ -24,7 +24,7 @@
 <script>
 import CookieLaw from 'vue-cookie-law';
 import Navbar from '@/components/Navbar.vue';
-import { REFRESH_TOKEN_STATE } from '@/store/auth';
+import { REFRESH_TOKEN_STATE } from '@convomark/commons';
 import authenticated from '@/mixins/authenticated';
 import userLanguage from '@/apollo/queries/userLanguage.gql';
 

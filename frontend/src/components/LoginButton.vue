@@ -10,7 +10,7 @@
 import { vueTelegramLogin as VueTelegramLogin } from 'vue-telegram-login';
 import { mapActions } from 'vuex';
 
-import { PERFORM_TOKEN_CALL } from '@/store/auth';
+import { PERFORM_TOKEN_CALL } from '@convomark/commons';
 import { BOT_NAME } from '@/constants';
 
 export default {
