@@ -12,7 +12,8 @@ import {differenceInMinutes} from 'date-fns';
 import {sortBy} from 'lodash';
 import * as Sentry from '@sentry/node';
 import {createHmac} from 'crypto';
-import {Collection, TelegramUserLoginData, User} from '../models';
+import {TelegramUserLoginData} from '../models';
+import {Collection, User} from '../entities';
 import {logger, Logger, Loggable} from '../logging';
 import {TelegramBindings} from '../telegram';
 import {

@@ -1,4 +1,4 @@
-import {User} from '../models';
+import {User} from '../entities';
 
 export interface ApplicationApolloContext {
   currentUser?: User;

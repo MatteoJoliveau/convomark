@@ -1,5 +1,5 @@
 import {Repository} from 'typeorm';
-import {Collection, User, Bookmark} from '../models';
+import {Collection, User, Bookmark} from '../entities';
 
 export type UserRepository = Repository<User>;
 export type CollectionRepository = Repository<Collection>;

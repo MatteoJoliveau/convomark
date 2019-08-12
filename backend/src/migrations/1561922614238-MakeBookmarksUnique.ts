@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from 'typeorm';
 import {TableUnique} from 'typeorm/schema-builder/table/TableUnique';
 import {pipe, uniqBy, xor, map} from 'lodash/fp';
-import {Bookmark} from '../models';
+import {Bookmark} from '../entities';
 
 export class MakeBookmarksUnique1561922614238 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {

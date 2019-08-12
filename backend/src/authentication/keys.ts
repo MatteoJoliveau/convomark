@@ -5,7 +5,8 @@
 
 import {BindingKey} from '@loopback/context';
 import {TokenService, UserService} from '@loopback/authentication';
-import {User, TelegramUserLoginData} from '../models';
+import {TelegramUserLoginData} from '../models';
+import {User} from '../entities';
 
 /**
  * Take from

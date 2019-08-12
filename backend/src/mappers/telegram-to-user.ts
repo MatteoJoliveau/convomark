@@ -1,5 +1,6 @@
 import {User as TelegramUser} from 'telegram-typings';
-import {TelegramUserLoginData, User} from '../models';
+import {TelegramUserLoginData} from '../models';
+import {User} from '../entities';
 
 export function mapTelegramToUser(
   data: TelegramUserLoginData | TelegramUser,

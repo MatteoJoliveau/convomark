@@ -2,14 +2,14 @@
 
 import {post, requestBody, HttpErrors} from '@loopback/rest';
 import {UserService} from '@loopback/authentication';
-import {TokenRequest} from '../models/token-request.model';
+import {TokenRequest, TelegramUserLoginData} from '../models';
 import {inject} from '@loopback/core';
 import {
   TokenServiceBindings,
   UserServiceBindings,
   JWTService,
 } from '../authentication';
-import {User, TelegramUserLoginData} from '../models';
+import {User} from '../entities';
 import {TokenResponse} from './oauth.controller.response';
 
 // Uncomment these imports to begin using these cool features!

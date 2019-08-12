@@ -24,7 +24,7 @@ import {
 } from '../typeorm';
 import {TelegramWidgetBindings} from './widgets';
 import {mapTelegramToUser} from '../mappers';
-import {Collection} from '../models';
+import {Collection} from '../entities';
 
 const {enter} = Stage;
 

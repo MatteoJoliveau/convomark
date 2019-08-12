@@ -4,7 +4,7 @@
 import {ContextMessageUpdate, HearsTriggers, Middleware} from 'telegraf';
 import WizardContext from 'telegraf/scenes/wizard/context';
 import WizardScene from 'telegraf/scenes/wizard';
-import {User} from '../models';
+import {User} from '../entities';
 
 export interface MiddlewareProvider {
   middleware(): Middleware<ContextMessageUpdate>;

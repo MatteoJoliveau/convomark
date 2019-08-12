@@ -10,7 +10,7 @@ import {
   createConnection,
   getRepository,
 } from 'typeorm';
-import {User, Collection, Bookmark} from '../models';
+import {User, Collection, Bookmark} from '../entities';
 import {TypeORMBindings} from './keys';
 import {Logger as TLogger} from './logger';
 

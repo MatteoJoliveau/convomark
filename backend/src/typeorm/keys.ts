@@ -14,7 +14,7 @@ export namespace TypeORMBindings {
     'repository.User',
   );
   export const COLLECTION_REPOSITORY = BindingKey.create<CollectionRepository>(
-    'repository.Collection',
+    'Collection',
   );
   export const BOOKMARK_REPOSITORY = BindingKey.create<BookmarkRepository>(
     'repository.Bookmark',

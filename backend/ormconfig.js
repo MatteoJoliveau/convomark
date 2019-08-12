@@ -15,7 +15,7 @@ module.exports = {
   database: POSTGRES_DB || 'convomark_development',
   synchronize: false,
   uuidExtension: 'pgcrypto',
-  entities: [__dirname + `/dist/models/*.js`],
+  entities: [__dirname + `/dist/entities/*.js`],
   migrations: [__dirname + `/dist/migrations/*.js`],
   subscribers: [__dirname + `/dist/subscribers/*.js`],
   cli: {
