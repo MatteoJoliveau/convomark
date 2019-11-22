@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   test_backend:
     docker:
-      - image: circleci/node:10.15
+      - image: circleci/node:12
         environment:
           NODE_ENV: test
     working_directory: ~/repo
