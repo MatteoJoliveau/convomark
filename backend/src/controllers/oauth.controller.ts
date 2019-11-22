@@ -54,12 +54,14 @@ export class OAuthController {
       },
     },
   })
-  async token(@requestBody({required: true})
-  {
-    grant_type: grantType,
-    refresh_token: refreshToken,
-    auth_data: authData,
-  }: TokenRequest): Promise<TokenResponse> {
+  async token(
+    @requestBody({required: true})
+    {
+      grant_type: grantType,
+      refresh_token: refreshToken,
+      auth_data: authData,
+    }: TokenRequest,
+  ): Promise<TokenResponse> {
     switch (grantType) {
       case 'telegram': {
         if (!authData) throw new HttpErrors.Unauthorized('auth_data missing');

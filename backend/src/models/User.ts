@@ -23,10 +23,16 @@ export class User extends BaseEntity {
   @Column({type: 'varchar', nullable: true})
   photoUrl: string | undefined;
 
-  @OneToMany(() => Bookmark, bookmark => bookmark.user)
+  @OneToMany(
+    () => Bookmark,
+    bookmark => bookmark.user,
+  )
   bookmarks!: Promise<Bookmark[]>;
 
-  @OneToMany(() => Collection, collection => collection.user)
+  @OneToMany(
+    () => Collection,
+    collection => collection.user,
+  )
   collections!: Promise<Collection[]>;
 
   constructor(data?: Partial<User>) {

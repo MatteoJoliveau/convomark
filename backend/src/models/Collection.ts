@@ -28,10 +28,17 @@ export class Collection extends BaseEntity {
   @Column()
   shortId!: string;
 
-  @ManyToOne(() => User, user => user.collections, {eager: true})
+  @ManyToOne(
+    () => User,
+    user => user.collections,
+    {eager: true},
+  )
   user!: User;
 
-  @OneToMany(() => Bookmark, bookmark => bookmark.collection)
+  @OneToMany(
+    () => Bookmark,
+    bookmark => bookmark.collection,
+  )
   bookmarks!: Promise<Bookmark[]>;
 
   static defaultCollection(user: User): Collection {

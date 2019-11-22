@@ -14,10 +14,16 @@ export class Bookmark extends BaseEntity {
   @Column({type: 'varchar', nullable: true})
   name: string | undefined;
 
-  @ManyToOne(() => User, user => user.bookmarks)
+  @ManyToOne(
+    () => User,
+    user => user.bookmarks,
+  )
   user!: User;
 
-  @ManyToOne(() => Collection, collection => collection.bookmarks)
+  @ManyToOne(
+    () => Collection,
+    collection => collection.bookmarks,
+  )
   collection!: Collection;
 
   constructor(data?: Partial<Bookmark>) {
