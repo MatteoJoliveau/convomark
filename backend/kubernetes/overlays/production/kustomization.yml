@@ -5,7 +5,7 @@ namespace: convomark-production
 bases:
   - ../../base/
 
-patches:
+patchesStrategicMerge:
   - container-resources.yml
   - replica-count.yml
   - ingress.yml
