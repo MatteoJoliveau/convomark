@@ -24,7 +24,7 @@ help: |
   - Your <a href="${frontendDomain}">personal dashboard</a>
   - The <a href="https://github.com/matteojoliveau/convomark">full bot source code</a>
   - The <a href="https://trello.com/b/tHqNdkZD/convomark">project board</a>, to keep yourself up to date with the development process
-  - Our <a href="${frontendDomain}/privacy">privacy notice</a>
+  - Our <a href="${frontendDomain}privacy">privacy notice</a>
   - Our <a href="https://t.me/convomarksupportbot">support bot</a>, if you ever need some help or have a problem
 
   Have fun!
