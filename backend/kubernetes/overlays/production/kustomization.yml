@@ -13,7 +13,7 @@ patchesStrategicMerge:
 configMapGenerator:
   - literals:
       - WEB_DOMAIN=https://api.convomark.matteojoliveau.com
-      - FRONTEND_DOMAIN=https://convomark.matteojoliveau.com/
+      - FRONTEND_DOMAIN=https://convomark.matteojoliveau.com
       - LOG_LEVEL=info
       - REDIS_HOST=redis
       - TELEGRAM_BOT_MAINTENANCE=no

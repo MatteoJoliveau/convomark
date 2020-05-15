@@ -13,7 +13,7 @@ patchesStrategicMerge:
 configMapGenerator:
   - literals:
       - WEB_DOMAIN=https://convomark-staging.server.matteojoliveau.com
-      - FRONTEND_DOMAIN=https://develop--convomark.netlify.com/
+      - FRONTEND_DOMAIN=https://develop--convomark.netlify.com
       - LOG_LEVEL=debug
       - REDIS_HOST=redis
       - TELEGRAM_BOT_MAINTENANCE=no
