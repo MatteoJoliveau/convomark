@@ -77,7 +77,7 @@
     "telegraf-i18n": "^6.5.0",
     "telegraf-session-redis": "^5.1.0",
     "telegraf-widget": "^0.1.0",
-    "typeorm": "^0.2.18",
+    "typeorm": "^0.2.25",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
